@@ -1,0 +1,26 @@
+name: NEXUS JVM storage
+on:
+  push:
+    branches: ['feat/nex-*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  storage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - run: ./gradlew test :nexus-cli:installDist --no-daemon
+      - name: Synthetic demo in two independent processes
+        shell: bash
+        run: |
+          set -euo pipefail
+          db="$RUNNER_TEMP/nexus-synthetic.db"
+          nexus-cli/build/install/nexus-cli/bin/nexus-cli seed-demo "$db" > "$RUNNER_TEMP/nexus-seed.txt"
+          nexus-cli/build/install/nexus-cli/bin/nexus-cli inspect "$db" > "$RUNNER_TEMP/nexus-reopen.txt"
+          diff "$RUNNER_TEMP/nexus-seed.txt" "$RUNNER_TEMP/nexus-reopen.txt"
+          cat "$RUNNER_TEMP/nexus-reopen.txt"

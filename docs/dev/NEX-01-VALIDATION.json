@@ -1,0 +1,31 @@
+{
+  "module": "NEXUS",
+  "mission": "NEX-01",
+  "base": "e4b2018383a35106cd326848fab597ef07a50157",
+  "platform": "Linux JVM Java17",
+  "tests": {
+    "tests": 18,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "executed_at": "2026-10-22T21:40:39",
+  "commands": [
+    "gradle test :nexus-cli:installDist wrapper --gradle-version 8.10.2 --distribution-type bin --gradle-distribution-sha256-sum 31c55713e40233a8303827ceb42ca48a47267a0ad4bab9177123121e71524c26 --no-daemon --console=plain",
+    "nexus-cli seed-demo <synthetic-temp-db>",
+    "nexus-cli inspect <synthetic-temp-db>"
+  ],
+  "process_reopen": {
+    "separate_processes": true,
+    "identical_output": true,
+    "documents": 2,
+    "immutable_sources": 3,
+    "mutations": 4
+  },
+  "not_executed": [
+    "Android build/device qualification",
+    "PDF import",
+    "FTS/RAG/ZIM",
+    "CORE/SERVICES inter-application integration"
+  ]
+}
