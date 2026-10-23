@@ -3,7 +3,7 @@ package fr.jarvis.nexus.api
 /** Storage-local API v1, not an amendment to UNIFIED contracts/v1. */
 const val CATALOG_API_VERSION = 1
 
-enum class Operation { READ, WRITE, PURGE }
+enum class Operation { READ, WRITE, PURGE, EXPORT, RESTORE }
 fun interface AccessPolicy { fun allows(operation: Operation): Boolean }
 enum class KnowledgeError { DENIED, INVALID_INPUT, LIMIT_EXCEEDED, NOT_FOUND, CONFLICT, STORAGE_FAILURE, UNSUPPORTED_FORMAT, CANCELLED, BUSY, EXTRACTION_FAILED, NO_EVIDENCE, BUDGET_EXCEEDED }
 sealed interface CatalogResult<out T> {

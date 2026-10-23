@@ -10,7 +10,8 @@ private fun <T> requireOk(result: CatalogResult<T>): T = when (result) {
 }
 /** CLI intentionally exposes only synthetic seeding and read-only inspection, not user-file import. */
 fun main(args: Array<String>) {
-    require(args.size == 2 && args[0] in setOf("seed-demo", "inspect", "rag-demo")) { "Usage: nexus-cli <seed-demo|inspect|rag-demo> <host-chosen-db-path>" }
+    require(args.size == 2 && args[0] in setOf("seed-demo", "inspect", "rag-demo", "backup-demo")) { "Usage: nexus-cli <seed-demo|inspect|rag-demo> <host-chosen-db-path>" }
+    if(args[0]=="backup-demo"){backupDemo(Path.of(args[1]));return}
     val writeDemo = args[0] in setOf("seed-demo", "rag-demo")
     NexusDatabase.open(Path.of(args[1])).use { db ->
         val api = KnowledgeCatalogService(db, AccessPolicy { it == Operation.READ || writeDemo && it == Operation.WRITE })

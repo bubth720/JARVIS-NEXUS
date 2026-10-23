@@ -26,3 +26,5 @@ jobs:
           nexus-cli/build/install/nexus-cli/bin/nexus-cli inspect "$db" > "$RUNNER_TEMP/nexus-reopen.txt"
           diff "$RUNNER_TEMP/nexus-seed.txt" "$RUNNER_TEMP/nexus-reopen.txt"
           cat "$RUNNER_TEMP/nexus-reopen.txt"
+      - name: Encrypted synthetic backup and injected recovery failure
+        run: nexus-cli/build/install/nexus-cli/bin/nexus-cli backup-demo "$RUNNER_TEMP"

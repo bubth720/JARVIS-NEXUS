@@ -44,7 +44,7 @@ Voir [détails et validation NEX-01](docs/dev/NEX-01.md).
 
 JVM/Linux qualifié par les tests, pas Android. SQLite JDBC embarque son propre
 adaptateur natif desktop ; aucun APK ni JNI Android n'est créé. Pas encore de
-lecteur ZIM, chiffrement ou raccordement inter-application. Ces fonctions
+lecteur ZIM ou raccordement inter-application. Ces fonctions
 restent soumises aux missions suivantes et à leurs dépendances réellement livrées.
 La base est en clair dans le stockage choisi par l'hôte ; aucun chiffrement
 applicatif n'est revendiqué par NEX-01.
@@ -78,3 +78,16 @@ regroupement et contexte JSON non fiable borné, sans appel d’inférence.
 `LocalRagService` exige un scope d’autorité hôte explicite ; son défaut refuse.
 Voir [NEX-03](docs/dev/NEX-03.md). Le budget du carrier ne remplace pas les tokens
 exacts ni les protections d’admission CORE/LLM.
+
+## Archives chiffrées et restauration isolée
+
+```sh
+nexus-cli/build/install/nexus-cli/bin/nexus-cli backup-demo /tmp
+```
+
+NEX-05 expose `SnapshotExporter` et `SnapshotImporter` avec permissions et
+confirmation explicites, AES-GCM via `CryptoPort`, vérification SHA/SQLite/FTS
+et conflits, sans remplacer les données courantes. La démonstration ne crée
+que des données synthétiques temporaires et une clé éphémère. La base de travail
+reste en clair dans le stockage privé de l'hôte ; seules les archives sont chiffrées.
+Voir [format et limites](docs/dev/NEXUS-BACKUP-FORMAT.md) et [validation](docs/dev/NEX-05.md).

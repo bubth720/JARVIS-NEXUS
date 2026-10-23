@@ -1,0 +1,95 @@
+{
+  "format": "jarvis.campaign-validation/1",
+  "module": "NEXUS",
+  "mission": "NEX-05",
+  "base_commit": "777e6afa75ecb99b85e52d68837cb0fefcf161cd",
+  "planning_commit": "e4b2018383a35106cd326848fab597ef07a50157",
+  "qualification": "software_tested",
+  "capabilities": [
+    "knowledge.snapshot.encrypted",
+    "knowledge.restore.isolated",
+    "knowledge.integrity.verify"
+  ],
+  "checks": [
+    {
+      "command": [
+        "bash",
+        "/workspace/JAVIS-Local-v2/tools/identity-cloud-env.sh",
+        "gradle",
+        "-PservicesSource=/workspace/.jarvis-dependencies/services-fd41d75015f77e947d22d6a60e619adc00bd70b7",
+        "test",
+        ":nexus-cli:installDist",
+        ":nexus-services-adapter:installDist",
+        "--no-daemon",
+        "--console=plain"
+      ],
+      "exit_code": 0,
+      "passed": 69,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": [
+        "nexus-cli/build/install/nexus-cli/bin/nexus-cli",
+        "backup-demo",
+        "/tmp"
+      ],
+      "exit_code": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "junit_suites": [
+    {
+      "name": "fr.jarvis.nexus.RagRetrievalTest",
+      "tests": "12",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "timestamp": "2026-10-23T17:56:35"
+    },
+    {
+      "name": "fr.jarvis.nexus.ImportPipelineTest",
+      "tests": "17",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "timestamp": "2026-10-23T17:56:34"
+    },
+    {
+      "name": "fr.jarvis.nexus.NexusStorageTest",
+      "tests": "18",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "timestamp": "2026-10-23T17:56:35"
+    },
+    {
+      "name": "fr.jarvis.nexus.SnapshotRecoveryTest",
+      "tests": "19",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "timestamp": "2026-10-23T17:56:35"
+    },
+    {
+      "name": "fr.jarvis.nexus.adapters.ServicesImportTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "timestamp": "2026-10-23T17:56:40"
+    }
+  ],
+  "not_executed": [
+    "Android SAF/Keystore integration",
+    "Physical Android or hardware power interruption",
+    "Automatic adoption or migrations of personal databases"
+  ],
+  "limitations": [
+    "Host-private trusted canonical parent required; no universal same-UID filesystem race proof",
+    "Restoration returns separate copy only; audit cursor is not historical full state replay",
+    "No keys stored in archives or Git"
+  ]
+}
