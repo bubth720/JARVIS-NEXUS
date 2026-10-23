@@ -5,7 +5,7 @@ const val CATALOG_API_VERSION = 1
 
 enum class Operation { READ, WRITE, PURGE }
 fun interface AccessPolicy { fun allows(operation: Operation): Boolean }
-enum class KnowledgeError { DENIED, INVALID_INPUT, LIMIT_EXCEEDED, NOT_FOUND, CONFLICT, STORAGE_FAILURE, UNSUPPORTED_FORMAT, CANCELLED, BUSY, EXTRACTION_FAILED }
+enum class KnowledgeError { DENIED, INVALID_INPUT, LIMIT_EXCEEDED, NOT_FOUND, CONFLICT, STORAGE_FAILURE, UNSUPPORTED_FORMAT, CANCELLED, BUSY, EXTRACTION_FAILED, NO_EVIDENCE, BUDGET_EXCEEDED }
 sealed interface CatalogResult<out T> {
     data class Ok<T>(val value: T) : CatalogResult<T>
     data class Rejected(val error: KnowledgeError) : CatalogResult<Nothing>

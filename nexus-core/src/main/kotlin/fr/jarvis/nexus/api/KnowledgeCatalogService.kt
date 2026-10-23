@@ -12,6 +12,7 @@ class KnowledgeCatalogService(
     private val database: NexusDatabase,
     private val access: AccessPolicy,
     private val limits: CatalogLimits = CatalogLimits(),
+    private val clock: java.time.Clock = java.time.Clock.systemUTC(),
 ) : KnowledgeReadPort {
     private val sources = SourceRepository()
     private val documents = DocumentRepository()
@@ -88,7 +89,7 @@ class KnowledgeCatalogService(
             } else if (request.expectedVersion != null) deny(KnowledgeError.CONFLICT)
             val source = sources.findOrCreate(c, request.uri, fingerprint)
             val document = DocumentRecord(previous?.id ?: UUID.randomUUID().toString(), request.collectionId, request.uri, request.title, (previous?.version ?: 0) + 1, false)
-            if (previous == null) c.execute("INSERT INTO document VALUES(?,?,?,?,?,0)", document.id, document.collectionId, document.uri, document.title, document.version)
+            if (previous == null) c.execute("INSERT INTO document(id,collection_id,uri,title,version,deleted,imported_at_ms) VALUES(?,?,?,?,?,0,?)", document.id, document.collectionId, document.uri, document.title, document.version, clock.millis().coerceAtLeast(0))
             else c.execute("UPDATE document SET title=?,version=? WHERE id=?", document.title, document.version, document.id)
             documents.append(c, document, source, request.fragments)
             index(c, document)
@@ -180,7 +181,7 @@ class KnowledgeCatalogService(
         })
     }
 }
-private fun json(value: String): String = buildString {
+internal fun json(value: String): String = buildString {
     append('"')
     value.forEach { ch -> when (ch) {
         '"' -> append("\\\""); '\\' -> append("\\\\")

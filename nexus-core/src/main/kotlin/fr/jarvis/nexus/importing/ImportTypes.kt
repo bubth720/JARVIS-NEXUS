@@ -11,7 +11,7 @@ data class ExtractedPage(val page: Int?, val text: String)
 fun interface ParserPort { fun parse(name: String, bytes: ByteArray, cancellation: Cancellation): List<ExtractedPage> }
 fun interface Cancellation {
     fun requested(): Boolean
-    fun check() { if (requested()) throw ImportCancelled() }
+    fun check() { if (requested() || Thread.currentThread().isInterrupted) throw ImportCancelled() }
 }
 class CancellationToken : Cancellation {
     private val cancelled = AtomicBoolean()
@@ -26,3 +26,6 @@ class ParserRegistry(private val parsers: Map<String, ParserPort>) {
     fun find(name: String): ParserPort = entries[name.substringAfterLast('.', "").lowercase(java.util.Locale.ROOT)]
         ?: throw ParserFailure(KnowledgeError.UNSUPPORTED_FORMAT)
 }
+
+enum class ImportEventKind { QUEUED, PROCESSING, CANCEL_REQUESTED, INTERRUPTED, COMPLETED, FAILURE_OBSERVED, CANCEL_OBSERVED }
+data class ImportEvent(val sequence: Long, val jobId: String, val kind: ImportEventKind, val state: ImportState, val error: KnowledgeError?)

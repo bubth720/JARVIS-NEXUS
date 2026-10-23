@@ -45,7 +45,7 @@ class NexusDatabase private constructor(internal val connection: Connection, int
 
 /** Migrations are atomic, including their version marker; future versions are refused. */
 object SchemaMigrator {
-    const val CURRENT_VERSION = 2
+    const val CURRENT_VERSION = 3
     private val v1 = listOf(
         "CREATE TABLE collection(id TEXT PRIMARY KEY, name TEXT NOT NULL UNIQUE CHECK(length(name) BETWEEN 1 AND 256))",
         "CREATE TABLE source(id TEXT PRIMARY KEY, uri TEXT NOT NULL, sha256 TEXT NOT NULL CHECK(length(sha256)=64), byte_count INTEGER NOT NULL CHECK(byte_count>=0), UNIQUE(uri,sha256))",
@@ -67,6 +67,7 @@ object SchemaMigrator {
             var step = 0
             if (version < 1) v1.forEach { sql -> c.createStatement().use { it.execute(sql) }; afterStatement(step++) }
             if (version < 2) v2.forEach { sql -> c.createStatement().use { it.execute(sql) }; afterStatement(step++) }
+            if (version < 3) v3.forEach { sql -> c.createStatement().use { it.execute(sql) }; afterStatement(step++) }
             c.createStatement().use { it.execute("PRAGMA user_version=$CURRENT_VERSION") }
             c.commit()
         } catch (failure: Throwable) { c.rollback(); throw failure }
@@ -79,6 +80,8 @@ object SchemaMigrator {
         "CREATE TRIGGER document_purge_fts AFTER DELETE ON document BEGIN DELETE FROM fragment_fts WHERE document_id=OLD.id; END",
         "CREATE TRIGGER document_hide_fts AFTER UPDATE OF deleted ON document WHEN NEW.deleted=1 BEGIN DELETE FROM fragment_fts WHERE document_id=NEW.id; END",
     )
+
+    private val v3 = listOf("ALTER TABLE document ADD COLUMN imported_at_ms INTEGER CHECK(imported_at_ms>=0)", "CREATE VIRTUAL TABLE fragment_vocab USING fts5vocab(fragment_fts, 'instance')", "CREATE TABLE import_job_event(sequence INTEGER PRIMARY KEY AUTOINCREMENT, job_id TEXT NOT NULL REFERENCES import_job(id), kind TEXT NOT NULL, state TEXT NOT NULL, error TEXT)")
 
 }
 

@@ -1,0 +1,90 @@
+{
+  "format": "jarvis.campaign-validation/1",
+  "module": "NEXUS",
+  "mission": "NEX-03",
+  "base_commit": "bfa46e1fe08d4943fe864ac53d0c0ba56109ea9c",
+  "planning_commit": "e4b2018383a35106cd326848fab597ef07a50157",
+  "qualification": "software_tested",
+  "capabilities": [
+    "knowledge.rag.cited",
+    "knowledge.context.bounded",
+    "knowledge.citations.resolve"
+  ],
+  "checks": [
+    {
+      "command": [
+        "bash",
+        "/workspace/JAVIS-Local-v2/tools/identity-cloud-env.sh",
+        "gradle",
+        "-PservicesSource=/workspace/.jarvis-dependencies/services-fd41d75015f77e947d22d6a60e619adc00bd70b7",
+        "test",
+        ":nexus-cli:installDist",
+        ":nexus-services-adapter:installDist",
+        "--no-daemon",
+        "--console=plain"
+      ],
+      "exit_code": 0,
+      "passed": 50,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": [
+        "nexus-cli",
+        "rag-demo",
+        "<synthetic-temp-db>"
+      ],
+      "exit_code": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "junit_suites": [
+    {
+      "suite": "fr.jarvis.nexus.RagRetrievalTest",
+      "executed_at": "2026-10-23T12:30:10",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "fr.jarvis.nexus.ImportPipelineTest",
+      "executed_at": "2026-10-23T12:30:10",
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "fr.jarvis.nexus.NexusStorageTest",
+      "executed_at": "2026-10-23T12:30:10",
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "fr.jarvis.nexus.adapters.ServicesImportTest",
+      "executed_at": "2026-10-23T12:30:18",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "platform": "Linux JVM Java17 / real SQLite FTS5 and SERVICES PDFBox",
+  "not_executed": [
+    "Android/SAF",
+    "LLM inference or exact tokenizer admission",
+    "CORE runtime integration",
+    "Physical device tests"
+  ],
+  "regression_fixes": [
+    "FtsIndex NFC normalizes queries before token splitting",
+    "Durable CANCELLING retains cancellation priority after parser/IO failure",
+    "Typed observed failure retained in append-only import_job_event",
+    "Cancellation checked before and after bounded stream reads"
+  ]
+}

@@ -26,6 +26,13 @@ class ImportCoordinator(
     init { require(maxBytes in 1..2 * 1024 * 1024); require(maxPending in 1..64); require(chunkChars in 64..8192) }
     private fun row(r: ResultSet) = ImportJob(r.getString("id"), ImportSource(r.getString("collection_id"), r.getString("uri"), r.getString("name"), r.getString("title"), r.getObject("expected_version")?.let { r.getInt("expected_version") }), r.getString("sha256"), r.getInt("byte_count"), ImportState.valueOf(r.getString("state")), r.getString("document_id"), r.getString("error")?.let(KnowledgeError::valueOf))
     private fun find(c: Connection, id: String): ImportJob = c.query("SELECT * FROM import_job WHERE id=?", id, map = ::row).singleOrNull() ?: throw ParserFailure(KnowledgeError.NOT_FOUND)
+    private fun event(c: Connection, id: String, kind: ImportEventKind, state: ImportState, error: KnowledgeError? = null) {
+        c.execute("INSERT INTO import_job_event(job_id,kind,state,error) VALUES(?,?,?,?)",id,kind.name,state.name,error?.name)
+    }
+    fun events(id: String, after: Long = 0, limit: Int = 100): CatalogResult<List<ImportEvent>> = result(Operation.READ) {
+        require(after>=0 && limit in 1..200)
+        database.read { c -> c.query("SELECT * FROM import_job_event WHERE job_id=? AND sequence>? ORDER BY sequence LIMIT ?",id,after,limit) { r -> ImportEvent(r.getLong(1),r.getString(2),ImportEventKind.valueOf(r.getString(3)),ImportState.valueOf(r.getString(4)),r.getString(5)?.let(KnowledgeError::valueOf)) } }
+    }
     private fun requireAccess(operation: Operation) { if (!catalog.permits(operation)) throw ParserFailure(KnowledgeError.DENIED) }
     private fun <T> result(operation: Operation, action: () -> T): CatalogResult<T> = try {
         requireAccess(operation); CatalogResult.Ok(action())
@@ -34,10 +41,12 @@ class ImportCoordinator(
       catch (_: IllegalArgumentException) { CatalogResult.Rejected(KnowledgeError.INVALID_INPUT) }
       catch (_: java.sql.SQLException) { CatalogResult.Rejected(KnowledgeError.STORAGE_FAILURE) }
       catch (_: java.io.IOException) { CatalogResult.Rejected(KnowledgeError.STORAGE_FAILURE) }
-    private fun bytes(input: InputStream): ByteArray {
+    private fun bytes(input: InputStream, cancellation: Cancellation = Cancellation { false }): ByteArray {
         val out = ByteArrayOutputStream(minOf(maxBytes, 8192)); val buffer = ByteArray(8192)
         while (true) {
+            cancellation.check()
             val read = input.read(buffer, 0, minOf(buffer.size, maxBytes - out.size() + 1))
+            cancellation.check()
             if (read < 0) return out.toByteArray()
             if (read == 0) { val one = input.read(); if (one < 0) return out.toByteArray(); out.write(one) }
             else out.write(buffer, 0, read)
@@ -49,7 +58,7 @@ class ImportCoordinator(
         catalog.validateMetadata(source.collectionId, source.uri, source.title, source.expectedVersion)
         require(source.name.isNotBlank() && source.name.length <= 200 && '\u0000' !in source.name)
         parsers.find(source.name) // Archives and unsupported formats are refused without extraction.
-        val content = bytes(stream); val sha = digest(content)
+        val content = bytes(stream, Cancellation { !catalog.permits(Operation.WRITE) }); val sha = digest(content)
         database.transaction { c ->
             requireAccess(Operation.WRITE)
             if (c.query("SELECT id FROM collection WHERE id=?", source.collectionId) { it.getString(1) }.isEmpty()) throw ParserFailure(KnowledgeError.NOT_FOUND)
@@ -57,6 +66,7 @@ class ImportCoordinator(
             if (pending >= maxPending) throw ParserFailure(KnowledgeError.BUSY)
             val id = UUID.randomUUID().toString()
             c.execute("INSERT INTO import_job(id,collection_id,uri,name,title,sha256,byte_count,expected_version,state) VALUES(?,?,?,?,?,?,?,?,'QUEUED')", id, source.collectionId, source.uri, source.name, source.title, sha, content.size, source.expectedVersion)
+            event(c,id,ImportEventKind.QUEUED,ImportState.QUEUED)
             find(c, id)
         }
     }
@@ -69,13 +79,23 @@ class ImportCoordinator(
                 ImportState.PROCESSING -> c.execute("UPDATE import_job SET state='CANCELLING' WHERE id=?", id)
                 else -> Unit
             }
-            find(c, id)
+            val updated=find(c,id)
+            if (updated.state!=job.state) event(c,id,ImportEventKind.CANCEL_REQUESTED,updated.state)
+            updated
         }
     }
     /** Reconciliation only after acquiring the exclusive parser lock; never clears history. */
     fun recoverInterrupted(): CatalogResult<Int> = result(Operation.WRITE) {
         worker {
-            database.transaction { it.execute("UPDATE import_job SET state=CASE WHEN state='CANCELLING' THEN 'CANCELLED' ELSE 'INTERRUPTED' END,error=CASE WHEN state='CANCELLING' THEN 'CANCELLED' ELSE error END WHERE state IN ('PROCESSING','CANCELLING')") }
+            database.transaction { c ->
+                val pending=c.query("SELECT * FROM import_job WHERE state IN ('PROCESSING','CANCELLING')",map=::row)
+                pending.forEach { job ->
+                    val next=if (job.state==ImportState.CANCELLING) ImportState.CANCELLED else ImportState.INTERRUPTED
+                    c.execute("UPDATE import_job SET state=?,error=? WHERE id=?",next.name,if (next==ImportState.CANCELLED) KnowledgeError.CANCELLED.name else job.error?.name,job.id)
+                    event(c,job.id,if (next==ImportState.CANCELLED) ImportEventKind.CANCEL_OBSERVED else ImportEventKind.INTERRUPTED,next)
+                }
+                pending.size
+            }
         }
     }
     private fun <T> worker(action: () -> T): T {
@@ -95,6 +115,7 @@ class ImportCoordinator(
                     if (job.state == ImportState.COMPLETED) return@transaction job
                     if (job.state !in setOf(ImportState.QUEUED, ImportState.INTERRUPTED, ImportState.FAILED)) throw ParserFailure(if (job.state == ImportState.CANCELLED) KnowledgeError.CANCELLED else KnowledgeError.BUSY)
                     c.execute("UPDATE import_job SET state='PROCESSING',error=NULL WHERE id=?", id)
+                    event(c,id,ImportEventKind.PROCESSING,ImportState.PROCESSING)
                     begun = true
                     job
                 }
@@ -103,7 +124,7 @@ class ImportCoordinator(
                     cancellation.requested() || !catalog.permits(Operation.WRITE) || database.read { find(it, id).state == ImportState.CANCELLING }
                 }
                 stop.check()
-                val content = bytes(stream)
+                val content = bytes(stream, stop)
                 if (content.size != job.byteCount || digest(content) != job.sha256) throw ParserFailure(KnowledgeError.CONFLICT)
                 val pages = try { parsers.find(job.source.name).parse(job.source.name, content.copyOf(), stop).map { it.copy() } }
                     catch (e: ImportCancelled) { throw e }
@@ -143,6 +164,7 @@ class ImportCoordinator(
                     c.execute("UPDATE index_state SET indexed_version=?,state='READY' WHERE document_id=?", document.version, document.id)
                     cancellation.check(); requireAccess(Operation.WRITE)
                     c.execute("UPDATE import_job SET state='COMPLETED',document_id=?,error=NULL WHERE id=?", document.id, id)
+                    event(c,id,ImportEventKind.COMPLETED,ImportState.COMPLETED)
                 }
                 if (imported is CatalogResult.Rejected) throw ParserFailure(imported.error)
                 database.read { find(it, id) }
@@ -154,7 +176,18 @@ class ImportCoordinator(
                         is IllegalArgumentException -> KnowledgeError.INVALID_INPUT
                         else -> KnowledgeError.STORAGE_FAILURE
                     }
-                    database.transaction { it.execute("UPDATE import_job SET state=?,error=? WHERE id=?", if (code == KnowledgeError.CANCELLED) "CANCELLED" else "FAILED", code.name, id) }
+                    val cancellationWon=database.transaction { c ->
+                        val current=find(c,id)
+                        val cancelled=code==KnowledgeError.CANCELLED || current.state in setOf(ImportState.CANCELLING,ImportState.CANCELLED)
+                        if (current.state!=ImportState.COMPLETED) {
+                            val state=if (cancelled) ImportState.CANCELLED else ImportState.FAILED
+                            c.execute("UPDATE import_job SET state=?,error=? WHERE id=?",state.name,if (cancelled) KnowledgeError.CANCELLED.name else code.name,id)
+                            // Keep the observed failure even when cancellation has priority. No raw exception text.
+                            event(c,id,if (code==KnowledgeError.CANCELLED) ImportEventKind.CANCEL_OBSERVED else ImportEventKind.FAILURE_OBSERVED,state,code)
+                        }
+                        cancelled
+                    }
+                    if (cancellationWon) throw ImportCancelled()
                 }
                 throw failure
             }

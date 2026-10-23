@@ -9,7 +9,7 @@ class FtsIndex(private val database: NexusDatabase, private val catalog: Knowled
     fun search(query: String, limit: Int = 20): CatalogResult<List<IndexedHit>> {
         if (!catalog.permits(Operation.READ)) return CatalogResult.Rejected(KnowledgeError.DENIED)
         if (query.length !in 1..256 || limit !in 1..100) return CatalogResult.Rejected(KnowledgeError.INVALID_INPUT)
-        val words = Regex("[\\p{L}\\p{N}]+").findAll(query).map { it.value }.take(13).toList()
+        val words = Regex("[\\p{L}\\p{N}]+").findAll(java.text.Normalizer.normalize(query, java.text.Normalizer.Form.NFC)).map { it.value }.take(13).toList()
         if (words.isEmpty() || words.size > 12) return CatalogResult.Rejected(KnowledgeError.INVALID_INPUT)
         val match = words.joinToString(" AND ") { "\"$it\"" }
         return try { CatalogResult.Ok(database.read { c -> c.query(

@@ -157,9 +157,57 @@ class ImportPipelineTest {
                 assertEquals("d", ok(api.documents()).single().id)
                 assertEquals("text", ok(api.fragments("d",1)).single().text)
                 assertTrue(db.integrityCheck())
-                assertEquals(2, db.read { c -> c.query("PRAGMA user_version") { it.getInt(1) }.single() })
+                assertEquals(SchemaMigrator.CURRENT_VERSION, db.read { c -> c.query("PRAGMA user_version") { it.getInt(1) }.single() })
             }
         } finally { Files.walk(root).use { paths -> paths.sorted(Comparator.reverseOrder()).forEach(Files::deleteIfExists) } }
+    }
+    @Test fun decomposedAccentInMiddleOfQueryWordMatchesTheNormalizedIndex() = fixture { db,api,collection,coordinator ->
+        val text="pre\u0301paration scientifique"
+        val pending=job(coordinator,collection,text);ok(coordinator.process(pending.id,text.byteInputStream()))
+        assertEquals(1,ok(FtsIndex(db,api).search("pre\u0301paration")).size)
+        assertEquals(1,ok(FtsIndex(db,api).search("préparation")).size)
+    }
+    @Test fun parserExceptionAfterDurableCancelCannotTurnJobBackIntoRetryableFailure() {
+        val entered=CountDownLatch(1);val release=CountDownLatch(1)
+        fixture(ParserPort { _,_,_ -> entered.countDown();check(release.await(5,TimeUnit.SECONDS));error("sensitive parser exception must not be logged") }) { _,_,collection,coordinator ->
+            val pending=job(coordinator,collection,"source");val executor=Executors.newSingleThreadExecutor()
+            try {
+                val future=executor.submit<CatalogResult<ImportJob>> { coordinator.process(pending.id,"source".byteInputStream()) }
+                assertTrue(entered.await(5,TimeUnit.SECONDS));assertEquals(ImportState.CANCELLING,ok(coordinator.cancel(pending.id)).state)
+                release.countDown();assertEquals(CatalogResult.Rejected(KnowledgeError.CANCELLED),future.get(5,TimeUnit.SECONDS))
+                assertEquals(ImportState.CANCELLED,ok(coordinator.job(pending.id)).state)
+                val last=ok(coordinator.events(pending.id)).last()
+                assertEquals(ImportEventKind.FAILURE_OBSERVED,last.kind);assertEquals(KnowledgeError.EXTRACTION_FAILED,last.error)
+                assertFalse(last.toString().contains("sensitive"))
+                assertEquals(CatalogResult.Rejected(KnowledgeError.CANCELLED),coordinator.process(pending.id,"source".byteInputStream()))
+            } finally { release.countDown();executor.shutdownNow() }
+        }
+    }
+    @Test fun streamFailureAfterDurableCancelKeepsBothCancellationAndFailureEvidence() = fixture { _,_,collection,coordinator ->
+        val entered=CountDownLatch(1);val release=CountDownLatch(1)
+        val pending=job(coordinator,collection,"source");val executor=Executors.newSingleThreadExecutor()
+        val stream=object : java.io.InputStream() { override fun read():Int { entered.countDown();check(release.await(5,TimeUnit.SECONDS));throw java.io.IOException("private path") } }
+        try {
+            val future=executor.submit<CatalogResult<ImportJob>> { coordinator.process(pending.id,stream) }
+            assertTrue(entered.await(5,TimeUnit.SECONDS));coordinator.cancel(pending.id);release.countDown()
+            assertEquals(CatalogResult.Rejected(KnowledgeError.CANCELLED),future.get(5,TimeUnit.SECONDS))
+            assertEquals(KnowledgeError.STORAGE_FAILURE,ok(coordinator.events(pending.id)).last().error)
+            assertEquals(ImportState.CANCELLED,ok(coordinator.job(pending.id)).state)
+        } finally { release.countDown();executor.shutdownNow() }
+    }
+    @Test fun cancellationIsObservedImmediatelyAfterBoundedReadReturns() = fixture { _,_,collection,coordinator ->
+        val entered=CountDownLatch(1);val release=CountDownLatch(1)
+        val pending=job(coordinator,collection,"source");val executor=Executors.newSingleThreadExecutor();var reads=0
+        val stream=object : java.io.InputStream() {
+            override fun read():Int=error("bulk path required")
+            override fun read(b:ByteArray,off:Int,len:Int):Int { reads++;entered.countDown();check(release.await(5,TimeUnit.SECONDS));b[off]=1;return 1 }
+        }
+        try {
+            val future=executor.submit<CatalogResult<ImportJob>> { coordinator.process(pending.id,stream) }
+            assertTrue(entered.await(5,TimeUnit.SECONDS));coordinator.cancel(pending.id);release.countDown()
+            assertEquals(CatalogResult.Rejected(KnowledgeError.CANCELLED),future.get(5,TimeUnit.SECONDS))
+            assertEquals(1,reads)
+        } finally { release.countDown();executor.shutdownNow() }
     }
     @Test fun recoveryPreservesPriorCancellation() = fixture { db, _, collection, coordinator ->
         val pending = job(coordinator, collection, "source")
