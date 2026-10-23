@@ -2,6 +2,8 @@
 
 Bibliothèque locale de connaissances. NEX-01 fournit un catalogue Kotlin/JVM,
 SQLite transactionnel, provenance SHA-256, révisions, fragments et journal.
+NEX-02 ajoute les imports bornés/reprenables et SQLite FTS5 réel ; l’adaptateur
+optionnel réutilise le parseur SERVICES livré pour TXT, Markdown et PDF textuel.
 Aucun moteur LLM, transport réseau, accès direct aux bases CORE/SERVICES ou
 mémorisation conversationnelle automatique.
 
@@ -42,7 +44,25 @@ Voir [détails et validation NEX-01](docs/dev/NEX-01.md).
 
 JVM/Linux qualifié par les tests, pas Android. SQLite JDBC embarque son propre
 adaptateur natif desktop ; aucun APK ni JNI Android n'est créé. Pas encore de
-PDF, FTS, RAG, ZIM, chiffrement ou raccordement inter-application. Ces fonctions
+RAG, ZIM, chiffrement ou raccordement inter-application. Ces fonctions
 restent soumises aux missions suivantes et à leurs dépendances réellement livrées.
 La base est en clair dans le stockage choisi par l'hôte ; aucun chiffrement
 applicatif n'est revendiqué par NEX-01.
+
+## Importer via SERVICES sans le dupliquer
+
+```sh
+python3 tools/prepare-services.py /tmp/nexus-services-pinned
+./gradlew -PservicesSource=/tmp/nexus-services-pinned test :nexus-services-adapter:installDist
+nexus-services-adapter/build/install/nexus-services-adapter/bin/nexus-services-adapter import /tmp/nexus-import.db /chemin/document-choisi.pdf
+nexus-services-adapter/build/install/nexus-services-adapter/bin/nexus-services-adapter search /tmp/nexus-import.db physique
+```
+
+Le téléchargement est celui de **sources de build publiques épinglées**, aucun
+poids ni contenu documentaire. Le kit installé s’exécute sans ce téléchargement
+et sans réseau. Les sources SERVICES sont vérifiées avant le composite build et
+ne sont pas modifiées. Sans cette dépendance optionnelle, le noyau et la CLI
+NEX-01 restent disponibles ; aucun faux parseur PDF n’est substitué.
+
+Voir [NEX-02](docs/dev/NEX-02.md) pour la reprise explicite, la progression et les
+limites de qualification.

@@ -1,0 +1,98 @@
+{
+  "format": "jarvis.campaign-validation/1",
+  "module": "NEXUS",
+  "mission": "NEX-02",
+  "base_commit": "c25d401dff6865657b75d320361ae81811363fa8",
+  "planning_commit": "e4b2018383a35106cd326848fab597ef07a50157",
+  "qualification": "software_tested",
+  "capabilities": [
+    "knowledge.import.local",
+    "knowledge.index.fts5",
+    "knowledge.import.recovery"
+  ],
+  "upstream_capability": {
+    "id": "documents.extract.readonly.paged",
+    "repository": "bubth720/JARVIS-SERVICES",
+    "commit": "fd41d75015f77e947d22d6a60e619adc00bd70b7"
+  },
+  "checks": [
+    {
+      "command": [
+        "bash",
+        "/workspace/JAVIS-Local-v2/tools/identity-cloud-env.sh",
+        "gradle",
+        "-PservicesSource=/workspace/.jarvis-dependencies/services-fd41d75015f77e947d22d6a60e619adc00bd70b7",
+        "test",
+        ":nexus-services-adapter:installDist",
+        ":nexus-cli:installDist",
+        "--no-daemon",
+        "--console=plain"
+      ],
+      "exit_code": 0,
+      "passed": 34,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": [
+        "nexus-services-adapter",
+        "import",
+        "<synthetic-db>",
+        "<selected-synthetic-md>"
+      ],
+      "exit_code": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": [
+        "nexus-services-adapter",
+        "search",
+        "<synthetic-db>",
+        "quantum"
+      ],
+      "exit_code": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "junit_suites": [
+    {
+      "suite": "fr.jarvis.nexus.ImportPipelineTest",
+      "executed_at": "2026-10-23T07:24:36",
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "fr.jarvis.nexus.NexusStorageTest",
+      "executed_at": "2026-10-23T07:24:36",
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "fr.jarvis.nexus.adapters.ServicesImportTest",
+      "executed_at": "2026-10-23T07:22:24",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "notes": [
+    "Adapter 3 JUnit tests unchanged since first successful full run; Gradle correctly reused their successful XML on final incremental run.",
+    "FTS and PDF extraction are real JVM components, not LLM inference or Android physical qualification.",
+    "Initial compile failed on a Kotlin parenthesis and was corrected before the successful runs."
+  ],
+  "not_executed": [
+    "Android/SAF/device qualification",
+    "Power loss experiment",
+    "Absolute adversarial-PDF memory bound",
+    "CORE/LLM/VOICE integration"
+  ]
+}

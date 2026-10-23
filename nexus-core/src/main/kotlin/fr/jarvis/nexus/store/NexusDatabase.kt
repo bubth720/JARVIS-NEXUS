@@ -7,17 +7,18 @@ import java.sql.DriverManager
 import java.sql.ResultSet
 
 /** Single connection owner. Operations and close are serialized on this object. */
-class NexusDatabase private constructor(internal val connection: Connection) : AutoCloseable {
+class NexusDatabase private constructor(internal val connection: Connection, internal val path: Path) : AutoCloseable {
     companion object {
         /** The host chooses this private DB path, never a document URI or untrusted string. */
         fun open(path: Path): NexusDatabase {
             require(!Files.isSymbolicLink(path)) { "A database symlink is not allowed" }
+            val canonicalPath = path.toAbsolutePath().parent.toRealPath().resolve(path.fileName)
             Class.forName("org.sqlite.JDBC")
-            val connection = DriverManager.getConnection("jdbc:sqlite:" + path.toAbsolutePath())
+            val connection = DriverManager.getConnection("jdbc:sqlite:" + canonicalPath)
             return try {
                 connection.createStatement().use { it.execute("PRAGMA foreign_keys=ON"); it.execute("PRAGMA busy_timeout=5000") }
                 SchemaMigrator.migrate(connection)
-                NexusDatabase(connection)
+                NexusDatabase(connection, canonicalPath)
             } catch (failure: Throwable) { connection.close(); throw failure }
         }
     }
@@ -44,7 +45,7 @@ class NexusDatabase private constructor(internal val connection: Connection) : A
 
 /** Migrations are atomic, including their version marker; future versions are refused. */
 object SchemaMigrator {
-    const val CURRENT_VERSION = 1
+    const val CURRENT_VERSION = 2
     private val v1 = listOf(
         "CREATE TABLE collection(id TEXT PRIMARY KEY, name TEXT NOT NULL UNIQUE CHECK(length(name) BETWEEN 1 AND 256))",
         "CREATE TABLE source(id TEXT PRIMARY KEY, uri TEXT NOT NULL, sha256 TEXT NOT NULL CHECK(length(sha256)=64), byte_count INTEGER NOT NULL CHECK(byte_count>=0), UNIQUE(uri,sha256))",
@@ -63,12 +64,22 @@ object SchemaMigrator {
         if (version == CURRENT_VERSION) return
         c.autoCommit = false
         try {
-            v1.forEachIndexed { index, sql -> c.createStatement().use { it.execute(sql) }; afterStatement(index) }
+            var step = 0
+            if (version < 1) v1.forEach { sql -> c.createStatement().use { it.execute(sql) }; afterStatement(step++) }
+            if (version < 2) v2.forEach { sql -> c.createStatement().use { it.execute(sql) }; afterStatement(step++) }
             c.createStatement().use { it.execute("PRAGMA user_version=$CURRENT_VERSION") }
             c.commit()
         } catch (failure: Throwable) { c.rollback(); throw failure }
         finally { c.autoCommit = true }
     }
+    private val v2 = listOf(
+        "CREATE TABLE import_job(id TEXT PRIMARY KEY, collection_id TEXT NOT NULL REFERENCES collection(id), uri TEXT NOT NULL, name TEXT NOT NULL, title TEXT NOT NULL, sha256 TEXT NOT NULL, byte_count INTEGER NOT NULL, expected_version INTEGER, state TEXT NOT NULL CHECK(state IN ('QUEUED','PROCESSING','CANCELLING','CANCELLED','INTERRUPTED','FAILED','COMPLETED')), document_id TEXT, error TEXT)",
+        "CREATE TABLE import_page(document_id TEXT NOT NULL, version INTEGER NOT NULL, page INTEGER NOT NULL CHECK(page>=0), text_sha256 TEXT NOT NULL, PRIMARY KEY(document_id,version,page), FOREIGN KEY(document_id,version) REFERENCES revision(document_id,version) ON DELETE CASCADE)",
+        "CREATE VIRTUAL TABLE fragment_fts USING fts5(document_id UNINDEXED, version UNINDEXED, ordinal UNINDEXED, body, tokenize='unicode61 remove_diacritics 2')",
+        "CREATE TRIGGER document_purge_fts AFTER DELETE ON document BEGIN DELETE FROM fragment_fts WHERE document_id=OLD.id; END",
+        "CREATE TRIGGER document_hide_fts AFTER UPDATE OF deleted ON document WHEN NEW.deleted=1 BEGIN DELETE FROM fragment_fts WHERE document_id=NEW.id; END",
+    )
+
 }
 
 internal fun Connection.execute(sql: String, vararg values: Any?): Int = prepareStatement(sql).use { s ->

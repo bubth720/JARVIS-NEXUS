@@ -14,7 +14,9 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - run: ./gradlew test :nexus-cli:installDist --no-daemon
+      - name: Prepare pinned SERVICES parser sources (build time only)
+        run: python3 tools/prepare-services.py "$RUNNER_TEMP/services-source"
+      - run: ./gradlew -PservicesSource="$RUNNER_TEMP/services-source" test :nexus-cli:installDist :nexus-services-adapter:installDist --no-daemon
       - name: Synthetic demo in two independent processes
         shell: bash
         run: |

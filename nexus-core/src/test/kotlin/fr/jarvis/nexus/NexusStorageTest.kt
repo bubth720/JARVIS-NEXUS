@@ -118,7 +118,7 @@ class NexusStorageTest {
         assertNotEquals(first.single().id, second.single().id)
         val json = ok(api.catalogJson())
         assertTrue(json.contains("\\\"line\\u000a\\\\é"))
-        assertTrue(json.contains("\"schemaVersion\":1"))
+        assertTrue(json.contains("\"schemaVersion\":${SchemaMigrator.CURRENT_VERSION}"))
     }
     @Test fun reopenKeepsRealRowsRevisionsAndIntegrity() {
         val path = Files.createTempFile("nexus-reopen-", ".db")
@@ -137,7 +137,7 @@ class NexusStorageTest {
                 assertEquals(0, count)
                 assertEquals(0, c.query("PRAGMA user_version") { it.getInt(1) }.single())
                 SchemaMigrator.migrate(c)
-                assertEquals(1, c.query("PRAGMA user_version") { it.getInt(1) }.single())
+                assertEquals(SchemaMigrator.CURRENT_VERSION, c.query("PRAGMA user_version") { it.getInt(1) }.single())
             }
             NexusDatabase.open(path).use { assertTrue(it.integrityCheck()) }
         } finally { Files.deleteIfExists(path) }

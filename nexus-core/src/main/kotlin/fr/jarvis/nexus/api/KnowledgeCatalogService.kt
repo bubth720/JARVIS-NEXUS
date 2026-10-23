@@ -35,6 +35,10 @@ class KnowledgeCatalogService(
             else require(!ch.isLowSurrogate())
         }
     }
+    internal fun validateMetadata(collectionId: String, uri: String, title: String, expectedVersion: Int?) {
+        text(collectionId, 128); text(uri, 2048); text(title, 512)
+        require(expectedVersion == null || expectedVersion >= 1)
+    }
     private fun page(limit: Int, offset: Int) { require(limit in 1..limits.maxPageSize && offset >= 0) }
     private fun log(c: Connection, documentId: String?, kind: String) { c.execute("INSERT INTO mutation_log(document_id,kind) VALUES(?,?)", documentId, kind) }
     private fun current(c: Connection, id: String, expected: Int): DocumentRecord {
@@ -53,7 +57,9 @@ class KnowledgeCatalogService(
         }
     }
     /** Import is metadata/stream based; the stream remains owned by the caller. */
-    fun importSource(input: ImportRequest, content: InputStream): CatalogResult<ImportOutcome> = authorized(Operation.WRITE) {
+    fun importSource(input: ImportRequest, content: InputStream): CatalogResult<ImportOutcome> = importAndIndex(input, content) { _, _ -> }
+    internal fun permits(operation: Operation): Boolean = runCatching { access.allows(operation) }.getOrDefault(false)
+    internal fun importAndIndex(input: ImportRequest, content: InputStream, index: (Connection, DocumentRecord) -> Unit): CatalogResult<ImportOutcome> = authorized(Operation.WRITE) {
         val request = input.copy(fragments = input.fragments.toList())
         text(request.uri, 2048); text(request.title, 512); text(request.collectionId, 128)
         require(request.expectedVersion == null || request.expectedVersion >= 1)
@@ -74,7 +80,10 @@ class KnowledgeCatalogService(
                 if (request.expectedVersion != null && previous.version != request.expectedVersion) deny(KnowledgeError.CONFLICT)
                 val oldHash = c.query("SELECT s.sha256 FROM revision r JOIN source s ON s.id=r.source_id WHERE r.document_id=? AND r.version=?", previous.id, previous.version) { it.getString(1) }.single()
                 val oldFragments = documents.fragments(c, previous.id, previous.version, limits.maxFragments, 0)
-                if (oldHash == fingerprint.sha256 && previous.title == request.title && oldFragments == request.fragments.sortedBy { it.ordinal }) return@transaction ImportOutcome.Unchanged(previous)
+                if (oldHash == fingerprint.sha256 && previous.title == request.title && oldFragments == request.fragments.sortedBy { it.ordinal }) {
+                    index(c, previous)
+                    return@transaction ImportOutcome.Unchanged(previous)
+                }
                 if (request.expectedVersion == null || previous.version == Int.MAX_VALUE) deny(KnowledgeError.CONFLICT)
             } else if (request.expectedVersion != null) deny(KnowledgeError.CONFLICT)
             val source = sources.findOrCreate(c, request.uri, fingerprint)
@@ -82,6 +91,7 @@ class KnowledgeCatalogService(
             if (previous == null) c.execute("INSERT INTO document VALUES(?,?,?,?,?,0)", document.id, document.collectionId, document.uri, document.title, document.version)
             else c.execute("UPDATE document SET title=?,version=? WHERE id=?", document.title, document.version, document.id)
             documents.append(c, document, source, request.fragments)
+            index(c, document)
             log(c, document.id, if (previous == null) "CREATED" else "REVISED")
             if (previous == null) ImportOutcome.Created(document) else ImportOutcome.Revised(document)
         }
