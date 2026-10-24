@@ -9,3 +9,5 @@
 *.jnb
 *.nexus-import.lock
 *.zim
+__pycache__/
+*.py[cod]

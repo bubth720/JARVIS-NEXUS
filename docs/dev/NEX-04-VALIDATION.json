@@ -1,0 +1,58 @@
+{
+  "format": "jarvis.campaign-validation/1",
+  "mission": "NEX-04",
+  "module": "NEXUS",
+  "repository": "bubth720/JARVIS-NEXUS",
+  "branch": "work/nex-04-zim-readonly",
+  "base_commit": "3acec55616ff8e3b1666091780fca59261377e18",
+  "recorded_utc": "2026-10-24T08:55:29.072754+00:00",
+  "qualification": "partial_contract_tested_native_and_android_blocked",
+  "checks": [
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/zim",
+        "-v"
+      ],
+      "exit_code": 0,
+      "passed": 18,
+      "failed": 0,
+      "skipped": 1,
+      "log": "NEX-04-TESTS.txt"
+    }
+  ],
+  "source_sha256": {
+    "adapters/zim/nexus_zim.py": "5b8b1c6e127bbde26d2c8a935e123ea1b12b3677c36daf02d58e6ac173dd7493",
+    "tests/zim/test_zim.py": "c68e5d2da2fae0d8667f53b5ae8677b307feac8eea547f6a53112fb0d1aa0c44",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/archive/ArchiveReader.kt": "0e94ab63ce53c4c7d8b2dc1e2988b1e766ec28740984805033ff00e15d0fc453",
+    "nexus-core/src/test/kotlin/fr/jarvis/nexus/ArchiveContextTest.kt": "1d04b2fa9e8ea02f03391bb1d5af43c94967b73e40028a46669a99ddc25509c8"
+  },
+  "not_executed": [
+    "Real wikipedia_fr_all_maxi_2026-05 (3).zim: unavailable",
+    "Native libzim decoding/search/corruption: binding absent",
+    "Kotlin compilation and 6 new JUnit tests: toolchain/cache absent; installation forbidden",
+    "NEX-05 JVM regression suite: not rerun",
+    "Android API24/ABI/SAF persistent grant/revocation/device restart",
+    "Native runtime network isolation and real archive performance"
+  ],
+  "android_status": "UNSUPPORTED",
+  "preservation": {
+    "real_archive_accessed": false,
+    "archive_copied": false,
+    "archive_moved": false,
+    "archive_modified": false,
+    "installations": false,
+    "merged": false,
+    "other_repositories_modified": false
+  },
+  "limitations": [
+    "Header fingerprint is unverified metadata, not whole-archive SHA256 or publisher authenticity",
+    "55.44GB sparse synthetic test is offset coverage only, not a valid ZIM or native performance measurement",
+    "Revocation and network tests use Python injections, not Android or native system qualification",
+    "Native cache limits do not bound peak decompression RSS; host process isolation required"
+  ]
+}

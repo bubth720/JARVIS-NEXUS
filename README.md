@@ -43,9 +43,9 @@ Voir [détails et validation NEX-01](docs/dev/NEX-01.md).
 ## Limites
 
 JVM/Linux qualifié par les tests, pas Android. SQLite JDBC embarque son propre
-adaptateur natif desktop ; aucun APK ni JNI Android n'est créé. Pas encore de
-lecteur ZIM ou raccordement inter-application. Ces fonctions
-restent soumises aux missions suivantes et à leurs dépendances réellement livrées.
+adaptateur natif desktop ; aucun APK ni JNI Android n'est créé.
+NEX-04 ajoute un adaptateur ZIM conditionnel à python-libzim sur Linux.
+La lecture native et le raccordement inter-application restent à qualifier.
 La base est en clair dans le stockage choisi par l'hôte ; aucun chiffrement
 applicatif n'est revendiqué par NEX-01.
 
@@ -91,3 +91,22 @@ et conflits, sans remplacer les données courantes. La démonstration ne crée
 que des données synthétiques temporaires et une clé éphémère. La base de travail
 reste en clair dans le stockage privé de l'hôte ; seules les archives sont chiffrées.
 Voir [format et limites](docs/dev/NEXUS-BACKUP-FORMAT.md) et [validation](docs/dev/NEX-05.md).
+
+## Catalogue ZIM en lecture seule (NEX-04, qualification partielle)
+
+```sh
+python3 adapters/zim/nexus_zim.py --catalog /tmp/nexus-zim-catalog.db register '/chemin/wikipedia_fr_all_maxi_2026-05 (3).zim'
+python3 adapters/zim/nexus_zim.py --catalog /tmp/nexus-zim-catalog.db list
+python3 adapters/zim/nexus_zim.py --catalog /tmp/nexus-zim-catalog.db search ID_ARCHIVE Paris 5
+python3 adapters/zim/nexus_zim.py --catalog /tmp/nexus-zim-catalog.db article ID_ARCHIVE CHEMIN_ENTREE
+python3 -m unittest discover -s tests/zim -v
+```
+
+`ID_ARCHIVE` est retourné par `register`, qui enregistre seulement une référence
+et un fingerprint de métadonnées non vérifiées. `search`/`article` appellent
+les vraies API libzim ; elles refusent `UNSUPPORTED` si la dépendance manque.
+Aucune installation automatique, copie du ZIM, génération d'index global ou
+requête réseau. Le retrait `remove ID_ARCHIVE` supprime seulement la référence.
+`SelectedArchiveContext` réutilise `RagContextPort` pour les articles explicitement
+choisis par l'hôte ; résolution des citations par le même port.
+Voir [rapport NEX-04](docs/dev/NEX-04.md) et [dépendances et SAF](docs/dev/ZIM-DEPENDENCIES.md).
