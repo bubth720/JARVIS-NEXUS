@@ -42,10 +42,11 @@ Voir [détails et validation NEX-01](docs/dev/NEX-01.md).
 
 ## Limites
 
-JVM/Linux qualifié par les tests, pas Android. SQLite JDBC embarque son propre
-adaptateur natif desktop ; aucun APK ni JNI Android n'est créé. Pas encore de
-lecteur ZIM ou raccordement inter-application. Ces fonctions
-restent soumises aux missions suivantes et à leurs dépendances réellement livrées.
+JVM/Linux qualifié pour le catalogue et les sauvegardes. NEX-06A fournit désormais une
+bibliothèque Android min24 distincte, conditionnée par une sonde réelle FTS5/vocab/MATCH/BM25.
+Le backend SQLite Robolectric disponible n'a pas FTS5 : refus explicite, aucune citation
+Android qualifiée. Aucun moteur natif Android supplémentaire, APK installé, lecteur ZIM ou
+raccordement CORE n'est livré. Voir [NEX-06A et ses preuves](docs/dev/NEX-06A.md).
 La base est en clair dans le stockage choisi par l'hôte ; aucun chiffrement
 applicatif n'est revendiqué par NEX-01.
 
@@ -91,3 +92,17 @@ et conflits, sans remplacer les données courantes. La démonstration ne crée
 que des données synthétiques temporaires et une clé éphémère. La base de travail
 reste en clair dans le stockage privé de l'hôte ; seules les archives sont chiffrées.
 Voir [format et limites](docs/dev/NEXUS-BACKUP-FORMAT.md) et [validation](docs/dev/NEX-05.md).
+
+## Adaptateur Android API24 (NEX-06A)
+
+```sh
+./gradlew -PwithAndroid=true :nexus-android-store:testDebugUnitTest \
+  :nexus-android-store:assembleDebug :nexus-android-store:lintDebug
+python3 tools/check-android-boundary.py
+```
+
+Un hôte Android dépend uniquement de `nexus-android-store` et `nexus-core`, jamais du
+module JDBC `nexus-jvm-store`. Il construit une `SelectedDocument` depuis un résultat
+SAF volontaire et injecte sa politique d'accès. Si `AndroidNexusStorage.open` renvoie
+`CAPABILITY_UNAVAILABLE`, il garde cette capacité désactivée. Les dépendances JVM
+historiques utilisent désormais `nexus-jvm-store`. Aucun scan ou import ZIM automatique.

@@ -28,3 +28,25 @@ jobs:
           cat "$RUNNER_TEMP/nexus-reopen.txt"
       - name: Encrypted synthetic backup and injected recovery failure
         run: nexus-cli/build/install/nexus-cli/bin/nexus-cli backup-demo "$RUNNER_TEMP"
+  android-adapter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - name: API24 library, host SQLite tests, instrumentation compile and Lint
+        run: ./gradlew -PwithAndroid=true :nexus-android-store:testDebugUnitTest :nexus-android-store:assembleDebug :nexus-android-store:assembleDebugAndroidTest :nexus-android-store:lintDebug --no-daemon
+      - run: python3 tools/check-android-boundary.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nex-06a-library-and-host-test-evidence
+          path: |
+            nexus-android-store/build/outputs/aar/*.aar
+            nexus-android-store/build/outputs/apk/androidTest/**/*.apk
+            nexus-android-store/build/test-results/testDebugUnitTest/*.xml
+            nexus-android-store/build/reports/lint-results-debug.*
