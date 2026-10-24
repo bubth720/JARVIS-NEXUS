@@ -1,0 +1,15 @@
+✔ paged loading, limits and atomic refusal (3.570586ms)
+✔ invalid and mixed-collection pages preserve prior state (0.555523ms)
+✔ search, category and density are bounded (10.218546ms)
+✔ positions remain finite on sphere (2.306404ms)
+✔ depth and suggested filters do not expand beyond loaded data (0.556234ms)
+✔ unproven and excessive evidence is refused (0.154109ms)
+✔ XSS labels remain inert strings in model (0.160507ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 82.377962

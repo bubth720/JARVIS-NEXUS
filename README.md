@@ -110,3 +110,40 @@ requête réseau. Le retrait `remove ID_ARCHIVE` supprime seulement la référen
 `SelectedArchiveContext` réutilise `RagContextPort` pour les articles explicitement
 choisis par l'hôte ; résolution des citations par le même port.
 Voir [rapport NEX-04](docs/dev/NEX-04.md) et [dépendances et SAF](docs/dev/ZIM-DEPENDENCIES.md).
+
+## Bibliothèque et atlas — NEXUS-FINAL-01 (qualification partielle)
+
+La branche ajoute métadonnées/tags, formats structurés bornés, import incrémental,
+recherche par phrase/type et graphe de relations citées dans le même stockage.
+Le [visualiseur autonome](viewer/README.md) fonctionne avec des pages JSON locales,
+sans CDN, modèle ou serveur documentaire. La [qualification détaillée](docs/dev/NEXUS-FINAL-01.md)
+sépare les tests SQLite/JavaScript exécutés du code Kotlin et d'Android non qualifiés.
+Le schéma passe à v4 ; conserver une sauvegarde v3 avant ouverture par un nouveau
+binaire. Les snapshots NEX-05 v3 se restaurent uniquement en copie isolée migrée.
+
+Avec un toolchain déjà disponible (aucune installation automatique autorisée ici) :
+
+```sh
+./gradlew :nexus-core:test :nexus-cli:installDist --offline
+nexus-cli/build/install/nexus-cli/bin/nexus-cli library /chemin/prive/nexus.db create MaCollection
+nexus-cli/build/install/nexus-cli/bin/nexus-cli library /chemin/prive/nexus.db import ID_COLLECTION /chemin/table.csv
+nexus-cli/build/install/nexus-cli/bin/nexus-cli library /chemin/prive/nexus.db search ID_COLLECTION 'mécanique quantique' csv phrase
+nexus-cli/build/install/nexus-cli/bin/nexus-cli library /chemin/prive/nexus.db graph ID_COLLECTION > /chemin/choisi/page.json
+nexus-cli/build/install/nexus-cli/bin/nexus-cli atlas-demo /tmp/nexus-atlas-nouveau.db > /tmp/nexus-atlas-page.json
+```
+
+Ces commandes JVM sont fournies pour la prochaine validation, **non exécutées ici**.
+La CLI noyau importe CSV/TSV/DOCX/XML et ZIP tabulaire ; PDF/TXT/MD et ZIP textuels
+réutilisent l'adaptateur SERVICES optionnel. Les formats non qualifiés sont refusés,
+sans OCR ni téléchargement. Les reprises utilisent `ImportCoordinator` et le
+source à nouveau choisi ; `ImportMetadata` porte catégorie/tags/date fichier.
+
+Vérifications sans installation :
+
+```sh
+python3 tools/validate-final.py --browser --benchmark
+python3 -m http.server 8765 --bind 127.0.0.1 --directory viewer
+```
+
+Les options navigateur exigent Node/Playwright/Chromium déjà présents. Le serveur
+statique est un lancement volontaire local ; il n'ouvre ni ne sert la base.

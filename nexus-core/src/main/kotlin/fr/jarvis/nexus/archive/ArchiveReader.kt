@@ -90,7 +90,7 @@ class SelectedArchiveContext(
     }
 
     override fun retrieve(query: KnowledgeQuery, scope: SearchScope, limits: ContextLimits): CatalogResult<ContextBundle> = checked {
-        require(query.text.isNotBlank() && query.text.length <= 256 && query.importedAfterMs == null && query.importedBeforeMs == null)
+        require(query.text.isNotBlank() && query.text.length <= 256 && query.importedAfterMs == null && query.importedBeforeMs == null && query.mediaTypes.isEmpty())
         val frozen = scope.copy(collectionIds=scope.collectionIds.toSet(), sourceIds=scope.sourceIds?.toSet())
         scopeCheck(frozen)
         val selected = selections.filter { allowed(frozen, it) }

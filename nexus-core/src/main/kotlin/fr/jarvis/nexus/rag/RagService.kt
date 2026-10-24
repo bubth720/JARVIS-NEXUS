@@ -60,7 +60,7 @@ class LocalRagService(
     override fun retrieve(query: KnowledgeQuery, scope: SearchScope, limits: ContextLimits): CatalogResult<ContextBundle> = checked {
         // Freeze caller-owned scope collections before SQL planning.
         val frozen = scope.copy(collectionIds = scope.collectionIds.toSet(), sourceIds = scope.sourceIds?.toSet())
-        val result=ContextBudgeter().prepare(EvidenceReranker().group(search.search(query,effectiveScope(frozen)),limits.maxCharacters), limits)
+        val result=ContextBudgeter().prepare(EvidenceReranker().group(search.search(query.copy(mediaTypes=query.mediaTypes.toSet()),effectiveScope(frozen)),limits.maxCharacters), limits)
         val stillAuthorized=effectiveScope(frozen)
         result.items.flatMap { it.citations }.forEach { resolver.resolve(it,stillAuthorized) }
         result

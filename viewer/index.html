@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'none'; img-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>NEXUS · Atlas local</title><link rel="stylesheet" href="style.css"><script defer src="graph.js"></script><script defer src="app.js"></script></head>
+<body><header><div class="brand"><span class="mark">N</span><strong>NEXUS</strong><span class="muted">/ Atlas de connaissances</span></div><span class="local"><i></i> LOCAL · HORS LIGNE</span></header>
+<main><aside class="controls"><div class="eyebrow">BIBLIOTHÈQUE PERSONNELLE</div><h1>Relier les idées.</h1><p class="intro">Explorez vos sources, leurs concepts et les preuves qui les relient.</p>
+<label class="load" for="file">＋ Ouvrir une page de graphe<input id="file" type="file" accept=".json,application/json"></label><p class="hint">Export NEXUS · 1 Mio maximum par page<br>Aucun fichier n’est envoyé.</p>
+<label for="search">RECHERCHER UN NŒUD</label><input id="search" type="search" placeholder="Un document, une personne, une idée…" maxlength="256">
+<div class="filtergrid"><div><label for="category">CATÉGORIE</label><select id="category"><option value="">Toutes</option></select></div><div><label for="depth">PROFONDEUR</label><select id="depth"><option value="1">1 lien</option><option value="2">2 liens</option><option value="3">3 liens</option></select></div></div>
+<label for="density">DENSITÉ <output id="densityValue">180</output></label><input id="density" type="range" min="20" max="500" value="180" step="10">
+<label class="toggle"><input id="suggested" type="checkbox" checked> Inclure les liens suggérés</label>
+<div class="divider"></div><div class="sectionline"><span>NŒUDS AFFICHÉS</span><span id="count">0</span></div><ul id="nodeList" aria-label="Liste accessible des nœuds"></ul><button id="more" class="subtle" hidden>Afficher les 50 suivants</button>
+<div class="bottom"><button id="demo" class="subtle">Explorer un exemple synthétique ↗</button><button id="clear" class="subtle">Vider la vue</button></div></aside>
+<section class="space" aria-label="Visualisation des connaissances"><div class="spacehead"><div><span class="eyebrow">VOTRE ATLAS</span><h2 id="title">Un espace pour comprendre</h2></div><button id="reset" title="Recentrer la sphère" aria-label="Recentrer la sphère">↺</button></div>
+<canvas id="atlas" tabindex="0" aria-label="Graphe 3D. Glisser pour tourner, molette ou pincement pour zoomer, Maj-glisser pour déplacer. Utiliser la liste des nœuds pour une sélection accessible."></canvas>
+<div id="empty"><div class="orb">✧</div><h3>Votre bibliothèque prend forme ici.</h3><p>Ouvrez une page exportée depuis NEXUS.<br>Les documents restent dans votre bibliothèque locale.</p></div>
+<div class="legend"><span><i class="solid"></i> Lien explicite</span><span><i class="dashed"></i> Lien suggéré</span><span id="dataset">Aucune collection chargée</span></div>
+<div class="status" id="status" role="status" aria-live="polite">Prêt · aucune donnée chargée</div></section>
+<aside class="detail"><span class="eyebrow">FICHE DOCUMENTAIRE</span><div id="detail"><div class="detailicon">⌘</div><h2>Chaque lien a une source.</h2><p class="intro">Sélectionnez un nœud pour consulter sa fiche et les relations documentées.</p></div></aside></main>
+<footer><span>JARVIS NEXUS / API GRAPHE 1</span><span>Glisser : rotation · Maj-glisser : déplacement · Pincer : zoom</span><span>Rendu progressif · ≤ 500 nœuds</span></footer></body></html>

@@ -5,7 +5,8 @@ import fr.jarvis.nexus.api.json
 
 /** Empty collection scope refuses retrieval, rather than granting implicit global access. */
 data class SearchScope(val collectionIds: Set<String>, val sourceIds: Set<String>? = null)
-data class KnowledgeQuery(val text: String, val importedAfterMs: Long? = null, val importedBeforeMs: Long? = null)
+data class KnowledgeQuery(val text: String, val importedAfterMs: Long? = null, val importedBeforeMs: Long? = null,
+    val mediaTypes: Set<String> = emptySet(), val phrase: Boolean = false)
 data class ContextLimits(val maxCharacters: Int = 4000, val maxItems: Int = 5, val maxSources: Int = 5) {
     init { require(maxCharacters in 1..32000 && maxItems in 1..20 && maxSources in 1..20) }
 }

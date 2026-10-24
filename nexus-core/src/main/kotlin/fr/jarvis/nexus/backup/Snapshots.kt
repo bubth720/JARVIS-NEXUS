@@ -57,6 +57,26 @@ private fun hash(path:Path,max:Long):String=Files.newInputStream(path).use{Sourc
 private fun durable(path:Path){FileChannel.open(path,StandardOpenOption.WRITE).use{it.force(true)}}
 
 private data class DocumentState(val id:String,val version:Int,val fingerprint:String)
+private data class GraphState(val nodes:Int,val edges:Int,val hash:String)
+private fun graphState(c:java.sql.Connection):GraphState {
+    val digest=java.security.MessageDigest.getInstance("SHA-256")
+    val out=java.io.DataOutputStream(java.security.DigestOutputStream(OutputStream.nullOutputStream(),digest))
+    fun table(name:String,limit:Int):Int {
+        var count=0
+        c.createStatement().use { s -> s.executeQuery("SELECT * FROM $name ORDER BY id LIMIT ${limit+1}").use { r ->
+            while(r.next()) {
+                if(++count>limit)throw BackupFailure(BackupError.LIMIT_EXCEEDED)
+                for(i in 1..r.metaData.columnCount) {
+                    val bytes=r.getString(i)?.toByteArray(Charsets.UTF_8)
+                    out.writeInt(bytes?.size ?: -1);if(bytes!=null)out.write(bytes)
+                }
+            }
+        } }
+        return count
+    }
+    val nodes=table("graph_node",100000);val edges=table("graph_edge",200000)
+    out.flush();return GraphState(nodes,edges,digest.digest().joinToString(""){"%02x".format(it)})
+}
 private fun documentStates(c:java.sql.Connection,limit:Int):List<DocumentState> = c.query("SELECT d.id,d.version,d.deleted,d.title,d.uri,d.collection_id,s.sha256 FROM document d JOIN revision r ON r.document_id=d.id AND r.version=d.version JOIN source s ON s.id=r.source_id ORDER BY d.id LIMIT ?",limit+1){r->
     val id=r.getString(1);val version=r.getInt(2);val digest=java.security.MessageDigest.getInstance("SHA-256")
     val out=java.io.DataOutputStream(java.security.DigestOutputStream(OutputStream.nullOutputStream(),digest))
@@ -65,6 +85,10 @@ private fun documentStates(c:java.sql.Connection,limit:Int):List<DocumentState> 
     c.query("SELECT ordinal,text,start_offset,end_offset,page FROM fragment WHERE document_id=? AND version=? ORDER BY ordinal",id,version){f->
         out.writeInt(f.getInt(1));text(f.getString(2));out.writeInt(f.getInt(3));out.writeInt(f.getInt(4));out.writeInt(f.getObject(5)?.let{f.getInt(5)} ?: -1)
     }
+    c.query("SELECT name,media_type,byte_count,modified_ms,category,tags FROM document_metadata WHERE document_id=?",id){m->
+        text(m.getString(1));text(m.getString(2));out.writeLong(m.getLong(3));out.writeLong(m.getObject(4)?.let{m.getLong(4)} ?: -1);text(m.getString(5));text(m.getString(6))
+    }
+    c.query("SELECT ordinal,location FROM fragment_location WHERE document_id=? AND version=? ORDER BY ordinal",id,version){f->out.writeInt(f.getInt(1));text(f.getString(2))}
     out.flush();DocumentState(id,version,digest.digest().joinToString(""){"%02x".format(it)})
 }
 
@@ -150,16 +174,23 @@ class SnapshotImporter(private val current:NexusDatabase,private val catalog:Kno
                 if(java.nio.ByteBuffer.wrap(header).getInt(60)!=manifest.schemaVersion)throw BackupFailure(BackupError.INCOMPATIBLE_VERSION)
                 manifest
             }
+            // Verify the authentic source schema before migrating the isolated copy.
+            java.sql.DriverManager.getConnection("jdbc:sqlite:"+restored).use { c ->
+                c.createStatement().use { it.execute("PRAGMA foreign_keys=ON") }
+                IntegrityVerifier.verify(c,manifest.schemaVersion)
+            }
             val restoredRows=NexusDatabase.open(restored).use{db->
                 db.read{c->
-                    IntegrityVerifier.verify(c,manifest.schemaVersion)
+                    // The archive/header was checked before opening. Only the isolated
+                    // recovery copy may migrate a supported v3 snapshot to v4.
+                    IntegrityVerifier.verify(c,SchemaMigrator.CURRENT_VERSION)
                     val actual=c.query("PRAGMA user_version"){it.getInt(1)}.single()
-                    if(actual!=manifest.schemaVersion)throw BackupFailure(BackupError.INCOMPATIBLE_VERSION)
+                    if(actual!=SchemaMigrator.CURRENT_VERSION)throw BackupFailure(BackupError.INCOMPATIBLE_VERSION)
                     c.execute("INSERT INTO fragment_fts(fragment_fts) VALUES('integrity-check')")
                     val rows=documentStates(c,limits.maxPreviewDocuments)
                     if(rows.size>limits.maxPreviewDocuments)throw BackupFailure(BackupError.LIMIT_EXCEEDED)
                     val sourceCount=c.query("SELECT count(*) FROM source"){it.getInt(1)}.single()
-                    Pair(rows,sourceCount)
+                    Triple(rows,sourceCount,graphState(c))
                 }
             }
             val existing=current.read{c->
@@ -171,7 +202,9 @@ class SnapshotImporter(private val current:NexusDatabase,private val catalog:Kno
             val byId=existing.associateBy{it.id}
             val conflicts=restoredRows.first.mapNotNull{r->byId[r.id]?.takeIf{it.fingerprint!=r.fingerprint}?.let{VersionConflict(r.id,it.version,r.version,if(it.version!=r.version)ConflictReason.VERSION_DIFFERS else ConflictReason.CONTENT_OR_METADATA_DIFFERS)}}
             requireAccess(catalog,Operation.RESTORE,confirmed)
-            val preview=ImportPreview(restoredRows.first.size,restoredRows.second,conflicts)
+            val currentGraph=current.read(::graphState)
+            val preview=ImportPreview(restoredRows.first.size,restoredRows.second,conflicts,
+                graphNodes=restoredRows.third.nodes,graphEdges=restoredRows.third.edges,graphDiffers=restoredRows.third!=currentGraph)
             Files.delete(zip);ready=true
             RecoveryWorkspace(workspace,restored,manifest,preview)
         }finally{if(!ready)workspace.cleanup()}

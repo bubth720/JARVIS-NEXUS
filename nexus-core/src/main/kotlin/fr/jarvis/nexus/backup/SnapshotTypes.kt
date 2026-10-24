@@ -13,7 +13,7 @@ data class SnapshotManifest(val schemaVersion:Int,val databaseBytes:Long,val dat
         private val pattern=Regex("""\{"format":"jarvis\.nexus\.snapshot/1","schemaVersion":([1-9][0-9]{0,3}),"engine":"sqlite","files":\[\{"path":"knowledge\.sqlite","bytes":([1-9][0-9]{0,9}),"sha256":"([0-9a-f]{64})"}\]}""")
         fun parse(json:String):SnapshotManifest {
             val fields=pattern.matchEntire(json)?.groupValues ?: throw BackupFailure(BackupError.INVALID_ARCHIVE)
-            val schema=fields[1].toInt();if(schema!=SchemaMigrator.CURRENT_VERSION)throw BackupFailure(BackupError.INCOMPATIBLE_VERSION)
+            val schema=fields[1].toInt();if(schema !in 3..SchemaMigrator.CURRENT_VERSION)throw BackupFailure(BackupError.INCOMPATIBLE_VERSION)
             return SnapshotManifest(schema,fields[2].toLong(),fields[3])
         }
     }
@@ -22,4 +22,5 @@ data class SnapshotReceipt(val archive:Path,val archiveSha256:String,val manifes
 enum class ConflictReason { VERSION_DIFFERS, CONTENT_OR_METADATA_DIFFERS }
 data class VersionConflict(val documentId:String,val currentVersion:Int,val restoredVersion:Int,val reason:ConflictReason=ConflictReason.VERSION_DIFFERS)
 enum class ConflictResolution { KEEP_CURRENT_AND_SEPARATE_COPY }
-data class ImportPreview(val documentCount:Int,val sourceCount:Int,val conflicts:List<VersionConflict>,val resolution:ConflictResolution=ConflictResolution.KEEP_CURRENT_AND_SEPARATE_COPY)
+data class ImportPreview(val documentCount:Int,val sourceCount:Int,val conflicts:List<VersionConflict>,val resolution:ConflictResolution=ConflictResolution.KEEP_CURRENT_AND_SEPARATE_COPY,
+    val graphNodes:Int=0,val graphEdges:Int=0,val graphDiffers:Boolean=false,val restoredSchemaVersion:Int=SchemaMigrator.CURRENT_VERSION)

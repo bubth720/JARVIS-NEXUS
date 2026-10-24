@@ -29,6 +29,6 @@ class ServicesParser : ParserPort {
         }
     }
     companion object {
-        fun registry(): ParserRegistry { val parser = ServicesParser(); return ParserRegistry(mapOf("txt" to parser, "md" to parser, "pdf" to parser)) }
+        fun registry(): ParserRegistry = StructuredParser(ServicesParser()).registry()
     }
 }

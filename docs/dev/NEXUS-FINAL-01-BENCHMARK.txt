@@ -1,0 +1,32 @@
+{
+  "measurement": "Python harness / production SQLite schema and FTS5; not JVM import or Android",
+  "sqlite": "3.53.1",
+  "documents": 5000,
+  "nodes": 5000,
+  "edges": 24985,
+  "storage_population_seconds": 0.8328868489988963,
+  "first_query_seconds": 0.008264511998277158,
+  "query_p50_seconds": 0.007278420500369975,
+  "query_p95_seconds": 0.008143223996739835,
+  "query_returned": 20,
+  "database_bytes": 11268096,
+  "python_peak_tracemalloc_bytes": 72391,
+  "process_peak_rss_kib_linux": 16512,
+  "graph_pages": [
+    {
+      "limit": 20,
+      "returned": 20,
+      "seconds": 0.00011853400064865127
+    },
+    {
+      "limit": 100,
+      "returned": 100,
+      "seconds": 0.0002810730002238415
+    },
+    {
+      "limit": 250,
+      "returned": 250,
+      "seconds": 0.0008024179987842217
+    }
+  ]
+}

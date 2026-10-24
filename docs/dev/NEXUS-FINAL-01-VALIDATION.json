@@ -1,0 +1,227 @@
+{
+  "format": "jarvis.campaign-validation/1",
+  "mission": "NEXUS-FINAL-01",
+  "module": "NEXUS",
+  "branch": "feat/nexus-final-01",
+  "base_commit": "bbccac2ff2cc052f897c7f5015f234507e047b95",
+  "recorded_utc": "2026-10-24T22:56:33.425570+00:00",
+  "qualification": "partial_SQLite_schema_and_viewer_tested_JVM_and_Android_unqualified",
+  "checks": [
+    {
+      "name": "SQLITE",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/final",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "NEXUS-FINAL-01-SQLITE.txt"
+    },
+    {
+      "name": "ZIM",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/zim",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "NEXUS-FINAL-01-ZIM.txt"
+    },
+    {
+      "name": "GRAPH",
+      "command": [
+        "node",
+        "--test",
+        "tests/final/test_graph.cjs"
+      ],
+      "exit_code": 0,
+      "log": "NEXUS-FINAL-01-GRAPH.txt"
+    },
+    {
+      "name": "BROWSER",
+      "command": [
+        "node",
+        "tests/final/browser.cjs"
+      ],
+      "exit_code": 0,
+      "log": "NEXUS-FINAL-01-BROWSER.txt",
+      "result": {
+        "engine": "154.0.8037.57",
+        "transport": "explicit loopback static server; managed browser disallows file://",
+        "contexts": [
+          {
+            "viewport": "1440x1000 desktop",
+            "tests": [
+              "local JSON demo",
+              "node selection",
+              "search",
+              "keyboard rotation",
+              "inert imported HTML",
+              "safe original URI",
+              "oversize atomic refusal"
+            ],
+            "pageErrors": [],
+            "render": {
+              "syntheticNodes": 500,
+              "syntheticEdges": 2000,
+              "drawMedianMs": 1.6000000014901161,
+              "drawP95Ms": 4.899999998509884,
+              "jsHeapBytes": 27099051,
+              "scope": "synchronous Canvas2D draw calls, not compositor FPS or Android device memory"
+            }
+          },
+          {
+            "viewport": "390x844 touch emulation (not Android hardware)",
+            "tests": [
+              "local JSON demo",
+              "node selection",
+              "search",
+              "keyboard rotation",
+              "CDP pinch touch events",
+              "inert imported HTML",
+              "safe original URI",
+              "oversize atomic refusal"
+            ],
+            "pageErrors": [],
+            "render": {
+              "syntheticNodes": 500,
+              "syntheticEdges": 2000,
+              "drawMedianMs": 1.6000000014901161,
+              "drawP95Ms": 2.7000000029802322,
+              "jsHeapBytes": 27041565,
+              "scope": "synchronous Canvas2D draw calls, not compositor FPS or Android device memory"
+            }
+          }
+        ],
+        "networkRequests": []
+      }
+    },
+    {
+      "name": "BENCHMARK",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/final/sqlite_lab.py"
+      ],
+      "exit_code": 0,
+      "log": "NEXUS-FINAL-01-BENCHMARK.txt",
+      "result": {
+        "measurement": "Python harness / production SQLite schema and FTS5; not JVM import or Android",
+        "sqlite": "3.53.1",
+        "documents": 5000,
+        "nodes": 5000,
+        "edges": 24985,
+        "storage_population_seconds": 0.8328868489988963,
+        "first_query_seconds": 0.008264511998277158,
+        "query_p50_seconds": 0.007278420500369975,
+        "query_p95_seconds": 0.008143223996739835,
+        "query_returned": 20,
+        "database_bytes": 11268096,
+        "python_peak_tracemalloc_bytes": 72391,
+        "process_peak_rss_kib_linux": 16512,
+        "graph_pages": [
+          {
+            "limit": 20,
+            "returned": 20,
+            "seconds": 0.00011853400064865127
+          },
+          {
+            "limit": 100,
+            "returned": 100,
+            "seconds": 0.0002810730002238415
+          },
+          {
+            "limit": 250,
+            "returned": 250,
+            "seconds": 0.0008024179987842217
+          }
+        ]
+      }
+    },
+    {
+      "name": "DIFF",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "NEXUS-FINAL-01-DIFF.txt"
+    }
+  ],
+  "source_sha256": {
+    "adapters/zim/nexus_zim.py": "5b8b1c6e127bbde26d2c8a935e123ea1b12b3677c36daf02d58e6ac173dd7493",
+    "nexus-cli/src/main/kotlin/fr/jarvis/nexus/cli/BackupDemo.kt": "eae330bd9ee1ffee821c00eb6ef6e0a3d7587ff6c83c1987876304d9bfda793a",
+    "nexus-cli/src/main/kotlin/fr/jarvis/nexus/cli/LibraryCli.kt": "8f44e75ecd77f8c4a3b70f01c99a72a94cb900d1e8b3a9ff57f8357216fb17da",
+    "nexus-cli/src/main/kotlin/fr/jarvis/nexus/cli/Main.kt": "9e1911b1bb017dd7766144ac314800661d7ce4e3dc39fcc2d945357ad1eb807f",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/api/CatalogTypes.kt": "c153f1c2f766e82728bb9ebd568297b9a54225c9bd96e39c5b6e8abf77ad83c1",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/api/KnowledgeCatalogService.kt": "b30941f4026f9da54685859d6ecdf9f1c18db03b1ccc41e35452249fa15ebdfe",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/archive/ArchiveReader.kt": "9ee3a3ee5e8e0b09c1751fdbc0db19fe9cde27ab4c70b0b7a6d2dc2217cb8975",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/backup/CryptoPort.kt": "51c896ef6b87f69793090ac4e487a820ef625cc95ba2979b3a541f2dfe8617c1",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/backup/IntegrityVerifier.kt": "b09eb650683a9fe36dbc2afc685f9da25f45fb96576f06fe6d33951ed0dd3624",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/backup/SnapshotTypes.kt": "9d9624e5dc98ea1b90a8f2aba182cfe69291a64f6beb613d09be7c63bcd1b52a",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/backup/Snapshots.kt": "2513fec8865f50ca4c0c566ea8bf3e1106ebbf6ebf116c3af037e77d848dbd35",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/graph/GraphService.kt": "0fb9fde4c5cd834c99bbcf6161d2590ae4d82137d7861cd540ed5bfd8b7cb668",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/graph/MentionSuggestions.kt": "bdc608c5ab568ca23b38d53eda4cabb317577ab8858635bfd7f9c4b08a602678",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/importing/ImportCoordinator.kt": "744b3a1f70529fd2394252f1899e87d5f94a1c673e5d5fec2f4660245eaf1d53",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/importing/ImportTypes.kt": "aafefd1541d317559f5eb739aa65d4a45c9610ff923d8556cf3fd537d92bce44",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/importing/StructuredParser.kt": "9631dd749d58bd16fe9f086daa67115cb8cc00888d0ea6b29ffdf267074cf482",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/library/LibraryService.kt": "a76b2a3ba77cba35c0ab03feb01470cc6153f192d7ca41b90039484e2da5a18a",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/rag/RagService.kt": "1bcc19f2fe70bf6f9eaff580a0cfe3251e2e80aedc8fe1f26fe8235130dfc4ee",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/rag/RagTypes.kt": "544ef2a30c331f8f47ed296ea18d1beb66ecff11774c9d94b05a8613e8809341",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/rag/SearchRepository.kt": "58a159dcd8246390b1aea95ceea8f9564e0b0d0478adf589f9f9fdc34e6d935d",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/search/FtsIndex.kt": "2a33ac4816868b270db51418da8d5a88563e10868ea0daba11e5ce3b188424c1",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/store/NexusDatabase.kt": "36b337b0380bcad73600275449e3fcbca952f2a7fa73dd60f1209e09fd468f4c",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/store/Repositories.kt": "54710753a2c27b510b409ffce36e563eb5bb7fe6e3352285063b69f09b47460d",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/store/SourceFingerprint.kt": "df136f521a61504004aac8a988bba03538f35cbb2b766d0df5119ed35cd401f4",
+    "nexus-core/src/test/kotlin/fr/jarvis/nexus/ArchiveContextTest.kt": "1d04b2fa9e8ea02f03391bb1d5af43c94967b73e40028a46669a99ddc25509c8",
+    "nexus-core/src/test/kotlin/fr/jarvis/nexus/FinalLibraryTest.kt": "7a9f0cc4e86d70b7addf35125423badbf630fd135b4c4927a2f674446183e5d7",
+    "nexus-core/src/test/kotlin/fr/jarvis/nexus/ImportPipelineTest.kt": "3c5f52ffde0ae205219660cef3f82b46395a6480b41b5dd8228c711ef83fa6f6",
+    "nexus-core/src/test/kotlin/fr/jarvis/nexus/NexusStorageTest.kt": "67d645155a06678dbdaf416e9e89805ccaac9f16d104d8ea100b449b680a68e6",
+    "nexus-core/src/test/kotlin/fr/jarvis/nexus/RagRetrievalTest.kt": "aa2b6016834a4a8edd5898212a07b27d6472838c65db1599da0dd3ae6532553c",
+    "nexus-core/src/test/kotlin/fr/jarvis/nexus/SnapshotRecoveryTest.kt": "c1cc84c0d0e0fd39f14f13ab47eb704b8a12da374365d816ba201c315bd1ddb7",
+    "nexus-services-adapter/src/main/kotlin/fr/jarvis/nexus/adapters/ImportCli.kt": "edd2ecb126703ae761f1138e97436dfb5cfc136dfb89046d1a3e9340107ed1f2",
+    "nexus-services-adapter/src/main/kotlin/fr/jarvis/nexus/adapters/ServicesParser.kt": "eb702d2e6d68f30480449d6b84ef5d6b0d5e38150a3cbf33487a9811158c34c3",
+    "nexus-services-adapter/src/test/kotlin/fr/jarvis/nexus/adapters/ServicesImportTest.kt": "7b2abb929674c716738a84ef561811877d159bb4dd0313df46407c7206910cea",
+    "tests/final/browser.cjs": "ca7482ece942aeaa8bc2eda436bdce7130fdc83afaac0b8440c2e3de537aac82",
+    "tests/final/sqlite_lab.py": "1d3d2d7b9ce0832bc0e11dee71219e59aef62cb5f0777f87589ddb88f99f2266",
+    "tests/final/test_graph.cjs": "c278e4d258146fd09742b16d6b48460b5e5c0862484f0553422841672f594baa",
+    "tests/final/test_sqlite.py": "31b2c3abc0a4e7305cf52f3a2ecc73337da5e9c0a2c8ab9b73dc5239ead5bacc",
+    "tests/zim/test_zim.py": "c68e5d2da2fae0d8667f53b5ae8677b307feac8eea547f6a53112fb0d1aa0c44",
+    "tools/prepare-services.py": "49f928f6d4e8d879ec9e4a10e6912e1f8a46868b837899cec488f973310b42bc",
+    "tools/validate-final.py": "36530376efe2bc7b03213398fa9bee02cf3e85a4362baf171b5042c72e63319e",
+    "viewer/app.js": "4ee3efa0843220bad3c7184bc2f6ffd9e61d00736cda95f10ca7ab65e3666f2a",
+    "viewer/graph.js": "47b6005fc7ae90c97492bf818b88148a716815de0a8f8307950d0bb3d83123ed",
+    "viewer/index.html": "b7db6dcfeb105d4aa2044e5b1be5d3f0a176d56cad9747b8fe77ddc785cd439d",
+    "viewer/style.css": "b7e6fdc13a662c9c0ec7ac65e53152a177bac2a2678eac22b46ebb5a981c73cf"
+  },
+  "not_executed": [
+    "Kotlin compilation and JUnit suites: Gradle/Kotlin/JDK17 toolchain absent, no installation allowed",
+    "Actual SERVICES PDF extractor / DOCX / CSV runtime tests in new JVM pipeline",
+    "Native libzim on authorized real Wikipedia archive: archive and binding unavailable",
+    "Android ABI/API24/SAF or physical mini-PC measurement",
+    "Local embedding model quality and full semantic recall",
+    "Encrypted v3/v4 snapshot integration regression (JUnit not run)"
+  ],
+  "preservation": {
+    "merged": false,
+    "other_repositories_modified": false,
+    "personal_data_transferred": false,
+    "wikipedia_copied_or_reindexed": false,
+    "installations": false
+  },
+  "scope_notes": [
+    "SQLite timings measure the actual production DDL and FTS using Python, not Kotlin import throughput",
+    "Chromium touch viewport is emulation, not Android qualification",
+    "Canvas timings measure synchronous draw calls, not compositor frame rate",
+    "Old ZIM tests include one real-archive test skipped; synthetic sparse-file results do not qualify Wikipedia",
+    "No cloud adapter, HTTP document API, OCR, model or background watcher enabled"
+  ]
+}

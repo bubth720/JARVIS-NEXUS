@@ -1,0 +1,25 @@
+test_bad_checksum_offset (test_zim.CatalogueTests.test_bad_checksum_offset) ... ok
+test_cache_and_provenance (test_zim.CatalogueTests.test_cache_and_provenance) ... ok
+test_cache_byte_and_entry_bounds (test_zim.CatalogueTests.test_cache_byte_and_entry_bounds) ... ok
+test_cli_restart_and_typed_errors (test_zim.CatalogueTests.test_cli_restart_and_typed_errors) ... ok
+test_corruption (test_zim.CatalogueTests.test_corruption) ... ok
+test_missing_and_replaced_archive (test_zim.CatalogueTests.test_missing_and_replaced_archive) ... ok
+test_missing_native_backend_is_unsupported (test_zim.CatalogueTests.test_missing_native_backend_is_unsupported) ... ok
+test_no_network_contract (test_zim.CatalogueTests.test_no_network_contract) ... ok
+test_paths_and_limits (test_zim.CatalogueTests.test_paths_and_limits) ... ok
+test_reader_errors (test_zim.CatalogueTests.test_reader_errors) ... ok
+test_restart_reference_and_readonly_remove (test_zim.CatalogueTests.test_restart_reference_and_readonly_remove) ... ok
+test_revoked_access_is_checked_before_cache (test_zim.CatalogueTests.test_revoked_access_is_checked_before_cache) ... ok
+test_saF_unsupported (test_zim.CatalogueTests.test_saF_unsupported) ... ok
+test_sparse_64_bit_seek_and_bounded_catalogue (test_zim.CatalogueTests.test_sparse_64_bit_seek_and_bounded_catalogue) ... ok
+test_symlink_rejected (test_zim.CatalogueTests.test_symlink_rejected) ... ok
+test_missing_title_index_is_explicit (test_zim.NativeApiContractTests.test_missing_title_index_is_explicit) ... ok
+test_oversized_item_rejected_before_content_read (test_zim.NativeApiContractTests.test_oversized_item_rejected_before_content_read) ... ok
+test_real_api_names_and_inert_text_extraction (test_zim.NativeApiContractTests.test_real_api_names_and_inert_text_extraction) ... ok
+test_native_search_article_and_source_unchanged (test_zim.RealArchiveTests.test_native_search_article_and_source_unchanged) ... skipped 'real archive not supplied; no native qualification'
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.089s
+
+OK (skipped=1)
+EVIDENCE sparse64 bytes=55440000000 allocated=4096 register_seconds=0.000144

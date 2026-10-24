@@ -1,0 +1,14 @@
+const assert=require('node:assert/strict');
+const {test}=require('node:test');
+const {Graph}=require('../../viewer/graph.js');
+const node=i=>({id:'n'+String(i).padStart(4,'0'),label:'Concept '+i,kind:'CONCEPT',category:'Cat '+(i%6),documentId:null,sourceUri:null});
+const page=nodes=>({format:'jarvis.nexus.graph/1',collectionId:'local',nodes,edges:[],nextNode:null,nextEdge:null});
+test('paged loading, limits and atomic refusal',()=>{const g=new Graph();g.load(page(Array.from({length:250},(_,i)=>node(i))));g.load(page(Array.from({length:250},(_,i)=>node(i+250))));assert.equal(g.nodes.size,500);assert.throws(()=>g.load(page([node(501)])));assert.equal(g.nodes.size,500);});
+test('invalid and mixed-collection pages preserve prior state',()=>{const g=new Graph();g.load(page([node(1)]));assert.throws(()=>g.load({...page([node(2)]),collectionId:'private'}));assert.throws(()=>g.load(page([{...node(2),label:'x'.repeat(257)}])));assert.equal(g.nodes.size,1);});
+test('search, category and density are bounded',()=>{const g=new Graph();g.load(page(Array.from({length:200},(_,i)=>node(i))));assert.equal(g.visible({limit:20}).nodes.length,20);assert.ok(g.visible({category:'Cat 2'}).nodes.every(n=>n.category==='Cat 2'));assert.equal(g.visible({query:'Concept 100'}).nodes.length,1);assert.throws(()=>g.visible({limit:501}));});
+test('positions remain finite on sphere',()=>{const g=new Graph();const nodes=Array.from({length:250},(_,i)=>node(i));for(const p of g.positions(nodes)){assert.ok([p.x,p.y,p.z].every(Number.isFinite));assert.ok(Math.abs(Math.hypot(p.x,p.y,p.z)-1)<1e-10);}});
+const evidence={trusted:false,items:[{text:'fact',citations:[{id:'citation',documentId:'doc',sourceId:'src',sourceUri:'synthetic:source',sourceSha256:'0'.repeat(64),textSha256:'0'.repeat(64),version:1,ordinal:0,start:0,end:4,page:null}]}]};
+const edge=(id,from,to,origin='EXPLICIT')=>({id,from,to,kind:'RELATED',origin,version:1,evidence});
+test('depth and suggested filters do not expand beyond loaded data',()=>{const g=new Graph();g.load({...page([node(0),node(1),node(2)]),edges:[edge('e1','n0000','n0001'),edge('e2','n0001','n0002','SUGGESTED')]});assert.equal(g.visible({selected:'n0000',depth:1}).nodes.length,2);assert.equal(g.visible({selected:'n0000',depth:2}).nodes.length,3);assert.equal(g.visible({selected:'n0000',depth:3,suggested:false}).nodes.length,2);});
+test('unproven and excessive evidence is refused',()=>{const g=new Graph();assert.throws(()=>g.load({...page([node(0),node(1)]),edges:[{...edge('e','n0000','n0001'),evidence:null}]}));assert.equal(g.nodes.size,0);});
+test('XSS labels remain inert strings in model',()=>{const g=new Graph();const label='<img src=x onerror=alert(1)>';g.load(page([{...node(0),label}]));assert.equal(g.visible().nodes[0].label,label);});

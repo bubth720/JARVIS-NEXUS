@@ -29,12 +29,17 @@ class SearchRepository internal constructor(private val database: NexusDatabase)
         require(query.importedAfterMs == null || query.importedBeforeMs == null || query.importedAfterMs <= query.importedBeforeMs)
         val words = Regex("[\\p{L}\\p{N}]+").findAll(Normalizer.normalize(query.text, Normalizer.Form.NFC)).map { it.value }.take(13).toList()
         require(words.isNotEmpty() && words.size <= 12)
-        val match = words.joinToString(" AND ") { "\"$it\"" }
+        require(query.mediaTypes.size <= 16 && query.mediaTypes.all { it.matches(Regex("[a-z0-9]{1,16}")) })
+        val match = if (query.phrase) "\"" + words.joinToString(" ") + "\"" else words.joinToString(" AND ") { "\"$it\"" }
         val parameters = mutableListOf<Any?>(match)
         val clauses = mutableListOf("d.deleted=0", "d.version=f.version", "i.state='READY'", "i.indexed_version=d.version")
         clauses += "d.collection_id IN (${scope.collectionIds.joinToString(",") { "?" }})"
         parameters.addAll(scope.collectionIds.sorted())
         scope.sourceIds?.let { ids -> clauses += "s.id IN (${ids.joinToString(",") { "?" }})"; parameters.addAll(ids.sorted()) }
+        if (query.mediaTypes.isNotEmpty()) {
+            clauses += "EXISTS(SELECT 1 FROM document_metadata m WHERE m.document_id=d.id AND m.media_type IN (${query.mediaTypes.joinToString(",") { "?" }}))"
+            parameters.addAll(query.mediaTypes.sorted())
+        }
         query.importedAfterMs?.let { clauses += "d.imported_at_ms>=?"; parameters += it }
         query.importedBeforeMs?.let { clauses += "d.imported_at_ms<=?"; parameters += it }
         parameters += limit
@@ -44,7 +49,7 @@ class SearchRepository internal constructor(private val database: NexusDatabase)
                 "SELECT f.*,s.id AS source_id,s.uri,s.sha256,bm25(fragment_fts) AS rank $joins WHERE fragment_fts MATCH ? AND ${clauses.joinToString(" AND ")} ORDER BY rank,f.document_id,f.ordinal LIMIT ?", *matchParameters.toTypedArray(),
             ) { r -> SearchHit(r.getString("text"), citationRow(r), r.getDouble("rank"), mode) }
             val exact = hits(parameters, MatchMode.EXACT)
-            if (exact.isNotEmpty() || words.size != 1 || !words.single().matches(Regex("[A-Za-z]{4,32}"))) return@read exact
+            if (exact.isNotEmpty() || query.phrase || words.size != 1 || !words.single().matches(Regex("[A-Za-z]{4,32}"))) return@read exact
             val word = words.single().lowercase(java.util.Locale.ROOT)
             val vocabularyParameters = parameters.drop(1).dropLast(1) + listOf(word.length - 1, word.length + 1, word.take(1))
             val alternatives = c.query("SELECT DISTINCT v.term $joins JOIN fragment_vocab v ON v.doc=x.rowid WHERE ${clauses.joinToString(" AND ")} AND length(v.term) BETWEEN ? AND ? AND substr(v.term,1,1)=? ORDER BY v.term LIMIT 256", *vocabularyParameters.toTypedArray()) { it.getString(1) }

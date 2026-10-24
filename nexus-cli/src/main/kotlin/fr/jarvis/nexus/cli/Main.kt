@@ -10,6 +10,8 @@ private fun <T> requireOk(result: CatalogResult<T>): T = when (result) {
 }
 /** CLI intentionally exposes only synthetic seeding and read-only inspection, not user-file import. */
 fun main(args: Array<String>) {
+    if(args.firstOrNull()=="library"){libraryCli(args);return}
+    if(args.firstOrNull()=="atlas-demo"){require(args.size==2);atlasDemo(Path.of(args[1]));return}
     require(args.size == 2 && args[0] in setOf("seed-demo", "inspect", "rag-demo", "backup-demo")) { "Usage: nexus-cli <seed-demo|inspect|rag-demo> <host-chosen-db-path>" }
     if(args[0]=="backup-demo"){backupDemo(Path.of(args[1]));return}
     val writeDemo = args[0] in setOf("seed-demo", "rag-demo")
