@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="fr.jarvis.nexus.ArchiveContextTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-10-25T17:20:07" hostname="22509f434799" time="0.153">
+  <properties/>
+  <testcase name="noEvidenceAndSmallCarrierBudgetStayTyped" classname="fr.jarvis.nexus.ArchiveContextTest" time="0.123"/>
+  <testcase name="wrongScopeIsDenied" classname="fr.jarvis.nexus.ArchiveContextTest" time="0.001"/>
+  <testcase name="revokedAuthorityCannotUseCitations" classname="fr.jarvis.nexus.ArchiveContextTest" time="0.006"/>
+  <testcase name="nativeAbsenceDoesNotProduceEvidence" classname="fr.jarvis.nexus.ArchiveContextTest" time="0.002"/>
+  <testcase name="tamperedCitationAndChangedArticleAreRejected" classname="fr.jarvis.nexus.ArchiveContextTest" time="0.013"/>
+  <testcase name="selectedArticleUsesExistingCarrierAndResolves" classname="fr.jarvis.nexus.ArchiveContextTest" time="0.007"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

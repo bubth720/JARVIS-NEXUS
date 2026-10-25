@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="fr.jarvis.nexus.SnapshotRecoveryTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-10-25T10:40:22" hostname="22509f434799" time="1.083">
+  <properties/>
+  <testcase name="realFtsAndCitationsSurviveEncryptedBackupAndIsolatedRestore" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.215"/>
+  <testcase name="authenticatedManifestCannotHideWrongDatabaseVersionOrHash" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.071"/>
+  <testcase name="changedWorkspaceIdentityCannotDeleteReplacementDirectory" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.027"/>
+  <testcase name="changedCurrentVersionProducesPreviewConflictWithoutAdoption" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.052"/>
+  <testcase name="authenticatedManyEntryZipRefusedBeforeExtraction" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.115"/>
+  <testcase name="realBackupRestoresEquivalentDataToSeparateWorkspaceAndRollsBackOnClose" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.049"/>
+  <testcase name="exportDoesNotChangeOriginalBytesAndRetainKeepsOnlySeparateCopy" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.075"/>
+  <testcase name="quotaRefusesBeforeCreatingArchive" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.011"/>
+  <testcase name="equalVersionForksStillProduceAConflictAndNeverOverwriteEitherCopy" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.116"/>
+  <testcase name="raceCreatingDestinationAfterEncryptionCannotClobberIt" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.054"/>
+  <testcase name="authenticatedZipTraversalIsRefusedAndCannotWriteOutsideWorkspace" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.009"/>
+  <testcase name="repeatedExportsUseFreshNonceAndDoNotContainClearDocumentText" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.024"/>
+  <testcase name="publicationUsesCapturedCanonicalParentDespiteAliasSwap" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.016"/>
+  <testcase name="truncatedArchiveHashMismatchAndPermissionDenialAreExplicit" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.054"/>
+  <testcase name="absentKeyAndAbsentConfirmationRefuseAndExistingArchiveIsNeverOverwritten" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.016"/>
+  <testcase name="missingRequiredSchemaIsNeverExportedAsVerifiedBackup" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.008"/>
+  <testcase name="expectedDigestCoversActualDecryptionInputNotEarlierPathContents" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.025"/>
+  <testcase name="wrongKeyAndTamperingRefuseWithoutChangingOriginal" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.057"/>
+  <testcase name="manifestRejectsUnknownVersionAndAmbiguousFields" classname="fr.jarvis.nexus.SnapshotRecoveryTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

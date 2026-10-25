@@ -1,0 +1,1 @@
+{"own_class_boundary": "verified", "classes": {"core": 131, "android": 17}, "min_sdk": 24, "aar_permissions": [], "aar_native_payload": false, "scope": "own core+adapter bytecode; not physical qualification"}

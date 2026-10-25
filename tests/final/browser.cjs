@@ -57,6 +57,19 @@ const http=require('node:http');
       assert.deepEqual(errors,[]);
       await page.locator('#demo').click();await page.waitForFunction(()=>document.getElementById('title').textContent.includes('120 nœuds'));
       if(!mobile)await page.screenshot({path:'/tmp/nexus-final-viewer.png',fullPage:true});
+      let jvmExport=null;
+      if(process.env.NEXUS_GRAPH_PAGE){
+        const raw=fs.readFileSync(process.env.NEXUS_GRAPH_PAGE),exported=JSON.parse(raw);
+        await page.locator('#clear').click();
+        await page.locator('#file').setInputFiles({name:'JVM-SYNTHETIC-atlas.json',mimeType:'application/json',buffer:raw});
+        await page.waitForFunction(n=>document.getElementById('title').textContent.includes(n+' nœuds'),exported.nodes.length);
+        const fromJvm=await page.evaluate(()=>[...graph.edges.values()].map(e=>e.evidence.citation));
+        assert.equal(fromJvm.length,exported.edges.length);
+        for(const edge of exported.edges){const expected=edge.evidence.items[0].citations[0];assert.deepEqual(fromJvm.find(c=>c.id===expected.id),expected);}
+        await page.getByRole('button',{name:'Fiche Atome',exact:true}).click();
+        assert.ok((await page.locator('#detail blockquote').innerText()).includes('Document synthétique mentionnant Atome'));
+        jvmExport={scope:'actual Kotlin GraphService/CSV demo, SYNTHETIC corpus; no CORE or Android integration',nodes:exported.nodes.length,edges:exported.edges.length,allCitationFieldsPreserved:true};
+      }
       const render=await page.evaluate(()=>{
         graph.clear();const nodes=Array.from({length:500},(_,i)=>({id:'b'+i,label:'Synthetic '+i,kind:'CONCEPT',category:'Category '+i%6,documentId:null,sourceUri:null}));
         const evidence={trusted:false,items:[{text:'test',citations:[{id:'c',documentId:'d',sourceId:'s',sourceUri:'synthetic:test',sourceSha256:'0'.repeat(64),textSha256:'0'.repeat(64),version:1,ordinal:0,start:0,end:4,page:null}]}]};
@@ -65,7 +78,7 @@ const http=require('node:http');
         const timings=[];for(let i=0;i<20;i++){const t=performance.now();rotationY+=.01;draw();timings.push(performance.now()-t);}timings.sort((a,b)=>a-b);
         return {syntheticNodes:500,syntheticEdges:2000,drawMedianMs:timings[10],drawP95Ms:timings[18],jsHeapBytes:performance.memory?.usedJSHeapSize??null,scope:'synchronous Canvas2D draw calls, not compositor FPS or Android device memory'};
       });
-      report.contexts.push({viewport:mobile?'390x844 touch emulation (not Android hardware)':'1440x1000 desktop',tests:['local JSON demo','node selection','search','keyboard rotation',...(mobile?['CDP pinch touch events']:[]),'inert imported HTML','safe original URI','oversize atomic refusal'],pageErrors:errors,render});
+      report.contexts.push({viewport:mobile?'390x844 touch emulation (not Android hardware)':'1440x1000 desktop',tests:['local JSON demo','node selection','search','keyboard rotation',...(mobile?['CDP pinch touch events']:[]),'inert imported HTML','safe original URI','oversize atomic refusal'],pageErrors:errors,render,jvmExport});
       await context.close();
     }
     assert.deepEqual(report.networkRequests,[]);

@@ -3,16 +3,16 @@ package fr.jarvis.nexus.api
 import fr.jarvis.nexus.store.*
 import java.io.IOException
 import java.io.InputStream
-import java.sql.Connection
-import java.sql.SQLException
+import fr.jarvis.nexus.store.NexusSession
+import fr.jarvis.nexus.store.NexusStorageException
 import java.util.UUID
 
 /** All public catalog operations are authorized by the host, including reads. */
 class KnowledgeCatalogService(
-    private val database: NexusDatabase,
+    private val database: NexusStoragePort,
     private val access: AccessPolicy,
     private val limits: CatalogLimits = CatalogLimits(),
-    private val clock: java.time.Clock = java.time.Clock.systemUTC(),
+    private val clock: NexusClock = NexusClock { System.currentTimeMillis() },
 ) : KnowledgeReadPort {
     private val sources = SourceRepository()
     private val documents = DocumentRepository()
@@ -24,7 +24,7 @@ class KnowledgeCatalogService(
         catch (e: Refusal) { CatalogResult.Rejected(e.code) }
         catch (e: SourceTooLarge) { CatalogResult.Rejected(KnowledgeError.LIMIT_EXCEEDED) }
         catch (e: IllegalArgumentException) { CatalogResult.Rejected(KnowledgeError.INVALID_INPUT) }
-        catch (e: SQLException) { CatalogResult.Rejected(KnowledgeError.STORAGE_FAILURE) }
+        catch (e: NexusStorageException) { CatalogResult.Rejected(KnowledgeError.STORAGE_FAILURE) }
         catch (e: IOException) { CatalogResult.Rejected(KnowledgeError.STORAGE_FAILURE) }
     }
     private fun text(value: String, max: Int, empty: Boolean = false) {
@@ -41,8 +41,8 @@ class KnowledgeCatalogService(
         require(expectedVersion == null || expectedVersion >= 1)
     }
     private fun page(limit: Int, offset: Int) { require(limit in 1..limits.maxPageSize && offset >= 0) }
-    private fun log(c: Connection, documentId: String?, kind: String) { c.execute("INSERT INTO mutation_log(document_id,kind) VALUES(?,?)", documentId, kind) }
-    private fun current(c: Connection, id: String, expected: Int): DocumentRecord {
+    private fun log(c: NexusSession, documentId: String?, kind: String) { c.execute("INSERT INTO mutation_log(document_id,kind) VALUES(?,?)", documentId, kind) }
+    private fun current(c: NexusSession, id: String, expected: Int): DocumentRecord {
         text(id, 128)
         val document = documents.find(c, id) ?: deny(KnowledgeError.NOT_FOUND)
         if (document.version != expected) deny(KnowledgeError.CONFLICT)
@@ -50,7 +50,7 @@ class KnowledgeCatalogService(
     }
     fun createCollection(name: String): CatalogResult<CollectionRecord> = authorized(Operation.WRITE) {
         text(name, 256)
-        database.transaction { c ->
+        database.inTransaction { c ->
             c.query("SELECT * FROM collection WHERE name=?", name) { CollectionRecord(it.getString(1), it.getString(2)) }.firstOrNull()
                 ?: CollectionRecord(UUID.randomUUID().toString(), name).also {
                     c.execute("INSERT INTO collection VALUES(?,?)", it.id, it.name); log(c, null, "COLLECTION_CREATED")
@@ -60,7 +60,7 @@ class KnowledgeCatalogService(
     /** Import is metadata/stream based; the stream remains owned by the caller. */
     fun importSource(input: ImportRequest, content: InputStream): CatalogResult<ImportOutcome> = importAndIndex(input, content) { _, _ -> }
     internal fun permits(operation: Operation): Boolean = runCatching { access.allows(operation) }.getOrDefault(false)
-    internal fun importAndIndex(input: ImportRequest, content: InputStream, index: (Connection, DocumentRecord) -> Unit): CatalogResult<ImportOutcome> = authorized(Operation.WRITE) {
+    internal fun importAndIndex(input: ImportRequest, content: InputStream, index: (NexusSession, DocumentRecord) -> Unit): CatalogResult<ImportOutcome> = authorized(Operation.WRITE) {
         val request = input.copy(fragments = input.fragments.toList())
         text(request.uri, 2048); text(request.title, 512); text(request.collectionId, 128)
         require(request.expectedVersion == null || request.expectedVersion >= 1)
@@ -72,7 +72,7 @@ class KnowledgeCatalogService(
             require(f.ordinal >= 0 && f.start >= 0 && f.end >= f.start && (f.page == null || f.page >= 1))
         }
         val fingerprint = SourceFingerprint.compute(content, limits.maxSourceBytes)
-        database.transaction { c ->
+        database.inTransaction { c ->
             if (!runCatching { access.allows(Operation.WRITE) }.getOrDefault(false)) deny(KnowledgeError.DENIED)
             if (c.query("SELECT id FROM collection WHERE id=?", request.collectionId) { it.getString(1) }.isEmpty()) deny(KnowledgeError.NOT_FOUND)
             val previous = documents.byUri(c, request.collectionId, request.uri)
@@ -83,7 +83,7 @@ class KnowledgeCatalogService(
                 val oldFragments = documents.fragments(c, previous.id, previous.version, limits.maxFragments, 0)
                 if (oldHash == fingerprint.sha256 && previous.title == request.title && oldFragments == request.fragments.sortedBy { it.ordinal }) {
                     index(c, previous)
-                    return@transaction ImportOutcome.Unchanged(previous)
+                    return@inTransaction ImportOutcome.Unchanged(previous)
                 }
                 if (request.expectedVersion == null || previous.version == Int.MAX_VALUE) deny(KnowledgeError.CONFLICT)
             } else if (request.expectedVersion != null) deny(KnowledgeError.CONFLICT)
@@ -99,7 +99,7 @@ class KnowledgeCatalogService(
     }
     fun rename(documentId: String, expectedVersion: Int, title: String): CatalogResult<DocumentRecord> = authorized(Operation.WRITE) {
         text(title, 512)
-        database.transaction { c ->
+        database.inTransaction { c ->
             val old = current(c, documentId, expectedVersion)
             if (old.deleted || old.version == Int.MAX_VALUE) deny(KnowledgeError.CONFLICT)
             val sourceId = c.query("SELECT source_id FROM revision WHERE document_id=? AND version=?", old.id, old.version) { it.getString(1) }.single()
@@ -112,9 +112,9 @@ class KnowledgeCatalogService(
         }
     }
     fun setDeleted(documentId: String, expectedVersion: Int, deleted: Boolean): CatalogResult<DocumentRecord> = authorized(Operation.WRITE) {
-        database.transaction { c ->
+        database.inTransaction { c ->
             val old = current(c, documentId, expectedVersion)
-            if (old.deleted == deleted) return@transaction old
+            if (old.deleted == deleted) return@inTransaction old
             if (old.version == Int.MAX_VALUE) deny(KnowledgeError.CONFLICT)
             val sourceId = c.query("SELECT source_id FROM revision WHERE document_id=? AND version=?", old.id, old.version) { it.getString(1) }.single()
             val source = c.query("SELECT * FROM source WHERE id=?", sourceId, map = ::sourceRow).single()
@@ -128,7 +128,7 @@ class KnowledgeCatalogService(
     /** Purge only acts on an already deleted document with explicit host confirmation. */
     fun purge(documentId: String, expectedVersion: Int, confirmed: Boolean): CatalogResult<Unit> = authorized(Operation.PURGE) {
         if (!confirmed) deny(KnowledgeError.DENIED)
-        database.transaction { c ->
+        database.inTransaction { c ->
             val old = current(c, documentId, expectedVersion)
             if (!old.deleted) deny(KnowledgeError.CONFLICT)
             c.execute("DELETE FROM document WHERE id=?", old.id)
@@ -137,11 +137,11 @@ class KnowledgeCatalogService(
         }
     }
     override fun documents(limit: Int, offset: Int, includeDeleted: Boolean): CatalogResult<List<DocumentRecord>> = authorized(Operation.READ) {
-        page(limit, offset); database.read { documents.list(it, limit, offset, includeDeleted) }
+        page(limit, offset); database.readSession { documents.list(it, limit, offset, includeDeleted) }
     }
     override fun fragments(documentId: String, version: Int, limit: Int, offset: Int): CatalogResult<List<Fragment>> = authorized(Operation.READ) {
         page(limit, offset); require(version >= 1); text(documentId, 128)
-        database.read { c ->
+        database.readSession { c ->
             val doc = documents.find(c, documentId) ?: deny(KnowledgeError.NOT_FOUND)
             if (doc.deleted) deny(KnowledgeError.NOT_FOUND)
             if (c.query("SELECT version FROM revision WHERE document_id=? AND version=?", documentId, version) { it.getInt(1) }.isEmpty()) deny(KnowledgeError.NOT_FOUND)
@@ -149,20 +149,20 @@ class KnowledgeCatalogService(
         }
     }
     override fun sources(limit: Int, offset: Int): CatalogResult<List<SourceRecord>> = authorized(Operation.READ) {
-        page(limit, offset); database.read { sources.list(it, limit, offset) }
+        page(limit, offset); database.readSession { sources.list(it, limit, offset) }
     }
     fun revisions(documentId: String, limit: Int = 100, offset: Int = 0): CatalogResult<List<RevisionRecord>> = authorized(Operation.READ) {
         page(limit, offset); text(documentId, 128)
-        database.read { c -> c.query("SELECT * FROM revision WHERE document_id=? ORDER BY version LIMIT ? OFFSET ?", documentId, limit, offset) { RevisionRecord(it.getString(1), it.getInt(2), it.getString(3), it.getString(4)) } }
+        database.readSession { c -> c.query("SELECT * FROM revision WHERE document_id=? ORDER BY version LIMIT ? OFFSET ?", documentId, limit, offset) { RevisionRecord(it.getString(1), it.getInt(2), it.getString(3), it.getString(4)) } }
     }
     fun mutations(afterSequence: Long = 0, limit: Int = 100): CatalogResult<List<MutationRecord>> = authorized(Operation.READ) {
         page(limit, 0); require(afterSequence >= 0)
-        database.read { c -> c.query("SELECT * FROM mutation_log WHERE sequence>? ORDER BY sequence LIMIT ?", afterSequence, limit) { MutationRecord(it.getLong(1), it.getString(2), it.getString(3)) } }
+        database.readSession { c -> c.query("SELECT * FROM mutation_log WHERE sequence>? ORDER BY sequence LIMIT ?", afterSequence, limit) { MutationRecord(it.getLong(1), it.getString(2), it.getString(3)) } }
     }
     /** Bounded provenance page, never conversation content or arbitrary filesystem reads. */
     fun catalogJson(limit: Int = 100, offset: Int = 0): CatalogResult<String> = authorized(Operation.READ) {
         page(limit, offset)
-        database.read { c ->
+        database.readSession { c ->
             val records = sources.list(c, limit, offset)
             val sourceJson = records.joinToString(",", "[", "]") {
                 "{\"id\":${json(it.id)},\"uri\":${json(it.uri)},\"sha256\":${json(it.sha256)},\"bytes\":${it.byteCount}}"
@@ -171,7 +171,7 @@ class KnowledgeCatalogService(
                 val sourceId = c.query("SELECT source_id FROM revision WHERE document_id=? AND version=?", doc.id, doc.version) { it.getString(1) }.single()
                 "{\"id\":${json(doc.id)},\"collectionId\":${json(doc.collectionId)},\"uri\":${json(doc.uri)},\"title\":${json(doc.title)},\"version\":${doc.version},\"deleted\":${doc.deleted},\"sourceId\":${json(sourceId)}}"
             }
-            "{\"apiVersion\":$CATALOG_API_VERSION,\"schemaVersion\":${SchemaMigrator.CURRENT_VERSION},\"offset\":$offset,\"sources\":$sourceJson,\"documents\":$documentJson}"
+            "{\"apiVersion\":$CATALOG_API_VERSION,\"schemaVersion\":${NexusSchema.CURRENT_VERSION},\"offset\":$offset,\"sources\":$sourceJson,\"documents\":$documentJson}"
         }
     }
     fun mutationJson(afterSequence: Long = 0, limit: Int = 100): CatalogResult<String> = when (val result = mutations(afterSequence, limit)) {

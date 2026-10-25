@@ -1,0 +1,124 @@
+{
+  "mission": "NEX-06A",
+  "repository": "bubth720/JARVIS-NEXUS",
+  "issue": 1,
+  "branch": "feat/nex-06a-android-api24",
+  "base_commit": "3acec55616ff8e3b1666091780fca59261377e18",
+  "status": "adapter_delivered_android_fts_capability_blocked",
+  "date_utc": "2026-10-24",
+  "tests": {
+    "jvm": {
+      "tests": 66,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "suites": {
+        "fr.jarvis.nexus.ImportPipelineTest": 17,
+        "fr.jarvis.nexus.NexusStorageTest": 18,
+        "fr.jarvis.nexus.RagRetrievalTest": 12,
+        "fr.jarvis.nexus.SnapshotRecoveryTest": 19
+      }
+    },
+    "services_parser": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "suites": {
+        "fr.jarvis.nexus.adapters.ServicesImportTest": 3
+      }
+    },
+    "android_host": {
+      "tests": 33,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "suites": {
+        "fr.jarvis.nexus.android.AndroidNexusStorageTest": 24,
+        "fr.jarvis.nexus.android.SelectedDocumentImporterTest": 8,
+        "fr.jarvis.nexus.android.UnavailableFtsTest": 1
+      }
+    }
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "artifacts": {
+    "nexus-core/build/libs/nexus-core-0.1.0.jar": {
+      "sha256": "cf19297e116b9b678725d2e618fedb5200e4382236764f4858d0833b4e017403",
+      "bytes": 168349
+    },
+    "nexus-android-store/build/outputs/aar/nexus-android-store-debug.aar": {
+      "sha256": "806b9285f66520ea06373061b7c4bcfd17d404412abfeb91394409a21ecae8be",
+      "bytes": 34948
+    },
+    "nexus-android-store/build/outputs/apk/androidTest/debug/nexus-android-store-debug-androidTest.apk": {
+      "sha256": "4bfffcdc23cd135ee6821a7b41063b9117b2f6642c24b8afe58ade0d610ad98b",
+      "bytes": 1826264
+    }
+  },
+  "own_class_boundary": {
+    "core_classes": 91,
+    "android_classes": 17,
+    "maximum_class_version": 52,
+    "forbidden_linkages_absent": [
+      "java.sql",
+      "java.nio.file",
+      "java.time",
+      "org.sqlite"
+    ],
+    "aar_permissions": [],
+    "aar_native_payload": false
+  },
+  "android_runtime_dependencies": [
+    "nexus-core",
+    "org.jetbrains.kotlin:kotlin-stdlib:2.0.21",
+    "org.jetbrains:annotations:13.0"
+  ],
+  "android_host_sdk_simulations": [
+    24,
+    25,
+    26,
+    35
+  ],
+  "android_host_sqlite_fts5": false,
+  "android_rag_qualified": false,
+  "instrumented_tests": {
+    "compiled": 2,
+    "executed": 0,
+    "reason": "No authorized device/emulator laboratory available"
+  },
+  "jvm_demo": {
+    "rag_citations": 3,
+    "resolved": 3,
+    "backup": "exported=true authentication=verified restored_documents=1 conflicts=1 corruption_refused=true originals_preserved=true"
+  },
+  "preservation": {
+    "nex04_local_checkpoint": "83aed5ce50477c590b7b9e996a4b0251e7b8b9fa",
+    "historical_jvm_tests_and_backup_sources": "identical files moved to nexus-jvm-store",
+    "main_unchanged": "b27df0b84d8f0082d17ca6278549298aaaf97926"
+  },
+  "blocking_conditions": [
+    "System SQLite must actually provide FTS5+fts5vocab+MATCH+BM25",
+    "Bundled/versioned FTS5 adapter requires separate qualification and authorization",
+    "CORE-03A remains waiting; no integration or data migration performed"
+  ],
+  "production_factory_fts_probe_bypass": false,
+  "api24_stub_compilation": {
+    "result": "passed",
+    "java_sources": 1,
+    "kotlin_sources": 16,
+    "platform": "Google SDK android-24/android.jar",
+    "kotlin_platform_flag": "-no-jdk",
+    "jvm_target": "1.8",
+    "compiler_only_lambda_stubs": true,
+    "device_qualification": false
+  },
+  "validation_commands": [
+    "bash /workspace/JAVIS-Local-v2/tools/identity-cloud-env.sh gradle -PservicesSource=/workspace/.jarvis-dependencies/services-fd41d75015f77e947d22d6a60e619adc00bd70b7 test :nexus-cli:installDist :nexus-services-adapter:installDist --no-daemon --console=plain --max-workers=2",
+    "bash /workspace/JAVIS-Local-v2/tools/identity-cloud-env.sh gradle -PwithAndroid=true :nexus-android-store:testDebugUnitTest :nexus-android-store:assembleDebug :nexus-android-store:assembleDebugAndroidTest :nexus-android-store:lintDebug :nexus-android-store:dependencies --configuration debugRuntimeClasspath --no-daemon --console=plain --max-workers=2",
+    "python3 tools/check-android-boundary.py",
+    "python3 tools/check-api24-compile.py --sdk /workspace/.jarvis-core-tools/android-sdk --gradle-cache /workspace/.jarvis-core-tools/gradle-home --jdk /workspace/.jarvis-core-tools/jdk-17.0.16+8"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "engine": "154.0.8037.57",
+  "transport": "explicit loopback static server; managed browser disallows file://",
+  "contexts": [
+    {
+      "viewport": "1440x1000 desktop",
+      "tests": [
+        "local JSON demo",
+        "node selection",
+        "search",
+        "keyboard rotation",
+        "inert imported HTML",
+        "safe original URI",
+        "oversize atomic refusal"
+      ],
+      "pageErrors": [],
+      "render": {
+        "syntheticNodes": 500,
+        "syntheticEdges": 2000,
+        "drawMedianMs": 3.699999999254942,
+        "drawP95Ms": 36.099999997764826,
+        "jsHeapBytes": 27047251,
+        "scope": "synchronous Canvas2D draw calls, not compositor FPS or Android device memory"
+      }
+    },
+    {
+      "viewport": "390x844 touch emulation (not Android hardware)",
+      "tests": [
+        "local JSON demo",
+        "node selection",
+        "search",
+        "keyboard rotation",
+        "CDP pinch touch events",
+        "inert imported HTML",
+        "safe original URI",
+        "oversize atomic refusal"
+      ],
+      "pageErrors": [],
+      "render": {
+        "syntheticNodes": 500,
+        "syntheticEdges": 2000,
+        "drawMedianMs": 3.600000001490116,
+        "drawP95Ms": 35,
+        "jsHeapBytes": 27026457,
+        "scope": "synchronous Canvas2D draw calls, not compositor FPS or Android device memory"
+      }
+    }
+  ],
+  "networkRequests": []
+}

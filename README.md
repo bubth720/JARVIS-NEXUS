@@ -147,3 +147,28 @@ python3 -m http.server 8765 --bind 127.0.0.1 --directory viewer
 
 Les options navigateur exigent Node/Playwright/Chromium déjà présents. Le serveur
 statique est un lancement volontaire local ; il n'ouvre ni ne sert la base.
+
+## FUSION-01 — noyau portable et qualification réelle
+
+La [livraison FUSION-01](docs/fusion-01/REPORT.md) réconcilie NEX-06A avec la
+bibliothèque v4. `nexus-core` contient le métier partagé sans JDBC ; les
+consommateurs JVM doivent dépendre de **`nexus-jvm-store`** et être recompilés.
+Les snapshots et le lecteur processus ZIM restent JVM. Android s'inclut seulement
+avec `-PwithAndroid=true`, minSdk24, et refuse si FTS5/vocab/MATCH/BM25 manquent.
+Le contexte et les citations ne deviennent jamais une autorisation ou un SYSTEM.
+
+Cette tranche a exécuté les tests Kotlin/JVM auparavant non faits. Les preuves
+historiques restent inchangées ; consulter le nouveau rapport et sa
+[matrice de compatibilité](docs/fusion-01/unified-integration-matrix.md).
+Robolectric et compilation API24 ne prouvent ni appareil physique ni RAG Android.
+Aucun raccordement CORE, IPC, JNI LLM ou migration personnelle n'est activé.
+
+```sh
+python3 tools/fusion-lab.py provision
+python3 tools/fusion-lab.py gradle -- test :nexus-cli:installDist --no-daemon
+python3 tools/check-fusion-lock.py
+```
+
+`provision` télécharge uniquement des outils de laboratoire épinglés dans `/tmp`,
+sur demande explicite ; `gradle`/`api24` ne les installent pas automatiquement.
+Voir le rapport pour l'adaptateur SERVICES et les contrôles Android séparés.

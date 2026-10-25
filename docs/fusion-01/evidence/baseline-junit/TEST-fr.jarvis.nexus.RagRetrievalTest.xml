@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="fr.jarvis.nexus.RagRetrievalTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-10-25T10:40:21" hostname="22509f434799" time="0.469">
+  <properties/>
+  <testcase name="importDateFilterIsExplicitAndDoesNotInventFileCreationDate" classname="fr.jarvis.nexus.RagRetrievalTest" time="0.088"/>
+  <testcase name="limitedOneEditFallbackIsVisibleAndStillScopeRestricted" classname="fr.jarvis.nexus.RagRetrievalTest" time="0.056"/>
+  <testcase name="unauthorizedCollectionAndSourceNeverLeakHits" classname="fr.jarvis.nexus.RagRetrievalTest" time="0.025"/>
+  <testcase name="adjacentFragmentsKeepEveryCitationAndWholeCarrierBudget" classname="fr.jarvis.nexus.RagRetrievalTest" time="0.024"/>
+  <testcase name="budgetsNeverTruncateAnUntraceableExcerpt" classname="fr.jarvis.nexus.RagRetrievalTest" time="0.053"/>
+  <testcase name="sourceLimitSelectsAnExplicitSubsetOfIdenticalEvidence" classname="fr.jarvis.nexus.RagRetrievalTest" time="0.022"/>
+  <testcase name="hostAuthorizationCanRevokeSourcesAndDefaultScopeGrantsNothing" classname="fr.jarvis.nexus.RagRetrievalTest" time="0.019"/>
+  <testcase name="deletionAndRenameInvalidateEarlierCitation" classname="fr.jarvis.nexus.RagRetrievalTest" time="0.056"/>
+  <testcase name="maliciousTextRemainsQuotedUntrustedDataAndCannotGrantPermissions" classname="fr.jarvis.nexus.RagRetrievalTest" time="0.012"/>
+  <testcase name="threeRealQueriesReturnResolvableCitations" classname="fr.jarvis.nexus.RagRetrievalTest" time="0.028"/>
+  <testcase name="duplicateEvidenceIsGroupedWithoutInventingSourceIdentity" classname="fr.jarvis.nexus.RagRetrievalTest" time="0.057"/>
+  <testcase name="tamperedCitationAndCrossScopeResolutionAreRefused" classname="fr.jarvis.nexus.RagRetrievalTest" time="0.012"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

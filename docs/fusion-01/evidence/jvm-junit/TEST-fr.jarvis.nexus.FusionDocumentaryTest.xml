@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="fr.jarvis.nexus.FusionDocumentaryTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-10-25T17:20:08" hostname="22509f434799" time="0.361">
+  <properties/>
+  <testcase name="permissionRevocationDuringIndexInspectionNeverReturnsReady" classname="fr.jarvis.nexus.FusionDocumentaryTest" time="0.05"/>
+  <testcase name="realDocumentAndEveryCitationSurviveCloseAndReopen" classname="fr.jarvis.nexus.FusionDocumentaryTest" time="0.03"/>
+  <testcase name="anotherConnectionCannotRewriteProvenanceInsideTheReadSnapshot" classname="fr.jarvis.nexus.FusionDocumentaryTest" time="0.026"/>
+  <testcase name="missingPhysicalFtsTableIsExplicit" classname="fr.jarvis.nexus.FusionDocumentaryTest" time="0.048"/>
+  <testcase name="indexPendingIsExplicitAndExistingIndexIsNeverRebuilt" classname="fr.jarvis.nexus.FusionDocumentaryTest" time="0.018"/>
+  <testcase name="emptyCollectionHasNoEvidenceRatherThanInventedReadiness" classname="fr.jarvis.nexus.FusionDocumentaryTest" time="0.018"/>
+  <testcase name="realUtf8CarrierBudgetAndWrongScopeAreRefused" classname="fr.jarvis.nexus.FusionDocumentaryTest" time="0.016"/>
+  <testcase name="corruptedFragmentIsNotResolvedAsOriginalCitation" classname="fr.jarvis.nexus.FusionDocumentaryTest" time="0.037"/>
+  <testcase name="denyCancellationAndExpiredDeadlinePrecedeSql" classname="fr.jarvis.nexus.FusionDocumentaryTest" time="0.024"/>
+  <testcase name="deadlineBecomingExpiredWhileReadingNeverReturnsReady" classname="fr.jarvis.nexus.FusionDocumentaryTest" time="0.054"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

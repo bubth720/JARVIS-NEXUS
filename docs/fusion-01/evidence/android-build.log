@@ -1,0 +1,255 @@
+Picked up JAVA_TOOL_OPTIONS:  -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :nexus-android-store
+Unable to initialize metrics, ensure /home/agent/.android is writable, details: /home/agent/.android/analytics.settings (No such file or directory)
+Checking the license for package Android SDK Platform-Tools in /tmp/fusion-lab-tools/android-sdk/licenses
+Warning: License for package Android SDK Platform-Tools not accepted.
+WARNING: platform-tools package is not installed. Please accept the installation licence to continue
+
+> Task :nexus-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :nexus-core:processResources NO-SOURCE
+> Task :nexus-android-store:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :nexus-android-store:preBuild UP-TO-DATE
+> Task :nexus-android-store:preDebugBuild UP-TO-DATE
+> Task :nexus-android-store:generateDebugResValues
+> Task :nexus-android-store:generateDebugResources
+> Task :nexus-android-store:packageDebugResources
+> Task :nexus-android-store:parseDebugLocalResources
+> Task :nexus-android-store:generateDebugRFile
+> Task :nexus-android-store:javaPreCompileDebug
+> Task :nexus-android-store:preDebugUnitTestBuild UP-TO-DATE
+> Task :nexus-android-store:writeDebugAarMetadata
+> Task :nexus-android-store:checkDebugUnitTestAarMetadata
+> Task :nexus-android-store:compileDebugLibraryResources
+> Task :nexus-android-store:generateDebugUnitTestResValues
+> Task :nexus-android-store:mapDebugUnitTestSourceSetPaths
+> Task :nexus-android-store:generateDebugUnitTestResources
+> Task :nexus-android-store:mergeDebugUnitTestResources
+> Task :nexus-android-store:extractDeepLinksDebug
+> Task :nexus-android-store:processDebugManifest
+> Task :nexus-android-store:processDebugUnitTestManifest
+> Task :nexus-android-store:processDebugUnitTestResources
+> Task :nexus-android-store:javaPreCompileDebugUnitTest
+> Task :nexus-android-store:mergeDebugShaders
+> Task :nexus-android-store:compileDebugShaders NO-SOURCE
+> Task :nexus-android-store:generateDebugAssets UP-TO-DATE
+> Task :nexus-android-store:mergeDebugAssets
+> Task :nexus-android-store:generateDebugUnitTestAssets UP-TO-DATE
+> Task :nexus-android-store:packageDebugAssets
+> Task :nexus-android-store:mergeDebugUnitTestAssets
+> Task :nexus-android-store:packageDebugUnitTestForUnitTest
+> Task :nexus-android-store:generateDebugUnitTestConfig
+> Task :nexus-android-store:mergeDebugJniLibFolders
+> Task :nexus-android-store:mergeDebugNativeLibs NO-SOURCE
+> Task :nexus-android-store:stripDebugDebugSymbols NO-SOURCE
+> Task :nexus-android-store:copyDebugJniLibsProjectAndLocalJars
+> Task :nexus-android-store:extractDeepLinksForAarDebug
+> Task :nexus-android-store:prepareDebugArtProfile
+> Task :nexus-android-store:prepareLintJarForPublish
+> Task :nexus-android-store:preDebugAndroidTestBuild UP-TO-DATE
+> Task :nexus-core:compileKotlin
+> Task :nexus-android-store:checkDebugAndroidTestAarMetadata
+> Task :nexus-android-store:generateDebugAndroidTestResValues
+> Task :nexus-android-store:mapDebugAndroidTestSourceSetPaths
+> Task :nexus-android-store:generateDebugAndroidTestResources
+> Task :nexus-android-store:mergeDebugAndroidTestResources
+> Task :nexus-android-store:processDebugAndroidTestManifest
+> Task :nexus-android-store:processDebugAndroidTestResources
+> Task :nexus-android-store:javaPreCompileDebugAndroidTest
+> Task :nexus-android-store:mergeDebugAndroidTestShaders
+> Task :nexus-android-store:compileDebugAndroidTestShaders NO-SOURCE
+> Task :nexus-android-store:generateDebugAndroidTestAssets UP-TO-DATE
+> Task :nexus-android-store:mergeDebugAndroidTestAssets
+> Task :nexus-android-store:compressDebugAndroidTestAssets
+> Task :nexus-android-store:checkDebugAndroidTestDuplicateClasses
+> Task :nexus-android-store:desugarDebugAndroidTestFileDependencies
+> Task :nexus-android-store:mergeExtDexDebugAndroidTest
+> Task :nexus-core:compileJava UP-TO-DATE
+> Task :nexus-core:classes UP-TO-DATE
+> Task :nexus-core:jar UP-TO-DATE
+> Task :nexus-android-store:copyDebugJniLibsProjectOnly
+> Task :nexus-android-store:mergeDebugAndroidTestJniLibFolders
+> Task :nexus-android-store:mergeDebugAndroidTestNativeLibs NO-SOURCE
+> Task :nexus-android-store:stripDebugAndroidTestDebugSymbols NO-SOURCE
+> Task :nexus-android-store:validateSigningDebugAndroidTest
+> Task :nexus-android-store:writeDebugAndroidTestSigningConfigVersions
+> Task :nexus-android-store:writeDebugLintModelMetadata
+> Task :nexus-android-store:extractProguardFiles
+> Task :nexus-android-store:compileDebugKotlin
+> Task :nexus-android-store:compileDebugJavaWithJavac NO-SOURCE
+> Task :nexus-android-store:bundleLibRuntimeToJarDebug
+> Task :nexus-android-store:bundleLibCompileToJarDebug
+> Task :nexus-android-store:processDebugJavaRes
+> Task :nexus-android-store:compileDebugUnitTestKotlin
+> Task :nexus-android-store:extractDebugAnnotations
+> Task :nexus-android-store:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :nexus-android-store:processDebugUnitTestJavaRes
+
+> Task :nexus-android-store:testDebugUnitTest
+Picked up JAVA_TOOL_OPTIONS:  -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts
+
+AndroidNexusStorageTest > selectedUriRejectsImplicitOrFilesystemAccess[24] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > selectedUriRejectsImplicitOrFilesystemAccess[25] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > selectedUriRejectsImplicitOrFilesystemAccess[26] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > selectedUriRejectsImplicitOrFilesystemAccess FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > migrationInterruptionAndMissingFtsRollbackAllTablesAndVersion[24] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > migrationInterruptionAndMissingFtsRollbackAllTablesAndVersion[25] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > migrationInterruptionAndMissingFtsRollbackAllTablesAndVersion[26] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > migrationInterruptionAndMissingFtsRollbackAllTablesAndVersion FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > hostFtsAbsenceIsRefusedRatherThanClaimingNativeCitation[24] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > hostFtsAbsenceIsRefusedRatherThanClaimingNativeCitation[25] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > hostFtsAbsenceIsRefusedRatherThanClaimingNativeCitation[26] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > hostFtsAbsenceIsRefusedRatherThanClaimingNativeCitation FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > incompatibleDatabaseIsRefusedWithoutMigration[24] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > incompatibleDatabaseIsRefusedWithoutMigration[25] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > incompatibleDatabaseIsRefusedWithoutMigration[26] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > incompatibleDatabaseIsRefusedWithoutMigration FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > rawStorageTransactionCrudRollbackCloseAndReopenAreReal[24] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > rawStorageTransactionCrudRollbackCloseAndReopenAreReal[25] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > rawStorageTransactionCrudRollbackCloseAndReopenAreReal[26] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > rawStorageTransactionCrudRollbackCloseAndReopenAreReal FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > rawStorageLeaseExcludesOtherConnectionAndAccessDenialPrecedesSql[24] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > rawStorageLeaseExcludesOtherConnectionAndAccessDenialPrecedesSql[25] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > rawStorageLeaseExcludesOtherConnectionAndAccessDenialPrecedesSql[26] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+AndroidNexusStorageTest > rawStorageLeaseExcludesOtherConnectionAndAccessDenialPrecedesSql FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+SelectedDocumentImporterTest > deniedAndOversizedSelectedContentAreRefusedAndDescriptorsClosed[24] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+SelectedDocumentImporterTest > deniedAndOversizedSelectedContentAreRefusedAndDescriptorsClosed[25] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+SelectedDocumentImporterTest > deniedAndOversizedSelectedContentAreRefusedAndDescriptorsClosed[26] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+SelectedDocumentImporterTest > deniedAndOversizedSelectedContentAreRefusedAndDescriptorsClosed FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+SelectedDocumentImporterTest > selectedPfdIsReadAndClosedWithBoundedDigest[24] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+SelectedDocumentImporterTest > selectedPfdIsReadAndClosedWithBoundedDigest[25] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+SelectedDocumentImporterTest > selectedPfdIsReadAndClosedWithBoundedDigest[26] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+SelectedDocumentImporterTest > selectedPfdIsReadAndClosedWithBoundedDigest FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+SelectedDocumentImporterTest > retainingReadPermissionRequiresExactOwnerConsentAndProviderFlags[24] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+SelectedDocumentImporterTest > retainingReadPermissionRequiresExactOwnerConsentAndProviderFlags[25] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+SelectedDocumentImporterTest > retainingReadPermissionRequiresExactOwnerConsentAndProviderFlags[26] FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+SelectedDocumentImporterTest > retainingReadPermissionRequiresExactOwnerConsentAndProviderFlags FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+UnavailableFtsTest > unavailableFtsLeavesExistingStateUntouched FAILED
+    java.lang.IllegalStateException at MavenDependencyResolver.java:118
+        Caused by: java.io.FileNotFoundException at RandomAccessFile.java:-2
+
+37 tests completed, 37 failed
+
+> Task :nexus-android-store:testDebugUnitTest FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':nexus-android-store:testDebugUnitTest'.
+> There were failing tests. See the report at: file:///workspace/JARVIS-NEXUS/nexus-android-store/build/reports/tests/testDebugUnitTest/index.html
+
+* Try:
+> Run with --scan to get full insights.
+
+BUILD FAILED in 3m 51s
+60 actionable tasks: 58 executed, 2 up-to-date

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="fr.jarvis.nexus.android.UnavailableFtsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-10-25T17:16:13" hostname="22509f434799" time="0.145">
+  <properties/>
+  <testcase name="unavailableFtsLeavesExistingStateUntouched" classname="fr.jarvis.nexus.android.UnavailableFtsTest" time="0.145"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Oct 25, 2026 5:16:13 PM com.almworks.sqlite4java.Internal log
+WARNING: [sqlite] [CREATE VIRTUAL TABLE temp.nexus_fts_probe USING fts5(body)]DB[2][C]: exception when clearing
+com.almworks.sqlite4java.SQLiteException: [1] DB[2] reset [no such module: fts5]
+	at com.almworks.sqlite4java.SQLiteConnection.throwResult(SQLiteConnection.java:1436)
+	at com.almworks.sqlite4java.SQLiteConnection.throwResult(SQLiteConnection.java:1409)
+	at com.almworks.sqlite4java.SQLiteConnection.cacheStatementHandle(SQLiteConnection.java:1338)
+	at com.almworks.sqlite4java.SQLiteConnection.access$900(SQLiteConnection.java:51)
+	at com.almworks.sqlite4java.SQLiteConnection$CachedController.dispose(SQLiteConnection.java:1733)
+	at com.almworks.sqlite4java.SQLiteStatement.dispose(SQLiteStatement.java:187)
+	at org.robolectric.shadows.ShadowLegacySQLiteConnection$Connections.lambda$finalizeStmt$3(ShadowLegacySQLiteConnection.java:416)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+]]></system-err>
+</testsuite>

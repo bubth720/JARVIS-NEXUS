@@ -1,0 +1,817 @@
+{
+  "format": "jarvis.nexus.fusion-inventory/1",
+  "observed_date": "2026-10-25",
+  "scope": "read-only reference audit; not the authoritative UNIFIED F0 BOM",
+  "repositories": [
+    {
+      "repository": "bubth720/JAVIS-Local-v2",
+      "ref": "feat/core-03-intensive",
+      "sha": "aea5ac859ac551d54fe16187c1883a487dbee9d6",
+      "branches": [
+        {
+          "ref": "design/alpha1-002-jni-review",
+          "sha": "d2a677bb35e63ee94db9dfa4edcaa97036b45dce"
+        },
+        {
+          "ref": "design/alpha1-003a-library-patch-review",
+          "sha": "7f591f0e041159bb773011d69fdd2b1fe94b5b88"
+        },
+        {
+          "ref": "design/alpha1-003b1-r-corrections",
+          "sha": "1539b332fba7e487fe85013cc41890c8a09052d6"
+        },
+        {
+          "ref": "docs/mission-002-project-knowledge",
+          "sha": "e0417e1609b478073e7cd019a25f8146a25a0fb8"
+        },
+        {
+          "ref": "feat/core-01-intensive",
+          "sha": "b98bd1c4722cd053021d4021717b73ff595d5fed"
+        },
+        {
+          "ref": "feat/core-02-intensive",
+          "sha": "e86107b8213b0aeaf9d22025cf6bef91a8e544a5"
+        },
+        {
+          "ref": "feat/core-03-intensive",
+          "sha": "aea5ac859ac551d54fe16187c1883a487dbee9d6"
+        },
+        {
+          "ref": "feat/core-voice-pilot",
+          "sha": "7426665f2794cba83646008fa0f342d102141201"
+        },
+        {
+          "ref": "feat/id-01-intensive",
+          "sha": "9b04ecd8794da54e571d95f28a1de02512e86b5d"
+        },
+        {
+          "ref": "feat/id-02-intensive",
+          "sha": "283423cb8b9d567539f33cf7f2f1fafa602cf974"
+        },
+        {
+          "ref": "feat/mem-01-intensive",
+          "sha": "e46ba56163e54bc03d7a2321b0fcb51449e68973"
+        },
+        {
+          "ref": "feat/mem-02-intensive",
+          "sha": "49ad428e94edd75c2a1d115c8c2504f26609eace"
+        },
+        {
+          "ref": "feature/alpha1-001-text-lab",
+          "sha": "b2ec98238f70e89edc636c1c671f2ddf1b957d74"
+        },
+        {
+          "ref": "feature/alpha1-003-native-validation",
+          "sha": "84571ae6058518e75d63077dfda15a0ef60a0e46"
+        },
+        {
+          "ref": "feature/alpha1-003b1-isolated-native-build",
+          "sha": "d63462bcaffca8d84e42ca9987a2ad22a27dd102"
+        },
+        {
+          "ref": "feature/identity-002-core-runtime",
+          "sha": "8adec3e0e8dfdce685a33ef796fc3150facc7f0a"
+        },
+        {
+          "ref": "feature/identity-002t-tokenizer-port",
+          "sha": "71831913a772bcc51b20885b52b965f5d3e9f61b"
+        },
+        {
+          "ref": "feature/mvp-001-local-conversation",
+          "sha": "7368f41bbcec389e4b76c99ea27819645d94a50d"
+        },
+        {
+          "ref": "feature/mvp-002-unified-interaction",
+          "sha": "c7fec293791dc0b30c83d712e0fae0bbf59736a0"
+        },
+        {
+          "ref": "fix/api-24-25-time-reply",
+          "sha": "d7e51b4ac55b0726e5289b7f062478903fb7aa67"
+        },
+        {
+          "ref": "fix/sqlite-data-preservation",
+          "sha": "7a5b53e3247dc7132eb9e5648ecf4169a4054d62"
+        },
+        {
+          "ref": "fixture/004c-p2-client",
+          "sha": "da40ed7155409b85860a22c1dbbfe35029cea29a"
+        },
+        {
+          "ref": "main",
+          "sha": "226e2e8cc3eebd479805b89d035eb5c1cbcad540"
+        },
+        {
+          "ref": "mission-004a-core-stability",
+          "sha": "306a89b7cc33803aba9b7af9c6a553f1bc40f08f"
+        },
+        {
+          "ref": "mission-004b-core-backend-lifecycle",
+          "sha": "29646448c80568d868a702192df761fc9d7a896d"
+        },
+        {
+          "ref": "mission-004b-inference-contract",
+          "sha": "07cd282603205d57f3d2ded1b14d5d95e68989e2"
+        },
+        {
+          "ref": "plan/intensive-2026-10-22",
+          "sha": "1b7ac9b35b5e6e133167fcaf1873e58b9db7288e"
+        },
+        {
+          "ref": "release/mvp-003-android-candidate",
+          "sha": "90215258ad3914cd6576971334ecb8ca48db74ff"
+        },
+        {
+          "ref": "release/preview-001-android",
+          "sha": "86ea8bfa94deea0bab94914cd7214bc395a83f9b"
+        },
+        {
+          "ref": "test/mvp-004-native-qualification",
+          "sha": "a6f13dd101990c6b5e3992be506c9a5b99873621"
+        }
+      ],
+      "agents": [
+        {
+          "path": "AGENTS.md",
+          "blob_sha": "d6dcb7958dc67354b007b9a74acb5b84fd841609"
+        }
+      ],
+      "ci": [
+        {
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JAVIS-Local-v2/actions/runs/40031083137/job/120679207123"
+        }
+      ],
+      "status": "REFERENCE_ONLY_NOT_INTEGRATED"
+    },
+    {
+      "repository": "bubth720/JARVIS-LLM",
+      "ref": "feat/llm-03-runtime",
+      "sha": "2efb3f7aa6205062ab71f570212019fd1d9885b6",
+      "branches": [
+        {
+          "ref": "design/003f-f3b-worker-connection",
+          "sha": "8f1c2f5a936d6c01874d7be6bb987f4459b83374"
+        },
+        {
+          "ref": "feat/llm-01-runtime",
+          "sha": "062054edcbf47ba96408f751f25189d86b0b023d"
+        },
+        {
+          "ref": "feat/llm-02-runtime",
+          "sha": "895a067ffc860d56a2dbb1ce22cb274096f8e3a2"
+        },
+        {
+          "ref": "feat/llm-03-runtime",
+          "sha": "2efb3f7aa6205062ab71f570212019fd1d9885b6"
+        },
+        {
+          "ref": "feat/003f-f3-native-observation",
+          "sha": "aa85ad4b506bb655dbe5b50ec4b125d19b48e81e"
+        },
+        {
+          "ref": "fix/003f-d4-02e1-commit",
+          "sha": "1ce24405b04a50f97cf30078b9716c7d00c593fc"
+        },
+        {
+          "ref": "fixture/003e-p2-secure-endpoint",
+          "sha": "030152a5f3d888017ad7a7fe8026f2e2c48e8fd5"
+        },
+        {
+          "ref": "fixture/003f-bootstrap-attestation",
+          "sha": "111be993e970051686bd5c27b3115320513a4be7"
+        },
+        {
+          "ref": "main",
+          "sha": "917e3351f9b525857b6aa019e98d07872d8f6e76"
+        },
+        {
+          "ref": "mission-002-prototype",
+          "sha": "aa6b3d37c9109dc3da1296bc00214839bb218e39"
+        },
+        {
+          "ref": "mission-002b-memory",
+          "sha": "204c6c9a117501286aac54202c6e7dd1365c48b5"
+        },
+        {
+          "ref": "mission-002c-tablet",
+          "sha": "fbda51f3ed762d8e63d5397618daf052567002d6"
+        },
+        {
+          "ref": "mission-003-catalogue",
+          "sha": "0b5eba7a37d9304e2a33e66ab6e84a0f70e02a2a"
+        },
+        {
+          "ref": "mission-003b-resources",
+          "sha": "1756e29557287550b5cfdffdd911cada2a302db6"
+        },
+        {
+          "ref": "mission-003c-device-qualification",
+          "sha": "43503f59f530f2bb48955bce9d7d71e2470fb668"
+        },
+        {
+          "ref": "mission-003d-core-generation-contract",
+          "sha": "c4e7611eebb64a96a796164bc3d4c961dbc7dcba"
+        },
+        {
+          "ref": "mission-003d-p2-core-contract",
+          "sha": "daa46432e847ed9613dc403045498e27281eff42"
+        },
+        {
+          "ref": "plan/intensive-2026-10-22",
+          "sha": "fdb71605d91b69484a38fcf0df283365a2493f38"
+        }
+      ],
+      "agents": [],
+      "ci": [
+        {
+          "name": "Cloud Linux peak RSS ${{ needs.model-probe.outputs.memory }}",
+          "status": "completed",
+          "conclusion": "skipped",
+          "url": "https://github.com/bubth720/JARVIS-LLM/actions/runs/39917245876/job/120294662097"
+        },
+        {
+          "name": "model-probe",
+          "status": "completed",
+          "conclusion": "skipped",
+          "url": "https://github.com/bubth720/JARVIS-LLM/actions/runs/39917245876/job/120294367854"
+        },
+        {
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/bubth720/JARVIS-LLM/actions/runs/39917245876/job/120293343034"
+        },
+        {
+          "name": "validate",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/bubth720/JARVIS-LLM/actions/runs/39917245806/job/120293342428"
+        }
+      ],
+      "status": "REFERENCE_ONLY_NOT_INTEGRATED"
+    },
+    {
+      "repository": "bubth720/JARVIS-VOICE",
+      "ref": "feat/voice-final-01",
+      "sha": "fe57452fcb33f5b6870070f30ba6c5f1d349c4ba",
+      "branches": [
+        {
+          "ref": "feat/android-pocket-cloning",
+          "sha": "a5e2c056a3e98bee7132aa8e50dcf0d5ec18d387"
+        },
+        {
+          "ref": "feat/android-pocket-cloning-005d",
+          "sha": "9429a9ebf0f21909ac6c59a07491fa2bca027493"
+        },
+        {
+          "ref": "feat/android-pocket-probe",
+          "sha": "de38598faf7a3a09c2d0f53d86a150725c953f01"
+        },
+        {
+          "ref": "feat/android-tts-foundation",
+          "sha": "2aad62625121fa436e5af84bbd9d01f00aafceed"
+        },
+        {
+          "ref": "feat/pocket-tts-cpu-prototype",
+          "sha": "6d8a04bfb49f0d08ac948c8bb981fc6a92f2e7c4"
+        },
+        {
+          "ref": "feat/voice-01-intensive",
+          "sha": "99d4073426896c992141bc010a69bb2690e03e71"
+        },
+        {
+          "ref": "feat/voice-02-intensive",
+          "sha": "3ffb28011506abcc94b5d4ee71d6c79fc278333b"
+        },
+        {
+          "ref": "feat/voice-04-speed-longform-emotions",
+          "sha": "b1e9c9400072650443cc3c2ccd48bfa810d40a3e"
+        },
+        {
+          "ref": "feat/voice-05-voice-delivery",
+          "sha": "1a9f713dff28f6e4fb145728815e9ed118f5a929"
+        },
+        {
+          "ref": "feat/voice-06-voice-delivery",
+          "sha": "0e9e31553e15cc24b64f9edc8196344cf2b2d5f6"
+        },
+        {
+          "ref": "feat/voice-07-voice-delivery",
+          "sha": "40cb27b1e27567ae1841e4cfb3dd2c57a7b57820"
+        },
+        {
+          "ref": "feat/voice-bridge-pilot",
+          "sha": "04c4ca1c050c16e097d27b08831544b66121128c"
+        },
+        {
+          "ref": "feat/voice-core-bridge-005k",
+          "sha": "6a86d847ff57fd9f695ee87eb5bff21c0c8862ca"
+        },
+        {
+          "ref": "feat/voice-expression-005i",
+          "sha": "f917ef15ce74a045564ddabdc407ccde4b595ba6"
+        },
+        {
+          "ref": "feat/voice-final-01",
+          "sha": "fe57452fcb33f5b6870070f30ba6c5f1d349c4ba"
+        },
+        {
+          "ref": "feat/voice-identity-005h",
+          "sha": "1d0285ea19fa84c052ab5ce3b2f08146bcf30976"
+        },
+        {
+          "ref": "feat/voice-performance-core-contract-005k",
+          "sha": "824ae2b1c083b8165ad02ef24ad1cda02cc2d68c"
+        },
+        {
+          "ref": "feat/voice-studio-005j",
+          "sha": "cce9a4549c35e721ee37daff014d427ef3656b2a"
+        },
+        {
+          "ref": "main",
+          "sha": "b80b1728c481200b3b0e11c0843f1a268a184fa1"
+        },
+        {
+          "ref": "plan/intensive-2026-10-22",
+          "sha": "31a0087381db14a9d2256e6e64373ef45b38b616"
+        }
+      ],
+      "agents": [],
+      "ci": [
+        {
+          "name": "apk",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045344/job/121025546235"
+        },
+        {
+          "name": "audio (26)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045344/job/121024844943"
+        },
+        {
+          "name": "audio (35)",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045344/job/121024844938"
+        },
+        {
+          "name": "unit",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045344/job/121024469066"
+        },
+        {
+          "name": "apk",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145041706/job/121024468662"
+        },
+        {
+          "name": "audio",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145041706/job/121024468429"
+        },
+        {
+          "name": "android-quality-playback",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045381/job/121024463318"
+        },
+        {
+          "name": "apk-without-private-weights",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045335/job/121024463292"
+        },
+        {
+          "name": "android-library-crypto-playback",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045318/job/121024463221"
+        },
+        {
+          "name": "android-privacy",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045335/job/121024463214"
+        },
+        {
+          "name": "android-library-crypto-playback",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045311/job/121024463194"
+        },
+        {
+          "name": "synthetic-android-codec",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045352/job/121024463188"
+        },
+        {
+          "name": "android-fixtures (26)",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045326/job/121024463158"
+        },
+        {
+          "name": "build-and-audit",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045381/job/121024463131"
+        },
+        {
+          "name": "build-and-audit",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045315/job/121024463108"
+        },
+        {
+          "name": "contracts-and-preservation",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045330/job/121024463085"
+        },
+        {
+          "name": "build",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045349/job/121024463021"
+        },
+        {
+          "name": "build-and-audit",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045318/job/121024463017"
+        },
+        {
+          "name": "build-and-inference",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045352/job/121024462988"
+        },
+        {
+          "name": "android-library-crypto-playback",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045315/job/121024462987"
+        },
+        {
+          "name": "build-and-audit",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045311/job/121024462983"
+        },
+        {
+          "name": "android-fixtures (35)",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045326/job/121024462981"
+        },
+        {
+          "name": "test-and-build",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045314/job/121024462924"
+        },
+        {
+          "name": "unit",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145041706/job/121024452867"
+        },
+        {
+          "name": "build",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145041684/job/121024452624"
+        }
+      ],
+      "status": "REFERENCE_ONLY_NOT_INTEGRATED"
+    },
+    {
+      "repository": "bubth720/JARVIS-INTERFACE",
+      "ref": "feat/interface-final-01",
+      "sha": "db459ba388a3fea992d80320c3989be0edda8500",
+      "branches": [
+        {
+          "ref": "development/mission-002",
+          "sha": "d1c0931c4507e9af8f1aa60951947c23f4394b56"
+        },
+        {
+          "ref": "feat/ava-01-ui-avatar",
+          "sha": "0c6d8a1bdeabe8f23fe8f98263cfe88d8c3c216e"
+        },
+        {
+          "ref": "feat/ava-03-athena-premium",
+          "sha": "ab0a3f5a992a90ca53dc20c9c56d3bd8a0c2b3a0"
+        },
+        {
+          "ref": "feat/ava-04-delivery",
+          "sha": "283ed2f3cd361d5b0b6bc927432bf836af8db1f6"
+        },
+        {
+          "ref": "feat/interface-final-01",
+          "sha": "db459ba388a3fea992d80320c3989be0edda8500"
+        },
+        {
+          "ref": "feat/ui-01-ui-avatar",
+          "sha": "48db1ecbb40dfa5b90a8e696fe6c2a62228f5ce9"
+        },
+        {
+          "ref": "feat/ui-02-delivery",
+          "sha": "4842ef1f47ac2a1efc29e77408dbdb3ec42768bb"
+        },
+        {
+          "ref": "feat/ui-03-delivery",
+          "sha": "0869b3959d3636deab3c938e6cb98b7e555f19af"
+        },
+        {
+          "ref": "feature/interface-avatar-001",
+          "sha": "139bfdc4aac5d2fc9b841c5b804c3b89bfc57ec6"
+        },
+        {
+          "ref": "feature/interface-dashboard-004",
+          "sha": "d2a0ca05723c205e4351d03a3eeb5f2ce898f3a8"
+        },
+        {
+          "ref": "feature/interface-storage-005",
+          "sha": "037e2cbe2e100eb06136e9899b815a4e8351fd72"
+        },
+        {
+          "ref": "fix/interface-ci-003",
+          "sha": "4fe7b19ec7d637dda28cd517ec5f87a186407d0d"
+        },
+        {
+          "ref": "plan/intensive-2026-10-22",
+          "sha": "50f5f61708d5ce6b141dec98fe0c73d89eaf00e3"
+        },
+        {
+          "ref": "test/interface-device-006",
+          "sha": "ebd6c5fc873054d3f04bb2388d53e407dc73b7b7"
+        }
+      ],
+      "agents": [],
+      "ci": [
+        {
+          "name": "build",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-INTERFACE/actions/runs/40182654910/job/121136785852"
+        }
+      ],
+      "status": "REFERENCE_ONLY_NOT_INTEGRATED"
+    },
+    {
+      "repository": "bubth720/JARVIS-NEXUS",
+      "ref": "feat/nexus-final-01",
+      "sha": "d903bf04f497ab0dc7f40e9708ed057e4f24c6ee",
+      "branches": [
+        {
+          "ref": "feat/nex-01-moteur-local-de-connaissances-",
+          "sha": "c25d401dff6865657b75d320361ae81811363fa8"
+        },
+        {
+          "ref": "feat/nex-02-chaine-d-import-local-extracti",
+          "sha": "bfa46e1fe08d4943fe864ac53d0c0ba56109ea9c"
+        },
+        {
+          "ref": "feat/nex-03-recherche-de-connaissances-cit",
+          "sha": "777e6afa75ecb99b85e52d68837cb0fefcf161cd"
+        },
+        {
+          "ref": "feat/nex-05-sauvegarde-chiffrable-restaura",
+          "sha": "3acec55616ff8e3b1666091780fca59261377e18"
+        },
+        {
+          "ref": "feat/nex-06a-android-api24",
+          "sha": "374ea2e2fd640e78f2f5e12e60e75b493420e504"
+        },
+        {
+          "ref": "feat/nexus-final-01",
+          "sha": "d903bf04f497ab0dc7f40e9708ed057e4f24c6ee"
+        },
+        {
+          "ref": "main",
+          "sha": "b27df0b84d8f0082d17ca6278549298aaaf97926"
+        },
+        {
+          "ref": "plan/intensive-2026-10-22",
+          "sha": "e4b2018383a35106cd326848fab597ef07a50157"
+        },
+        {
+          "ref": "work/nex-04-zim-readonly",
+          "sha": "bbccac2ff2cc052f897c7f5015f234507e047b95"
+        }
+      ],
+      "agents": [],
+      "ci": [],
+      "status": "REFERENCE_ONLY_NOT_INTEGRATED"
+    },
+    {
+      "repository": "bubth720/JARVIS-SERVICES",
+      "ref": "feat/services-final-01",
+      "sha": "d16dd84f27881460ec9f02d2a54d9ddff23187dc",
+      "branches": [
+        {
+          "ref": "feat/serv-01-services",
+          "sha": "d300642a4f10b53bdc988a43e0d7abb05c0d2253"
+        },
+        {
+          "ref": "feat/serv-02-services",
+          "sha": "f7681707e7308d4b967e642d2f807f3e354209cc"
+        },
+        {
+          "ref": "feat/serv-03-services",
+          "sha": "3decdc47d82f9b43713c48cab244762941770a81"
+        },
+        {
+          "ref": "feat/serv-04a-android-tool-port",
+          "sha": "f00091a639612b91eca1a301580c8f531249f1e3"
+        },
+        {
+          "ref": "feat/services-final-01",
+          "sha": "d16dd84f27881460ec9f02d2a54d9ddff23187dc"
+        },
+        {
+          "ref": "main",
+          "sha": "c9f94ad2fa219a5e09cda92fb451aca606ee1646"
+        },
+        {
+          "ref": "mission-001-services-foundation",
+          "sha": "075158b755000f8c6d8e37747cec9de8221daa72"
+        },
+        {
+          "ref": "mission-002a-android-qualification",
+          "sha": "0f462c8ad5529ba974cefa17fe6562c8d8461d26"
+        },
+        {
+          "ref": "plan/intensive-2026-10-22",
+          "sha": "67e7f798b8bbcb8391e0d57ea5b886a2a9edf4db"
+        }
+      ],
+      "agents": [],
+      "ci": [
+        {
+          "name": "android-build",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-SERVICES/actions/runs/40144003529/job/121021403773"
+        },
+        {
+          "name": "jvm",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-SERVICES/actions/runs/40144003529/job/121021403760"
+        },
+        {
+          "name": "android-instrumented",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-SERVICES/actions/runs/40144003529/job/121021403650"
+        }
+      ],
+      "status": "REFERENCE_ONLY_NOT_INTEGRATED"
+    },
+    {
+      "repository": "bubth720/JARVIS-VOLUTION-",
+      "ref": "feat/evol-03-atelier-de-correctifs-isoles-e",
+      "sha": "c0180181804338d21f3bf9d4b537b709595902f7",
+      "branches": [
+        {
+          "ref": "feat/evol-01-telemetrie-locale-et-observate",
+          "sha": "9cc6288b537d71743fbb634a8d098ce304441464"
+        },
+        {
+          "ref": "feat/evol-02-moteur-de-diagnostic-et-recomm",
+          "sha": "0abd5f96caa27ee1e73a623d538e48555a02ce76"
+        },
+        {
+          "ref": "feat/evol-03-atelier-de-correctifs-isoles-e",
+          "sha": "c0180181804338d21f3bf9d4b537b709595902f7"
+        },
+        {
+          "ref": "main",
+          "sha": "a67d3b6d39aa7d30ad38e9b1c9230b4e07180eb0"
+        },
+        {
+          "ref": "plan/intensive-2026-10-22",
+          "sha": "36d09339aa93869c36c0981800918cde818637ac"
+        }
+      ],
+      "agents": [],
+      "ci": [
+        {
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOLUTION-/actions/runs/39996031251/job/120559673042"
+        }
+      ],
+      "status": "REFERENCE_ONLY_NOT_INTEGRATED"
+    },
+    {
+      "repository": "bubth720/JARVIS-UNIFIED",
+      "ref": "feat/uni-02-tooling",
+      "sha": "329f304115c9bc5b6dd6ccc2d68d19bf455b5e6c",
+      "branches": [
+        {
+          "ref": "audit/d4-02c-core-llm-convergence",
+          "sha": "0dbb978994994fa3210124f1e150ca23426d410d"
+        },
+        {
+          "ref": "audit/mission-001",
+          "sha": "004b89d1f86135962e452fb644b489f69fc177d1"
+        },
+        {
+          "ref": "decision/d4-02d-v1-v5-approved-2026-10-17",
+          "sha": "8ddac8fe8a1861a27d3abeca81eb4ab8f110c3a9"
+        },
+        {
+          "ref": "decision/identity-001-approved-2026-10-17",
+          "sha": "1748cb0706fa4b0cfac2df963d82a14195b9d25a"
+        },
+        {
+          "ref": "decision/identity-001b-d4-02e-approved-2026-10-17",
+          "sha": "275eca892c20b6dae3bfa20b241099542fd4ced6"
+        },
+        {
+          "ref": "design/d4-02-ownership-mapping",
+          "sha": "52a44fb6cf01623a8c5d96edc5d2bbac76abd9a1"
+        },
+        {
+          "ref": "design/d4-02d-bootstrap-recovery",
+          "sha": "27e674057a348f8074a86851f4e2c11a933162e9"
+        },
+        {
+          "ref": "design/d4-02e-f1-f2-recovery-clarification",
+          "sha": "49dd4027d2ccb54bf330f591d3ee17f5dc577132"
+        },
+        {
+          "ref": "design/identity-001-constitution",
+          "sha": "db63719c09435fd2e7863dd72e7bec0e055fa32e"
+        },
+        {
+          "ref": "design/identity-001b-contract-freeze",
+          "sha": "d7c90785ae4263892a6c96e140cfa88206cb4197"
+        },
+        {
+          "ref": "design-004-sync-expressions",
+          "sha": "db1592a76ba6a10b9798f4803e4e4247bbf89c01"
+        },
+        {
+          "ref": "docs/adr-001-approved-2026-10-15",
+          "sha": "e0e6f69c4908a152da4e43864a08fef0c8f7a7af"
+        },
+        {
+          "ref": "feat/uni-01-tooling",
+          "sha": "bd283dad3a57effa276f7f4441901839d2834d5c"
+        },
+        {
+          "ref": "feat/uni-02-tooling",
+          "sha": "329f304115c9bc5b6dd6ccc2d68d19bf455b5e6c"
+        },
+        {
+          "ref": "main",
+          "sha": "e4435f4bd60c5fdc5595c411cc8cab9da7ef020b"
+        },
+        {
+          "ref": "mission-001-architecture-unified",
+          "sha": "d74730a4b5ed817de1cdd163a96c3bdf72a1e4d8"
+        },
+        {
+          "ref": "mission-001f-closure",
+          "sha": "4f06ef43ae98cf093dcc1601d0c95016d89e8ffd"
+        },
+        {
+          "ref": "mission-001g-maintenance",
+          "sha": "41f53501fb18fe727d5fd453dd715f0811d2e897"
+        },
+        {
+          "ref": "mission-002-backup",
+          "sha": "55680bcfe1f793618c79eb1bdc7b2b8c847b369e"
+        },
+        {
+          "ref": "mission-003-central-registry",
+          "sha": "f7b7a5ad96527bc43bd5349b97b7834667da9f03"
+        },
+        {
+          "ref": "plan/intensive-2026-10-22",
+          "sha": "ef1592e9598e14d2245539e2453bf26d7f26969d"
+        }
+      ],
+      "agents": [
+        {
+          "path": "AGENTS.md",
+          "blob_sha": "a4aaae03358fcf8283ffa843b0645b34030eaf9e"
+        }
+      ],
+      "ci": [],
+      "status": "REFERENCE_ONLY_NOT_INTEGRATED"
+    }
+  ]
+}

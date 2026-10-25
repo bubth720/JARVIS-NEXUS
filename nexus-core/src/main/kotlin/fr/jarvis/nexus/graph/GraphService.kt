@@ -22,7 +22,7 @@ data class GraphPage(val collectionId: String, val nodes: List<GraphNode>, val e
  * explicit automatically. Every edge cites a current resolvable fragment.
  * Source-restricted host scopes are refused: graph labels need full-collection access.
  */
-class GraphService(private val db: NexusDatabase, private val catalog: KnowledgeCatalogService,
+class GraphService(private val db: NexusStoragePort, private val catalog: KnowledgeCatalogService,
     private val hostScope: () -> SearchScope = { SearchScope(emptySet()) }) {
     private class Refusal(val error: KnowledgeError): RuntimeException()
     private fun access(collectionId: String, operation: Operation) {
@@ -35,18 +35,19 @@ class GraphService(private val db: NexusDatabase, private val catalog: Knowledge
     } catch (e: Refusal) { CatalogResult.Rejected(e.error) }
       catch (e: RagRefusal) { CatalogResult.Rejected(e.error) }
       catch (_: IllegalArgumentException) { CatalogResult.Rejected(KnowledgeError.INVALID_INPUT) }
-      catch (_: java.sql.SQLException) { CatalogResult.Rejected(KnowledgeError.STORAGE_FAILURE) }
+      catch (_: fr.jarvis.nexus.store.NexusStorageException) { CatalogResult.Rejected(KnowledgeError.STORAGE_FAILURE) }
     private fun text(value: String, max: Int, empty: Boolean = false) { require((empty || value.isNotBlank()) && value.length <= max && value.none { it < ' ' }) }
 
     fun putNode(collectionId: String, kind: NodeKind, label: String, category: String = "", documentId: String? = null): CatalogResult<GraphNode> = checked(collectionId,Operation.WRITE) {
         text(label,256); text(category,128,true); require(documentId == null || documentId.length in 1..128)
         require(kind != NodeKind.DOCUMENT || documentId != null)
-        db.transaction { c ->
+        db.inTransaction { c ->
             if (documentId != null && c.query("SELECT id FROM document WHERE id=? AND collection_id=? AND deleted=0",documentId,collectionId) { it.getString(1) }.isEmpty()) throw Refusal(KnowledgeError.NOT_FOUND)
             val id = sha256(listOf(collectionId,kind.name,label,documentId ?: "").joinToString("\u0000"))
             val exists = c.query("SELECT id FROM graph_node WHERE id=?",id) { it.getString(1) }.isNotEmpty()
             if (!exists && c.query("SELECT count(*) FROM graph_node WHERE collection_id=?",collectionId) { it.getInt(1) }.single() >= 100000) throw Refusal(KnowledgeError.LIMIT_EXCEEDED)
-            c.execute("INSERT INTO graph_node VALUES(?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET category=excluded.category",id,collectionId,kind.name,label,category,documentId)
+            c.execute("UPDATE graph_node SET category=? WHERE id=?",category,id)
+            c.execute("INSERT OR IGNORE INTO graph_node VALUES(?,?,?,?,?,?)",id,collectionId,kind.name,label,category,documentId)
             access(collectionId,Operation.WRITE)
             c.execute("INSERT INTO mutation_log(document_id,kind) VALUES(?,?)",documentId,"GRAPH_NODE:$id")
             GraphNode(id,kind,label,category,documentId)
@@ -55,7 +56,7 @@ class GraphService(private val db: NexusDatabase, private val catalog: Knowledge
 
     fun relate(collectionId: String, from: String, to: String, kind: String, origin: RelationOrigin, evidence: Citation): CatalogResult<String> = checked(collectionId,Operation.WRITE) {
         text(kind,64); require(from != to && from.length <= 128 && to.length <= 128)
-        db.transaction { c ->
+        db.inTransaction { c ->
             access(collectionId,Operation.READ)
             CitationResolver(db).resolve(evidence,SearchScope(setOf(collectionId)))
             val count = c.query("SELECT count(*) FROM graph_edge WHERE collection_id=?",collectionId) { it.getInt(1) }.single()
@@ -70,7 +71,7 @@ class GraphService(private val db: NexusDatabase, private val catalog: Knowledge
 
     fun editRelation(collectionId: String, id: String, expectedVersion: Int, kind: String, origin: RelationOrigin, rejected: Boolean): CatalogResult<Int> = checked(collectionId,Operation.WRITE) {
         text(kind,64); require(expectedVersion in 1 until Int.MAX_VALUE && id.length in 1..128)
-        db.transaction { c ->
+        db.inTransaction { c ->
             val changed = c.execute("UPDATE graph_edge SET kind=?,origin=?,state=?,version=version+1 WHERE id=? AND collection_id=? AND version=?",kind,origin.name,if (rejected) "REJECTED" else "ACTIVE",id,collectionId,expectedVersion)
             if (changed != 1) throw Refusal(KnowledgeError.CONFLICT)
             access(collectionId,Operation.WRITE)
@@ -81,7 +82,7 @@ class GraphService(private val db: NexusDatabase, private val catalog: Knowledge
 
     fun page(collectionId: String, afterNode: String = "", afterEdge: String = "", nodeLimit: Int = 200, edgeLimit: Int = 20): CatalogResult<GraphPage> = checked(collectionId,Operation.READ) {
         require(nodeLimit in 1..250 && edgeLimit in 1..1000 && afterNode.length <= 128 && afterEdge.length <= 128)
-        db.read { c ->
+        db.readSession { c ->
             val nodes = c.query("SELECT n.*,s.uri AS source_uri FROM graph_node n LEFT JOIN document d ON d.id=n.document_id LEFT JOIN revision r ON r.document_id=d.id AND r.version=d.version LEFT JOIN source s ON s.id=r.source_id WHERE n.collection_id=? AND n.id>? AND (n.document_id IS NULL OR d.deleted=0) ORDER BY n.id LIMIT ?",collectionId,afterNode,nodeLimit) { r ->
                 GraphNode(r.getString("id"),NodeKind.valueOf(r.getString("kind")),r.getString("label"),r.getString("category"),r.getString("document_id"),r.getString("source_uri"))
             }

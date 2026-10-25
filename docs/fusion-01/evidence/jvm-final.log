@@ -1,0 +1,77 @@
+Picked up JAVA_TOOL_OPTIONS:  -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :nexus-cli:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :nexus-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :nexus-core:processResources NO-SOURCE
+> Task :nexus-jvm-store:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :nexus-cli:processResources NO-SOURCE
+> Task :nexus-cli:processTestResources NO-SOURCE
+> Task :nexus-jvm-store:processResources NO-SOURCE
+> Task :nexus-core:processTestResources NO-SOURCE
+> Task :nexus-jvm-store:processTestResources
+> Task :nexus-services-adapter:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :nexus-services-adapter:processResources NO-SOURCE
+> Task :nexus-services-adapter:processTestResources NO-SOURCE
+
+> Task :services-fd41d75015f77e947d22d6a60e619adc00bd70b7:shared-runtime:compileJava
+Note: /tmp/fusion-lab-tools/services-fd41d75015f77e947d22d6a60e619adc00bd70b7/shared-runtime/src/main/java/fr/jarvis/services/shared/storage/Store.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :services-fd41d75015f77e947d22d6a60e619adc00bd70b7:desktop:compileJava
+> Task :services-fd41d75015f77e947d22d6a60e619adc00bd70b7:shared-runtime:processResources NO-SOURCE
+> Task :services-fd41d75015f77e947d22d6a60e619adc00bd70b7:shared-runtime:classes
+> Task :services-fd41d75015f77e947d22d6a60e619adc00bd70b7:shared-runtime:jar
+> Task :services-fd41d75015f77e947d22d6a60e619adc00bd70b7:desktop:processResources NO-SOURCE
+> Task :services-fd41d75015f77e947d22d6a60e619adc00bd70b7:desktop:classes
+> Task :services-fd41d75015f77e947d22d6a60e619adc00bd70b7:desktop:jar
+> Task :nexus-core:compileKotlin
+> Task :nexus-core:compileJava
+> Task :nexus-core:classes
+> Task :nexus-core:jar
+> Task :nexus-core:compileTestKotlin NO-SOURCE
+> Task :nexus-core:compileTestJava NO-SOURCE
+> Task :nexus-core:testClasses UP-TO-DATE
+> Task :nexus-core:test NO-SOURCE
+> Task :nexus-jvm-store:compileKotlin
+> Task :nexus-jvm-store:compileJava NO-SOURCE
+> Task :nexus-jvm-store:classes UP-TO-DATE
+> Task :nexus-jvm-store:jar
+> Task :nexus-cli:compileKotlin
+> Task :nexus-cli:compileJava NO-SOURCE
+> Task :nexus-cli:classes UP-TO-DATE
+> Task :nexus-cli:jar
+> Task :nexus-cli:compileTestKotlin NO-SOURCE
+> Task :nexus-cli:compileTestJava NO-SOURCE
+> Task :nexus-cli:testClasses UP-TO-DATE
+> Task :nexus-cli:test NO-SOURCE
+> Task :nexus-jvm-store:compileTestKotlin
+> Task :nexus-jvm-store:compileTestJava NO-SOURCE
+> Task :nexus-jvm-store:testClasses
+> Task :nexus-services-adapter:compileKotlin
+
+> Task :nexus-jvm-store:test
+Picked up JAVA_TOOL_OPTIONS:  -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts
+
+> Task :nexus-services-adapter:compileJava NO-SOURCE
+> Task :nexus-services-adapter:classes UP-TO-DATE
+> Task :nexus-services-adapter:jar
+> Task :nexus-cli:startScripts
+> Task :nexus-cli:installDist
+> Task :nexus-services-adapter:startScripts
+> Task :nexus-services-adapter:installDist
+> Task :nexus-services-adapter:compileTestKotlin
+> Task :nexus-services-adapter:compileTestJava NO-SOURCE
+> Task :nexus-services-adapter:testClasses UP-TO-DATE
+
+> Task :nexus-services-adapter:test
+Picked up JAVA_TOOL_OPTIONS:  -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts
+
+ServicesImportTest > invalidUtf8CorruptPdfAndArchiveDoNotBecomeDocuments PASSED
+
+ServicesImportTest > cancellationRefusesBeforeServicesExtraction PASSED
+
+ServicesImportTest > threeRealFormatsReachSqliteFtsAndPdfPreservesActualPage PASSED
+
+BUILD SUCCESSFUL in 1m 38s
+22 actionable tasks: 22 executed

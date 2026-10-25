@@ -1,0 +1,82 @@
+[
+  {
+    "module": "nexus-jvm-store",
+    "name": "fr.jarvis.nexus.ImportPipelineTest",
+    "tests": 17,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "module": "nexus-jvm-store",
+    "name": "fr.jarvis.nexus.RagRetrievalTest",
+    "tests": 12,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "module": "nexus-jvm-store",
+    "name": "fr.jarvis.nexus.FusionDocumentaryTest",
+    "tests": 10,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "module": "nexus-jvm-store",
+    "name": "fr.jarvis.nexus.NexusStorageTest",
+    "tests": 18,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "module": "nexus-jvm-store",
+    "name": "fr.jarvis.nexus.FinalLibraryTest",
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "module": "nexus-jvm-store",
+    "name": "fr.jarvis.nexus.ArchiveContextTest",
+    "tests": 6,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "module": "nexus-jvm-store",
+    "name": "fr.jarvis.nexus.FusionSnapshotMigrationTest",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "module": "nexus-jvm-store",
+    "name": "fr.jarvis.nexus.SnapshotRecoveryTest",
+    "tests": 19,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "module": "nexus-jvm-store",
+    "name": "fr.jarvis.nexus.FusionScaleTest",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "module": "nexus-services-adapter",
+    "name": "fr.jarvis.nexus.adapters.ServicesImportTest",
+    "tests": 3,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  }
+]

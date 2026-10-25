@@ -1,0 +1,62 @@
+{
+  "engine": "154.0.8037.57",
+  "transport": "explicit loopback static server; managed browser disallows file://",
+  "contexts": [
+    {
+      "viewport": "1440x1000 desktop",
+      "tests": [
+        "local JSON demo",
+        "node selection",
+        "search",
+        "keyboard rotation",
+        "inert imported HTML",
+        "safe original URI",
+        "oversize atomic refusal"
+      ],
+      "pageErrors": [],
+      "render": {
+        "syntheticNodes": 500,
+        "syntheticEdges": 2000,
+        "drawMedianMs": 3,
+        "drawP95Ms": 14.100000001490116,
+        "jsHeapBytes": 28292767,
+        "scope": "synchronous Canvas2D draw calls, not compositor FPS or Android device memory"
+      },
+      "jvmExport": {
+        "scope": "actual Kotlin GraphService/CSV demo, SYNTHETIC corpus; no CORE or Android integration",
+        "nodes": 24,
+        "edges": 12,
+        "allCitationFieldsPreserved": true
+      }
+    },
+    {
+      "viewport": "390x844 touch emulation (not Android hardware)",
+      "tests": [
+        "local JSON demo",
+        "node selection",
+        "search",
+        "keyboard rotation",
+        "CDP pinch touch events",
+        "inert imported HTML",
+        "safe original URI",
+        "oversize atomic refusal"
+      ],
+      "pageErrors": [],
+      "render": {
+        "syntheticNodes": 500,
+        "syntheticEdges": 2000,
+        "drawMedianMs": 2.5,
+        "drawP95Ms": 4.5,
+        "jsHeapBytes": 28314350,
+        "scope": "synchronous Canvas2D draw calls, not compositor FPS or Android device memory"
+      },
+      "jvmExport": {
+        "scope": "actual Kotlin GraphService/CSV demo, SYNTHETIC corpus; no CORE or Android integration",
+        "nodes": 24,
+        "edges": 12,
+        "allCitationFieldsPreserved": true
+      }
+    }
+  ],
+  "networkRequests": []
+}

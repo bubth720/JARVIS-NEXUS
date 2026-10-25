@@ -1,0 +1,1 @@
+{"verified_files": 179, "receipt_status": "PARTIAL", "network_used": false, "physical_or_production_qualification": false}
