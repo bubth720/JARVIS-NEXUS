@@ -1,0 +1,12 @@
+{
+  "documents": 1000,
+  "actualParserCalls": 1001,
+  "ingestMs": 6832.223972,
+  "unchangedMs": 1.670721,
+  "queryP50Ms": 17.77131,
+  "queryP95Ms": 51.94546,
+  "databaseBytes": 2613248,
+  "heapUsedSnapshotBytes": 56875112,
+  "processPeakRssKiB": 194088,
+  "scope": "JVM real ImportCoordinator, CSV parser, FTS, revision and resolver; not Android"
+}

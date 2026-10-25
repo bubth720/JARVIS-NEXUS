@@ -1,0 +1,376 @@
+{
+  "format": "jarvis.nexus.fusion-lock/1",
+  "scope": "NEXUS_LAB_ONLY_NOT_UNIFIED_F0",
+  "overall_status": "PARTIAL",
+  "base_sha": "d903bf04f497ab0dc7f40e9708ed057e4f24c6ee",
+  "delivery_head": "Git commit carrying this manifest; see PR and git rev-parse HEAD",
+  "recorded_utc": "2026-10-25T17:32:29.918569+00:00",
+  "common_parent_sha": "3acec55616ff8e3b1666091780fca59261377e18",
+  "schema_version": 4,
+  "schema_ddl_sha256": "0a441fd5110684538f12093c79c927856457eb6cb6bf22c87d425ec578c0f1e9",
+  "references": [
+    {
+      "repository": "bubth720/JAVIS-Local-v2",
+      "ref": "feat/core-03-intensive",
+      "sha": "aea5ac859ac551d54fe16187c1883a487dbee9d6",
+      "use": "REFERENCE_ONLY_NOT_COMPOSED"
+    },
+    {
+      "repository": "bubth720/JARVIS-LLM",
+      "ref": "feat/llm-03-runtime",
+      "sha": "2efb3f7aa6205062ab71f570212019fd1d9885b6",
+      "use": "REFERENCE_ONLY_NOT_COMPOSED"
+    },
+    {
+      "repository": "bubth720/JARVIS-VOICE",
+      "ref": "feat/voice-final-01",
+      "sha": "fe57452fcb33f5b6870070f30ba6c5f1d349c4ba",
+      "use": "REFERENCE_ONLY_NOT_COMPOSED"
+    },
+    {
+      "repository": "bubth720/JARVIS-INTERFACE",
+      "ref": "feat/interface-final-01",
+      "sha": "db459ba388a3fea992d80320c3989be0edda8500",
+      "use": "REFERENCE_ONLY_NOT_COMPOSED"
+    },
+    {
+      "repository": "bubth720/JARVIS-NEXUS",
+      "ref": "feat/nexus-final-01",
+      "sha": "d903bf04f497ab0dc7f40e9708ed057e4f24c6ee",
+      "use": "REFERENCE_ONLY_NOT_COMPOSED"
+    },
+    {
+      "repository": "bubth720/JARVIS-SERVICES",
+      "ref": "feat/services-final-01",
+      "sha": "d16dd84f27881460ec9f02d2a54d9ddff23187dc",
+      "use": "REFERENCE_ONLY_NOT_COMPOSED"
+    },
+    {
+      "repository": "bubth720/JARVIS-VOLUTION-",
+      "ref": "feat/evol-03-atelier-de-correctifs-isoles-e",
+      "sha": "c0180181804338d21f3bf9d4b537b709595902f7",
+      "use": "REFERENCE_ONLY_NOT_COMPOSED"
+    },
+    {
+      "repository": "bubth720/JARVIS-UNIFIED",
+      "ref": "feat/uni-02-tooling",
+      "sha": "329f304115c9bc5b6dd6ccc2d68d19bf455b5e6c",
+      "use": "REFERENCE_ONLY_NOT_COMPOSED"
+    },
+    {
+      "repository": "bubth720/JARVIS-NEXUS",
+      "ref": "feat/nex-06a-android-api24",
+      "sha": "374ea2e2fd640e78f2f5e12e60e75b493420e504",
+      "use": "PORT_SOURCE_ADAPTED_WITH_V4"
+    },
+    {
+      "repository": "bubth720/JARVIS-SERVICES",
+      "ref": "pinned-parser",
+      "sha": "fd41d75015f77e947d22d6a60e619adc00bd70b7",
+      "use": "ACTUAL_EXTRACTION_DEPENDENCY"
+    }
+  ],
+  "activation": {
+    "core_android_connected": false,
+    "native_llm_enabled": false,
+    "zim_android_enabled": false,
+    "ipc_enabled": false,
+    "personal_device_installation": false,
+    "personal_data_migrated": false,
+    "merged_main": false
+  },
+  "lab_tools_provisioned": true,
+  "tests": {
+    "jvm": {
+      "tests": 95,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "robolectric": {
+      "tests": 37,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "instrumented": {
+      "compiled": 2,
+      "executed": 0,
+      "status": "NOT_RUN_NO_DEVICE_OR_EMULATOR_LAB"
+    },
+    "sql": {
+      "passed": 10
+    },
+    "graph_js": {
+      "passed": 7
+    },
+    "zim": {
+      "passed": 18,
+      "skipped": 1,
+      "real_archive": "NOT_RUN"
+    },
+    "browser_export": "PASS_REAL_JVM_SYNTHETIC_EXPORT_NOT_CORE_OR_ANDROID",
+    "ci_for_this_branch": "NOT_RUN"
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 2,
+    "warning_ids": [
+      "GradleDependency"
+    ]
+  },
+  "binary_compatibility": "NOT_PROMISED_RECOMPILE_CONSUMERS_AND_USE_LOCKED_SHA",
+  "android_native_rag": "BLOCKED_IN_HOST_FTS_BACKEND_PHYSICAL_NOT_TESTED",
+  "artifacts": {
+    "nexus-core/build/libs/nexus-core-0.1.0.jar": {
+      "sha256": "7a0b5d8f63edcc742a4785d0255784505f03a3b920774a3b672e5f0cfa23d597",
+      "bytes": 268699
+    },
+    "nexus-jvm-store/build/libs/nexus-jvm-store-0.1.0.jar": {
+      "sha256": "6ea638ce784af2ffc725b34f11c395d71e5b3e15c730d6131e3af6bf31c013e3",
+      "bytes": 87728
+    },
+    "nexus-android-store/build/outputs/aar/nexus-android-store-debug.aar": {
+      "sha256": "4dfc357cbe41be56bd811e6231c99c4e9cfb2fe1720604dda76e5eb50668a06a",
+      "bytes": 36532
+    },
+    "nexus-android-store/build/outputs/apk/androidTest/debug/nexus-android-store-debug-androidTest.apk": {
+      "sha256": "10f062d6f6f36e23a19b9e83c9e36e6368028b46aa8be6d45a146769975ad4a6",
+      "bytes": 1877525
+    }
+  },
+  "relocated_unchanged": [
+    {
+      "base_path": "nexus-core/src/main/kotlin/fr/jarvis/nexus/backup/CryptoPort.kt",
+      "delivery_path": "nexus-jvm-store/src/main/kotlin/fr/jarvis/nexus/backup/CryptoPort.kt"
+    },
+    {
+      "base_path": "nexus-core/src/main/kotlin/fr/jarvis/nexus/backup/IntegrityVerifier.kt",
+      "delivery_path": "nexus-jvm-store/src/main/kotlin/fr/jarvis/nexus/backup/IntegrityVerifier.kt"
+    },
+    {
+      "base_path": "nexus-core/src/main/kotlin/fr/jarvis/nexus/backup/SnapshotTypes.kt",
+      "delivery_path": "nexus-jvm-store/src/main/kotlin/fr/jarvis/nexus/backup/SnapshotTypes.kt"
+    },
+    {
+      "base_path": "nexus-core/src/main/kotlin/fr/jarvis/nexus/backup/Snapshots.kt",
+      "delivery_path": "nexus-jvm-store/src/main/kotlin/fr/jarvis/nexus/backup/Snapshots.kt"
+    },
+    {
+      "base_path": "nexus-core/src/test/kotlin/fr/jarvis/nexus/ArchiveContextTest.kt",
+      "delivery_path": "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/ArchiveContextTest.kt"
+    },
+    {
+      "base_path": "nexus-core/src/test/kotlin/fr/jarvis/nexus/FinalLibraryTest.kt",
+      "delivery_path": "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/FinalLibraryTest.kt"
+    },
+    {
+      "base_path": "nexus-core/src/test/kotlin/fr/jarvis/nexus/ImportPipelineTest.kt",
+      "delivery_path": "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/ImportPipelineTest.kt"
+    },
+    {
+      "base_path": "nexus-core/src/test/kotlin/fr/jarvis/nexus/NexusStorageTest.kt",
+      "delivery_path": "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/NexusStorageTest.kt"
+    },
+    {
+      "base_path": "nexus-core/src/test/kotlin/fr/jarvis/nexus/RagRetrievalTest.kt",
+      "delivery_path": "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/RagRetrievalTest.kt"
+    },
+    {
+      "base_path": "nexus-core/src/test/kotlin/fr/jarvis/nexus/SnapshotRecoveryTest.kt",
+      "delivery_path": "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/SnapshotRecoveryTest.kt"
+    },
+    {
+      "base_path": "nexus-core/src/test/resources/schema-v1.sql",
+      "delivery_path": "nexus-jvm-store/src/test/resources/schema-v1.sql"
+    }
+  ],
+  "source_sha256": {
+    ".github/workflows/fusion-01.yml": "7c9f0a764c0627cf33d0a2c185ae928affb288efa48399bbdfa11aa6b6394a45",
+    ".github/workflows/nexus.yml": "df0da26dd166785c616fb25a1af5047a7c9472259d4ac343e38468e694b6e118",
+    "adapters/zim/nexus_zim.py": "5b8b1c6e127bbde26d2c8a935e123ea1b12b3677c36daf02d58e6ac173dd7493",
+    "build.gradle.kts": "e8a37c4280d969caa9200e70f1eeaf47b549426740435d4958eecdf2d978bdff",
+    "nexus-android-store/build.gradle.kts": "5cc5a58d47ec5d76cfcd55c4d6d7188666cb35895a69717f3bec07cc04062769",
+    "nexus-android-store/src/androidTest/kotlin/fr/jarvis/nexus/android/AndroidNexusDeviceTest.kt": "d336e2a3489f4da4b00f13a90d7402cf2f2c9f57e92eb6ccf3510e56a4d7e97c",
+    "nexus-android-store/src/main/kotlin/fr/jarvis/nexus/android/AndroidNexusStorage.kt": "8f22a275b326f057999543b631e82d4af4b5ba25d7cbf0f0e30c6cf6ca273ffa",
+    "nexus-android-store/src/main/kotlin/fr/jarvis/nexus/android/SelectedDocumentImporter.kt": "0c32a2c6d64ae76017df804cb3a4656b9d0b9e82bf4cb0679db3883b2f42ec92",
+    "nexus-android-store/src/main/kotlin/fr/jarvis/nexus/android/SyntheticNexusDemo.kt": "b6e304ca51762bf536bf5b4f47e85979e5e320dc78e3e90ee28ba7ce7481f128",
+    "nexus-android-store/src/test/kotlin/fr/jarvis/nexus/android/AndroidNexusStorageTest.kt": "fc8f34d7474e309de6133a4a427783ab316dc3512827b954000861ef63a42376",
+    "nexus-android-store/src/test/kotlin/fr/jarvis/nexus/android/SelectedDocumentImporterTest.kt": "ad93bb0618a057b2ab94978ca1676ebd8a253c5de94d2d4eeb8e503eec69af0f",
+    "nexus-android-store/src/test/kotlin/fr/jarvis/nexus/android/UnavailableFtsTest.kt": "99ee28c7ed4c2ff33d7cbf2a3059b2224f1aed9df14894e0c6a613d83dde1502",
+    "nexus-cli/build.gradle.kts": "88afca0594ac73f1c84bd8c7aaa6a095cc3faf6f707152780d6d1ececc7a2309",
+    "nexus-cli/src/main/kotlin/fr/jarvis/nexus/cli/BackupDemo.kt": "eae330bd9ee1ffee821c00eb6ef6e0a3d7587ff6c83c1987876304d9bfda793a",
+    "nexus-cli/src/main/kotlin/fr/jarvis/nexus/cli/LibraryCli.kt": "8f44e75ecd77f8c4a3b70f01c99a72a94cb900d1e8b3a9ff57f8357216fb17da",
+    "nexus-cli/src/main/kotlin/fr/jarvis/nexus/cli/Main.kt": "9e1911b1bb017dd7766144ac314800661d7ce4e3dc39fcc2d945357ad1eb807f",
+    "nexus-core/build.gradle.kts": "1e0f77d58c3622d3d257673a07af18ddd827c94c78644e018345135955c5ad82",
+    "nexus-core/src/main/java/fr/jarvis/nexus/store/NexusRow.java": "12fb9cdd2ecf8ba38a9ef780d2ee2c1f5bc17cbd81b1b173a570ea81f2699af9",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/api/CatalogTypes.kt": "c153f1c2f766e82728bb9ebd568297b9a54225c9bd96e39c5b6e8abf77ad83c1",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/api/KnowledgeCatalogService.kt": "bca58a2f154a462f84316d2dbd22a9016d73ac810e7efc7275092fd2421c9b11",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/archive/ArchiveRangeSource.kt": "d6a0bfa64d943b204d7d6f31dabe165602f52dae936717fa0b68bc99b68cb2d5",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/archive/ArchiveReader.kt": "a5571dfb138739f2bed5e13022ed4cca08926072d31627eec569bfb1c08a1d2c",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/graph/GraphService.kt": "c78cc93cc98d4c24da97281b76c69115e3d0a2190faa116f5f7a35503183bddd",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/graph/MentionSuggestions.kt": "bdc608c5ab568ca23b38d53eda4cabb317577ab8858635bfd7f9c4b08a602678",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/importing/ImportCoordinator.kt": "21b230f2a0487b012ef117a5050f834e7516163444e7a93c62940a7a71377811",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/importing/ImportTypes.kt": "aafefd1541d317559f5eb739aa65d4a45c9610ff923d8556cf3fd537d92bce44",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/importing/StructuredParser.kt": "00eda62594e912f56549761be1685199018be4a03723a5065041fffb23be64c0",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/library/LibraryService.kt": "eb73d6f912e28918d2a8db2bac877f69c0e7d5f51a7dfbb5e1ee60efc41e7135",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/rag/DocumentaryGateway.kt": "461cb82d2386ba048ee0161ab015f69e4a37b3f760a33643e06c0be88767e856",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/rag/RagService.kt": "a04980005dab8df1cffca7ce2fc0524a21969ff82d91e6aed7fe8e7e16197f9b",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/rag/RagTypes.kt": "544ef2a30c331f8f47ed296ea18d1beb66ecff11774c9d94b05a8613e8809341",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/rag/SearchRepository.kt": "dddd9a913613bcef34b16e1ee67a02391d9bafb1ef1ba6f58a6f57ecf941ac8b",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/search/FtsIndex.kt": "f992850f22e50279deb81b50bf199a3299eb29ea8be65c2613ed3a5c7df4e47c",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/store/NexusSchema.kt": "e9a64ca6c9962842cf7f44f8b80b43bf85a3d10622d4d47e1793d11b170c5fb7",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/store/NexusStoragePort.kt": "5ab3937518312bd3c866d2d45c039b2ec9ee4bacf883b053a023ab1ae3c31ba5",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/store/Repositories.kt": "01ea277cd1109781e8efc3f8bacaa36b4904dbc49475c4f3e9e152b677b4ef60",
+    "nexus-core/src/main/kotlin/fr/jarvis/nexus/store/SourceFingerprint.kt": "df136f521a61504004aac8a988bba03538f35cbb2b766d0df5119ed35cd401f4",
+    "nexus-jvm-store/build.gradle.kts": "c80009164ca6618d3ffd81851de58adc9dc80492ddf007565a61c118f6d4486c",
+    "nexus-jvm-store/src/main/kotlin/fr/jarvis/nexus/api/JvmClockCompatibility.kt": "cb5693426390c3a7df6700f2bdd0b89f1fa4c91e178321de951a315c7004f198",
+    "nexus-jvm-store/src/main/kotlin/fr/jarvis/nexus/archive/ZimProcessReader.kt": "2e4e61d53957627410d8d74131380f959df217e43b43fac6ae2f4678f594f658",
+    "nexus-jvm-store/src/main/kotlin/fr/jarvis/nexus/backup/CryptoPort.kt": "51c896ef6b87f69793090ac4e487a820ef625cc95ba2979b3a541f2dfe8617c1",
+    "nexus-jvm-store/src/main/kotlin/fr/jarvis/nexus/backup/IntegrityVerifier.kt": "b09eb650683a9fe36dbc2afc685f9da25f45fb96576f06fe6d33951ed0dd3624",
+    "nexus-jvm-store/src/main/kotlin/fr/jarvis/nexus/backup/SnapshotTypes.kt": "9d9624e5dc98ea1b90a8f2aba182cfe69291a64f6beb613d09be7c63bcd1b52a",
+    "nexus-jvm-store/src/main/kotlin/fr/jarvis/nexus/backup/Snapshots.kt": "2513fec8865f50ca4c0c566ea8bf3e1106ebbf6ebf116c3af037e77d848dbd35",
+    "nexus-jvm-store/src/main/kotlin/fr/jarvis/nexus/store/NexusDatabase.kt": "db5d8f9cd8cc98aeb92f68724aa766aff4083f2f94325a09b08b6801511c7ff7",
+    "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/ArchiveContextTest.kt": "1d04b2fa9e8ea02f03391bb1d5af43c94967b73e40028a46669a99ddc25509c8",
+    "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/FinalLibraryTest.kt": "7a9f0cc4e86d70b7addf35125423badbf630fd135b4c4927a2f674446183e5d7",
+    "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/FusionDocumentaryTest.kt": "ba63cc2280cb14d833130ee8a1328bd91b673388edfa6757a9c6d03415bb7907",
+    "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/FusionScaleTest.kt": "09940e73d7abd81afcf691b7a84ab382064298423d098d9ea37f09895400e4a0",
+    "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/FusionSnapshotMigrationTest.kt": "0962fac30fcdd47303fff804edc86ead6d6566e0482b3c9c8eb7f2ebcd1484ed",
+    "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/ImportPipelineTest.kt": "3c5f52ffde0ae205219660cef3f82b46395a6480b41b5dd8228c711ef83fa6f6",
+    "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/NexusStorageTest.kt": "67d645155a06678dbdaf416e9e89805ccaac9f16d104d8ea100b449b680a68e6",
+    "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/RagRetrievalTest.kt": "aa2b6016834a4a8edd5898212a07b27d6472838c65db1599da0dd3ae6532553c",
+    "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/SnapshotRecoveryTest.kt": "c1cc84c0d0e0fd39f14f13ab47eb704b8a12da374365d816ba201c315bd1ddb7",
+    "nexus-jvm-store/src/test/resources/schema-v1.sql": "15bf0e9bcb5ab9e20e894d4534f4d6f97a8e7c338a8dd588158e30461a37ea44",
+    "nexus-jvm-store/src/test/resources/schema-v3.sql": "4fbffcd790ede915fc0d8fb126cdf5647d7d6e35a36eb2ebdec151e0977050d8",
+    "nexus-services-adapter/build.gradle.kts": "cd6358c2f3e0e8504f2fdba77fe128fd9a6979ac4ad89ea02dfb7d8d2c54553d",
+    "nexus-services-adapter/src/main/kotlin/fr/jarvis/nexus/adapters/ImportCli.kt": "edd2ecb126703ae761f1138e97436dfb5cfc136dfb89046d1a3e9340107ed1f2",
+    "nexus-services-adapter/src/main/kotlin/fr/jarvis/nexus/adapters/ServicesParser.kt": "eb702d2e6d68f30480449d6b84ef5d6b0d5e38150a3cbf33487a9811158c34c3",
+    "nexus-services-adapter/src/test/kotlin/fr/jarvis/nexus/adapters/ServicesImportTest.kt": "7b2abb929674c716738a84ef561811877d159bb4dd0313df46407c7206910cea",
+    "settings.gradle.kts": "6c248c0542313f0938db74ea5a5a198f10a8290744a21be6b564404596fcd6ab",
+    "tests/final/browser.cjs": "d2e490b2888574387a5b481eb9c3600b905c8457a567252e007383501baf9b77",
+    "tests/final/sqlite_lab.py": "bbc0e1ec520ec90f11451838571379111e50a8ee87e13c14819ebe0933c12cb4",
+    "tests/final/test_graph.cjs": "c278e4d258146fd09742b16d6b48460b5e5c0862484f0553422841672f594baa",
+    "tests/final/test_sqlite.py": "31b2c3abc0a4e7305cf52f3a2ecc73337da5e9c0a2c8ab9b73dc5239ead5bacc",
+    "tests/zim/test_zim.py": "c68e5d2da2fae0d8667f53b5ae8677b307feac8eea547f6a53112fb0d1aa0c44",
+    "tools/check-android-boundary.py": "f595ab9b607810e748123230999d2d8da8e79509078e5ce871734cd2d3fb3486",
+    "tools/check-api24-compile.py": "c5c7f93b32cf5ef8cc4739f60d53ef48786834997e9aeba72b727c05e41029c6",
+    "tools/check-fusion-lock.py": "2128d6a6581105b0afcba9c2c358c6914a52added30fd20a468122220b5c5f7b",
+    "tools/fusion-lab.py": "5e66bb06f2e353de5528653ce249c335aa155cd333ebcbc4a6ba64fa65b56e33",
+    "tools/prepare-services.py": "49f928f6d4e8d879ec9e4a10e6912e1f8a46868b837899cec488f973310b42bc",
+    "tools/validate-final.py": "36530376efe2bc7b03213398fa9bee02cf3e85a4362baf171b5042c72e63319e",
+    "viewer/app.js": "4ee3efa0843220bad3c7184bc2f6ffd9e61d00736cda95f10ca7ab65e3666f2a",
+    "viewer/graph.js": "47b6005fc7ae90c97492bf818b88148a716815de0a8f8307950d0bb3d83123ed",
+    "viewer/index.html": "b7db6dcfeb105d4aa2044e5b1be5d3f0a176d56cad9747b8fe77ddc785cd439d",
+    "viewer/style.css": "b7e6fdc13a662c9c0ec7ac65e53152a177bac2a2678eac22b46ebb5a981c73cf"
+  },
+  "evidence_sha256": {
+    "docs/fusion-01/evidence/android-boundary.log": "7c7ce0c0ebb60b85a70bc679dbde68ef4bfdebdd9f3f8ddef4d860e08ea341c7",
+    "docs/fusion-01/evidence/android-build.log": "b928a0891e36d313ef89b356c429f6131c40de62e4026b45b79e292f0c6fc0e3",
+    "docs/fusion-01/evidence/android-final.log": "11cf70edd3317a67ab8e04e6ab84ffb5b96321fd2c3e72474437a095cb598568",
+    "docs/fusion-01/evidence/android-first.log": "df15588454831105dc3a0935c42b1e3417275353e9b300ca3786c708be81916e",
+    "docs/fusion-01/evidence/android-junit/TEST-fr.jarvis.nexus.android.AndroidNexusStorageTest.xml": "508e5941c30abe6e9e6e4c9d7307be757ca5db8a0aa331c30e5d0060bdfa8c19",
+    "docs/fusion-01/evidence/android-junit/TEST-fr.jarvis.nexus.android.SelectedDocumentImporterTest.xml": "cd9fe0d9e1621daf90c1f9af44a0ddbb7f362a950440418c14c124e2698d3357",
+    "docs/fusion-01/evidence/android-junit/TEST-fr.jarvis.nexus.android.UnavailableFtsTest.xml": "b3891e76cc0bef26997eebf77abfe5182119cb097534323bf8766779c3628097",
+    "docs/fusion-01/evidence/android-lab.log": "c559307f25470afe13e4f6d8640df7d86cfc6ac8d59b8f617028b4099c56046b",
+    "docs/fusion-01/evidence/android-lint.xml": "6c4a424c3c095b91df1007d6e4b4a2aef8724ca840a8b3cc4a01d38289834653",
+    "docs/fusion-01/evidence/android-location-diagnostic.log": "a7c39fb34462c2e5bb1520fd3ac0e539080139a8cd7c01909c3172319f4c7e21",
+    "docs/fusion-01/evidence/android-qualified-build.log": "aeec379231cc1e68fc8a528d760335af6c43a81ff1f5d4234b0ff1c137ccfb2e",
+    "docs/fusion-01/evidence/android-results.json": "c477a0d98940b61ba47a6d81680f32403ac4c534cdfd71fdd6a9725125ce6714",
+    "docs/fusion-01/evidence/android-verification.log": "ba798da85226d23924557384d16afd4f3f747352b5073b92e3fc25270fa001d3",
+    "docs/fusion-01/evidence/api24-compile.log": "932a090797af3edfb7960ed4776f685b37c5cea13fc5e7817d1b84663cf7ff3d",
+    "docs/fusion-01/evidence/api24-final.log": "9d8689866a71d3c262e9532a3d6c91839d1ea16516a9e8d7ca99e93fb71ea41d",
+    "docs/fusion-01/evidence/api24-first.log": "fb1fc5d766276c99bcce495f9a75e7f9f5721a6a2fb42dd78c0188499b2405c6",
+    "docs/fusion-01/evidence/api24-source-final.log": "9d8689866a71d3c262e9532a3d6c91839d1ea16516a9e8d7ca99e93fb71ea41d",
+    "docs/fusion-01/evidence/atlas-demo-network.log": "dec606a644a9a66998106b943a127ac84820ee6551f6dcc264a330806458802a",
+    "docs/fusion-01/evidence/atlas-demo.json": "67bc61e304004bfc04d3aab6927ece47bcf86cf2a3922fc90fe03ee439faed56",
+    "docs/fusion-01/evidence/atlas-demo.log": "0a8288b61657c6364e1798a13a571f095ccd18aa012e5b8bbf7549ec702aa375",
+    "docs/fusion-01/evidence/backup-demo-network.log": "1d2884daa354f7820b3d3369a95264e8c23a2f57169bbbbdf9efc26b2be5cb13",
+    "docs/fusion-01/evidence/backup-demo.log": "abbbd7682acba36cad63640fb015b2140a7b1a54703ef9e47afb4c75020304ea",
+    "docs/fusion-01/evidence/baseline-junit/TEST-fr.jarvis.nexus.ArchiveContextTest.xml": "b403bc9fea24f7cff408f0c3c5e8bc51e733ac052096092a87737866c5223b4e",
+    "docs/fusion-01/evidence/baseline-junit/TEST-fr.jarvis.nexus.FinalLibraryTest.xml": "58b0db87b391e09df6350de1f2e4fff43b8bec72a3431aa309f3bdf6bca5e86e",
+    "docs/fusion-01/evidence/baseline-junit/TEST-fr.jarvis.nexus.ImportPipelineTest.xml": "921a8e7ec1bf828614096506cc113b3c5b43454d79e5033a1fed737eba0a1198",
+    "docs/fusion-01/evidence/baseline-junit/TEST-fr.jarvis.nexus.NexusStorageTest.xml": "87bd7d92875b524b01ae145accc29b94742d4444954cc8f174888bc73d0a2b23",
+    "docs/fusion-01/evidence/baseline-junit/TEST-fr.jarvis.nexus.RagRetrievalTest.xml": "8801841b973d7c87cea5eab52c77959447d2ed0fed208517ca7d5324bf158b39",
+    "docs/fusion-01/evidence/baseline-junit/TEST-fr.jarvis.nexus.SnapshotRecoveryTest.xml": "a83a63383eb6ef8be9b01b6c5b92175ce2d18b16405f6db7c41239334e55b3ee",
+    "docs/fusion-01/evidence/baseline-jvm.log": "6cafc1982bcfe4d9e891a4f80966e125450032be77d5027f3edd882308f1b799",
+    "docs/fusion-01/evidence/baseline-results.json": "5ce730ea096769f736fdd6a441d19c3d46b75093b1be75ba10181cb318984e80",
+    "docs/fusion-01/evidence/baseline-services.log": "760b89495ea2aac843fca90a4c555da5584d21d8b98cd1b39f2e7e754ba1bff0",
+    "docs/fusion-01/evidence/boundary-source-final.log": "7c7ce0c0ebb60b85a70bc679dbde68ef4bfdebdd9f3f8ddef4d860e08ea341c7",
+    "docs/fusion-01/evidence/demo-results.json": "d0b0143c3b93337d40a29f67c20fd00dd40dcea2bec0c18f3efc0caf3f8120dd",
+    "docs/fusion-01/evidence/fusion-focused.log": "61ea5fb367157147190d4c03ea5b1c4f0aa6c6d9fc4689b63f68cbe5063fdcd4",
+    "docs/fusion-01/evidence/fusion-jvm-first.log": "e4dc83d7fc921e3f27e5ee126ed4455b490c7ce9676be393907edc75a76517e4",
+    "docs/fusion-01/evidence/graph-regression.log": "477646eac6ad80b08def2cf9be365fed0ceaed8f8a2e229d6e3ebdcd1b790553",
+    "docs/fusion-01/evidence/jvm-final.log": "c6b562155fbc267ad1299ba8f7bfaa72b1f188aa09b0e0fb55c6d4c7a4ca828d",
+    "docs/fusion-01/evidence/jvm-junit/TEST-fr.jarvis.nexus.ArchiveContextTest.xml": "fa4e7976c4c59a300b27e2be329aac82dd2211f72331800784a81a0147ab694e",
+    "docs/fusion-01/evidence/jvm-junit/TEST-fr.jarvis.nexus.FinalLibraryTest.xml": "7ebb1e79e4a4a7cd38fe54d8b8267d24f7cf0e56d4299cf99dc0881228b49b8a",
+    "docs/fusion-01/evidence/jvm-junit/TEST-fr.jarvis.nexus.FusionDocumentaryTest.xml": "908b1562c294b3729fceda1d7ed179893a11795907089f28ebd0606172ee2fc9",
+    "docs/fusion-01/evidence/jvm-junit/TEST-fr.jarvis.nexus.FusionScaleTest.xml": "ed0b0563c745715c7cf23b3a42a511ace72214ea5fec82caed0549839bd8b004",
+    "docs/fusion-01/evidence/jvm-junit/TEST-fr.jarvis.nexus.FusionSnapshotMigrationTest.xml": "da3cd9105329a425544c7ab5fca0c59f81b7ec279e252274903f88999d79f96f",
+    "docs/fusion-01/evidence/jvm-junit/TEST-fr.jarvis.nexus.ImportPipelineTest.xml": "a4b3848c0200d4e89488ca9c5685931f6bcfb5e0d32cbdc6595b8e57bfe351b6",
+    "docs/fusion-01/evidence/jvm-junit/TEST-fr.jarvis.nexus.NexusStorageTest.xml": "3534d04f686c1c9e1d6f132429b889d4026ccbf18925d9e2e980b838e20ef35c",
+    "docs/fusion-01/evidence/jvm-junit/TEST-fr.jarvis.nexus.RagRetrievalTest.xml": "21996968a1eb99cc38a5d98f1bc440347bff1c3c8cced898e66eb2342bc9bcfd",
+    "docs/fusion-01/evidence/jvm-junit/TEST-fr.jarvis.nexus.SnapshotRecoveryTest.xml": "8ce2ccd02dcaac0526f3b60e73b0f988b0a475cd89794246ff1bc0e6df663704",
+    "docs/fusion-01/evidence/jvm-junit/TEST-fr.jarvis.nexus.adapters.ServicesImportTest.xml": "a1da9e5c2508fb329aecbdd1a379de4be3b44f7e949f1d8d0a0250ccbb7c1af5",
+    "docs/fusion-01/evidence/jvm-results.json": "c178e0df82715bd3082c06f4dc3b991666b3c70062cfbfc24f1dfcded76868da",
+    "docs/fusion-01/evidence/jvm-scale-final.log": "abf0e3d88473dd877f2b26fd3ae75a62493f58d00655c4526cd47830d1213167",
+    "docs/fusion-01/evidence/jvm-scale.json": "b82699de10a46685cd90e72cf1349bcd4d092f68cb9637183e8d9d85350e5158",
+    "docs/fusion-01/evidence/jvm-verification.log": "e071437dac389c42a675a2d7b0eb27edd3ee4c742c180bfbe3958ff69083c235",
+    "docs/fusion-01/evidence/portable-jvm-first.log": "322715540cc533c4ddb283e74cd86f68e43099454d821f58532792a5b8ecab31",
+    "docs/fusion-01/evidence/rag-demo-network.log": "504f7ade45805aeac5fe12f716fad0f7226495a07fa6a03fbc26bc353b53eb69",
+    "docs/fusion-01/evidence/rag-demo.log": "c26d886ea60d24950b453f284ece9327000b4a22231ea88460288a64061b9c9f",
+    "docs/fusion-01/evidence/services-source-recheck.log": "0f13a91caa9393e89fea08b3dc6220e7ff5f82f94542af0fdb1fd2690f547ba0",
+    "docs/fusion-01/evidence/sql-regression.log": "b4870bfe520501de92c1b3626fe475147d86c84979bc594262c79e8dfe183b83",
+    "docs/fusion-01/evidence/toolchain-provenance.json": "7ad6174e98d22b40ad36f84ce64d23f17f8916512d61cd9be1c2ab57cede807b",
+    "docs/fusion-01/evidence/toolchain-versions.log": "386f5f18cc029686c1bf9f57672131c9c39ebed00afef0c3b13e187c393053ed",
+    "docs/fusion-01/evidence/viewer-browser.log": "b850c5bc8df53609b2e198f2b8150703fda6a2dbfc7e877bee7671fa7bd42618",
+    "docs/fusion-01/evidence/viewer-jvm-export.log": "bfe2e3dcaa5630b961f38605160481b5a2fff43c7603f0501e056e8f17b0b35b",
+    "docs/fusion-01/evidence/zim-regression.log": "eb4c4a4b9d8eeb37a9e7e904e5f306b0de55781de1e03b5e31bf6f1e73ba1742"
+  },
+  "retained_sha256": {
+    ".gitattributes": "02c4d9e006deb91568beb1433f0bca183721862a180af4d6159759f21ec27b0d",
+    ".github/workflows/nexus.yml": "df0da26dd166785c616fb25a1af5047a7c9472259d4ac343e38468e694b6e118",
+    ".gitignore": "bd5df1d1b95bb0fd3007ed1422e6d8dac9d547595eba94b0819e8aa510b8befe",
+    "adapters/zim/nexus_zim.py": "5b8b1c6e127bbde26d2c8a935e123ea1b12b3677c36daf02d58e6ac173dd7493",
+    "docs/dev/NEX-01-VALIDATION.json": "731b673e436c74676f6367500f7195dccd07c7d33b6aa40cf3e25cebf8444800",
+    "docs/dev/NEX-01.md": "9a882055d7bfbf489032dce5cdb8e33e4ee0c4d5c7d61a8f1ce2dfb3d86dcffb",
+    "docs/dev/NEX-02-VALIDATION.json": "8b5bddf49dcdbf53f0a140da6376cce8e26863a609deb0b266ba2d47c3efec71",
+    "docs/dev/NEX-02.md": "4549485ed9ffc6ddd4b69900afbe67d8a511bd38130de2cb5332421369cc2168",
+    "docs/dev/NEX-03-VALIDATION.json": "6644bfeb3c09ece1c1d54bbc3b0aa21f78545990e2956871de5c944aa287ae84",
+    "docs/dev/NEX-03.md": "4c7536c7b352d8e4f4057e557439cd1431181a719a6fc9e1ca813c02767ad23d",
+    "docs/dev/NEX-04-TESTS.txt": "4769de27a3a09cb39ccf4cb63e6933c097b808bfa8969a50e9821a8375a3dd86",
+    "docs/dev/NEX-04-VALIDATION.json": "d9c1c4ad739d1130bcab3772e9867fa3e2ec5062d6e07a3eefa38ac697b4f891",
+    "docs/dev/NEX-04.md": "17054b1eca9a892c5d4d47be09182ce2312437b2075ea1e57ca5687f0b11016f",
+    "docs/dev/NEX-05-VALIDATION.json": "97b4b59c126006ef5f474b4fc7fafd87ffca3b2258065f659ee0053212e5da0b",
+    "docs/dev/NEX-05.md": "4f9716cd915187522a6e109c78485ed8183900c4c9424a4a23bba8b4dc8dc5d3",
+    "docs/dev/NEXUS-BACKUP-FORMAT.md": "fa05d7ed67aa92e93d7b6b8ded4879ca001fc3cb2792526cffcc55a0af4890de",
+    "docs/dev/NEXUS-FINAL-01-BENCHMARK.txt": "9e6639059e53be8bbe0466f031e3d39bb9da2eb12150dc0ff10554add4c5211d",
+    "docs/dev/NEXUS-FINAL-01-BROWSER.txt": "d8ad17c3c1ccff4110675c9d9a78282567984848b29e48ca21d3457a78eb6c36",
+    "docs/dev/NEXUS-FINAL-01-DIFF.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/dev/NEXUS-FINAL-01-GRAPH.txt": "c0b9381782d0eb154ef3a4e6320c3c401fa2f8225834a6243b7eb86c33cd6042",
+    "docs/dev/NEXUS-FINAL-01-SQLITE.txt": "885130f556a3d9af804d62d44059a609ad46c316887f71c0203305e3e9ea2a04",
+    "docs/dev/NEXUS-FINAL-01-VALIDATION.json": "a8dfe111173552b46ef52d824b60e32e11a7dd415d1d070641fd6ca62f7f0fb8",
+    "docs/dev/NEXUS-FINAL-01-ZIM.txt": "ceb79260ed26d73361c395e048878d7544cd9721a7b763f0015c5d7894307fd0",
+    "docs/dev/NEXUS-FINAL-01.md": "d64c13ccf74eddb0b93d52fc43083c46f573e7bb848da331dee62d3b0bfac8f5",
+    "docs/dev/ZIM-DEPENDENCIES.md": "2a38bc5047910d7003c801429518e05d0754d29643d96bbd2833f98850b87f20",
+    "nexus-jvm-store/src/main/kotlin/fr/jarvis/nexus/backup/CryptoPort.kt": "51c896ef6b87f69793090ac4e487a820ef625cc95ba2979b3a541f2dfe8617c1",
+    "nexus-jvm-store/src/main/kotlin/fr/jarvis/nexus/backup/IntegrityVerifier.kt": "b09eb650683a9fe36dbc2afc685f9da25f45fb96576f06fe6d33951ed0dd3624",
+    "nexus-jvm-store/src/main/kotlin/fr/jarvis/nexus/backup/SnapshotTypes.kt": "9d9624e5dc98ea1b90a8f2aba182cfe69291a64f6beb613d09be7c63bcd1b52a",
+    "nexus-jvm-store/src/main/kotlin/fr/jarvis/nexus/backup/Snapshots.kt": "2513fec8865f50ca4c0c566ea8bf3e1106ebbf6ebf116c3af037e77d848dbd35",
+    "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/ArchiveContextTest.kt": "1d04b2fa9e8ea02f03391bb1d5af43c94967b73e40028a46669a99ddc25509c8",
+    "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/FinalLibraryTest.kt": "7a9f0cc4e86d70b7addf35125423badbf630fd135b4c4927a2f674446183e5d7",
+    "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/ImportPipelineTest.kt": "3c5f52ffde0ae205219660cef3f82b46395a6480b41b5dd8228c711ef83fa6f6",
+    "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/NexusStorageTest.kt": "67d645155a06678dbdaf416e9e89805ccaac9f16d104d8ea100b449b680a68e6",
+    "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/RagRetrievalTest.kt": "aa2b6016834a4a8edd5898212a07b27d6472838c65db1599da0dd3ae6532553c",
+    "nexus-jvm-store/src/test/kotlin/fr/jarvis/nexus/SnapshotRecoveryTest.kt": "c1cc84c0d0e0fd39f14f13ab47eb704b8a12da374365d816ba201c315bd1ddb7",
+    "nexus-jvm-store/src/test/resources/schema-v1.sql": "15bf0e9bcb5ab9e20e894d4534f4d6f97a8e7c338a8dd588158e30461a37ea44",
+    "tests/zim/test_zim.py": "c68e5d2da2fae0d8667f53b5ae8677b307feac8eea547f6a53112fb0d1aa0c44",
+    "viewer/README.md": "46ca948e9a4e9400a160b495148920405e14c6ad3190f66496359337b0dc13a6",
+    "viewer/app.js": "4ee3efa0843220bad3c7184bc2f6ffd9e61d00736cda95f10ca7ab65e3666f2a",
+    "viewer/graph.js": "47b6005fc7ae90c97492bf818b88148a716815de0a8f8307950d0bb3d83123ed",
+    "viewer/index.html": "b7db6dcfeb105d4aa2044e5b1be5d3f0a176d56cad9747b8fe77ddc785cd439d",
+    "viewer/style.css": "b7e6fdc13a662c9c0ec7ac65e53152a177bac2a2678eac22b46ebb5a981c73cf"
+  },
+  "schema_ddl_identical_to_base": true,
+  "v3_fixture_from": "3acec55616ff8e3b1666091780fca59261377e18",
+  "v3_fixture_sha256": "4fbffcd790ede915fc0d8fb126cdf5647d7d6e35a36eb2ebdec151e0977050d8"
+}

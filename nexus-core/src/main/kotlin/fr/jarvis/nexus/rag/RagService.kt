@@ -1,7 +1,7 @@
 package fr.jarvis.nexus.rag
 
 import fr.jarvis.nexus.api.*
-import fr.jarvis.nexus.store.NexusDatabase
+import fr.jarvis.nexus.store.NexusStoragePort
 
 /** Deterministic ranking/deduplication; no embeddings model or second LLM. */
 class EvidenceReranker {
@@ -51,7 +51,7 @@ class ContextBudgeter {
 }
 
 class LocalRagService(
-    private val database: NexusDatabase,
+    private val database: NexusStoragePort,
     private val catalog: KnowledgeCatalogService,
     private val hostScope: () -> SearchScope = { SearchScope(emptySet()) },
 ) : RagContextPort {
@@ -80,6 +80,6 @@ class LocalRagService(
         return try { CatalogResult.Ok(action()) }
         catch (e: RagRefusal) { CatalogResult.Rejected(e.error) }
         catch (_: IllegalArgumentException) { CatalogResult.Rejected(KnowledgeError.INVALID_INPUT) }
-        catch (_: java.sql.SQLException) { CatalogResult.Rejected(KnowledgeError.STORAGE_FAILURE) }
+        catch (_: fr.jarvis.nexus.store.NexusStorageException) { CatalogResult.Rejected(KnowledgeError.STORAGE_FAILURE) }
     }
 }

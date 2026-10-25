@@ -80,8 +80,11 @@ class StructuredParser(private val existing: ParserPort? = null) : ParserPort {
         factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true)
         factory.setFeature("http://xml.org/sax/features/external-general-entities", false)
         factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false)
-        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "")
-        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "")
+        // Same JAXP property URIs as XMLConstants, whose named constants do not
+        // exist in Android24 stubs. Unsupported factories still fail closed;
+        // no retry with weaker entity/DTD settings is permitted.
+        factory.setAttribute("http://javax.xml.XMLConstants/property/accessExternalDTD", "")
+        factory.setAttribute("http://javax.xml.XMLConstants/property/accessExternalSchema", "")
         factory.isXIncludeAware = false; factory.isExpandEntityReferences = false
         return factory.newDocumentBuilder().parse(ByteArrayInputStream(bytes))
     }

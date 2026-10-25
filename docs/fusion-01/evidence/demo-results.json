@@ -1,0 +1,23 @@
+[
+  {
+    "command": "rag-demo",
+    "exit_code": 0,
+    "inet_connect_attempts": 0,
+    "unix_nscd_probe_observed": true,
+    "scope": "Synthetic JVM CLI under strace; not airplane mode or OS network isolation"
+  },
+  {
+    "command": "backup-demo",
+    "exit_code": 0,
+    "inet_connect_attempts": 0,
+    "unix_nscd_probe_observed": true,
+    "scope": "Synthetic JVM CLI under strace; not airplane mode or OS network isolation"
+  },
+  {
+    "command": "atlas-demo",
+    "exit_code": 0,
+    "inet_connect_attempts": 0,
+    "unix_nscd_probe_observed": true,
+    "scope": "Synthetic JVM CLI under strace; not airplane mode or OS network isolation"
+  }
+]

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="fr.jarvis.nexus.android.SelectedDocumentImporterTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-10-25T17:16:13" hostname="22509f434799" time="0.746">
+  <properties/>
+  <testcase name="deniedAndOversizedSelectedContentAreRefusedAndDescriptorsClosed[24]" classname="fr.jarvis.nexus.android.SelectedDocumentImporterTest" time="0.078"/>
+  <testcase name="deniedAndOversizedSelectedContentAreRefusedAndDescriptorsClosed[25]" classname="fr.jarvis.nexus.android.SelectedDocumentImporterTest" time="0.084"/>
+  <testcase name="deniedAndOversizedSelectedContentAreRefusedAndDescriptorsClosed[26]" classname="fr.jarvis.nexus.android.SelectedDocumentImporterTest" time="0.101"/>
+  <testcase name="deniedAndOversizedSelectedContentAreRefusedAndDescriptorsClosed" classname="fr.jarvis.nexus.android.SelectedDocumentImporterTest" time="0.148"/>
+  <testcase name="selectedPfdIsReadAndClosedWithBoundedDigest[24]" classname="fr.jarvis.nexus.android.SelectedDocumentImporterTest" time="0.035"/>
+  <testcase name="selectedPfdIsReadAndClosedWithBoundedDigest[25]" classname="fr.jarvis.nexus.android.SelectedDocumentImporterTest" time="0.036"/>
+  <testcase name="selectedPfdIsReadAndClosedWithBoundedDigest[26]" classname="fr.jarvis.nexus.android.SelectedDocumentImporterTest" time="0.038"/>
+  <testcase name="selectedPfdIsReadAndClosedWithBoundedDigest" classname="fr.jarvis.nexus.android.SelectedDocumentImporterTest" time="0.041"/>
+  <testcase name="retainingReadPermissionRequiresExactOwnerConsentAndProviderFlags[24]" classname="fr.jarvis.nexus.android.SelectedDocumentImporterTest" time="0.053"/>
+  <testcase name="retainingReadPermissionRequiresExactOwnerConsentAndProviderFlags[25]" classname="fr.jarvis.nexus.android.SelectedDocumentImporterTest" time="0.041"/>
+  <testcase name="retainingReadPermissionRequiresExactOwnerConsentAndProviderFlags[26]" classname="fr.jarvis.nexus.android.SelectedDocumentImporterTest" time="0.049"/>
+  <testcase name="retainingReadPermissionRequiresExactOwnerConsentAndProviderFlags" classname="fr.jarvis.nexus.android.SelectedDocumentImporterTest" time="0.037"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

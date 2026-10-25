@@ -1,0 +1,3 @@
+PASS: staged source/documentation whitespace check, excluding raw evidence.
+Raw Gradle logs retain their original trailing spaces; the unfiltered diff check reports those whitespace lines.
+No compiler, Lint, test or security assertion is suppressed.

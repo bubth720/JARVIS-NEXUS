@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 def migrations():
-    source = (ROOT / 'nexus-core/src/main/kotlin/fr/jarvis/nexus/store/NexusDatabase.kt').read_text()
+    source = (ROOT / 'nexus-core/src/main/kotlin/fr/jarvis/nexus/store/NexusSchema.kt').read_text()
     result = {}
     for match in re.finditer(r'private val v(\d+) = listOf\(', source):
         pos = match.end(); level = 1; strings = []

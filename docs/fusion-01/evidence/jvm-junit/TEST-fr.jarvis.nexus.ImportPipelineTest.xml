@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="fr.jarvis.nexus.ImportPipelineTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2026-10-25T17:20:16" hostname="22509f434799" time="0.244">
+  <properties/>
+  <testcase name="realFtsIndexesRawOffsetsAndUnicodeNormalizationOnlyInIndex" classname="fr.jarvis.nexus.ImportPipelineTest" time="0.013"/>
+  <testcase name="parserCannotChangeTheSourceBytesBeingCommitted" classname="fr.jarvis.nexus.ImportPipelineTest" time="0.007"/>
+  <testcase name="decomposedAccentInMiddleOfQueryWordMatchesTheNormalizedIndex" classname="fr.jarvis.nexus.ImportPipelineTest" time="0.007"/>
+  <testcase name="interruptedJobRequiresExplicitReconciliationAndResumesWithoutDuplicates" classname="fr.jarvis.nexus.ImportPipelineTest" time="0.013"/>
+  <testcase name="cancellationIsObservedImmediatelyAfterBoundedReadReturns" classname="fr.jarvis.nexus.ImportPipelineTest" time="0.014"/>
+  <testcase name="cancellationAfterPageInsertionRollsBackTheWholeRealTransaction" classname="fr.jarvis.nexus.ImportPipelineTest" time="0.043"/>
+  <testcase name="cancelledParserCannotCommitAnyNewDocument" classname="fr.jarvis.nexus.ImportPipelineTest" time="0.008"/>
+  <testcase name="recoveryPreservesPriorCancellation" classname="fr.jarvis.nexus.ImportPipelineTest" time="0.007"/>
+  <testcase name="parserExceptionAfterDurableCancelCannotTurnJobBackIntoRetryableFailure" classname="fr.jarvis.nexus.ImportPipelineTest" time="0.012"/>
+  <testcase name="unauthorizedPipelineDoesNotReadSourceOrParse" classname="fr.jarvis.nexus.ImportPipelineTest" time="0.004"/>
+  <testcase name="streamFailureAfterDurableCancelKeepsBothCancellationAndFailureEvidence" classname="fr.jarvis.nexus.ImportPipelineTest" time="0.007"/>
+  <testcase name="indexFailureRollsBackDocumentsAndFts" classname="fr.jarvis.nexus.ImportPipelineTest" time="0.018"/>
+  <testcase name="pendingQueueAndInputBytesAreBounded" classname="fr.jarvis.nexus.ImportPipelineTest" time="0.007"/>
+  <testcase name="changedSourceAndUnsupportedArchiveAreRefusedWithoutImport" classname="fr.jarvis.nexus.ImportPipelineTest" time="0.035"/>
+  <testcase name="schemaV1WithExistingDocumentMigratesWithoutChangingHistoricalRows" classname="fr.jarvis.nexus.ImportPipelineTest" time="0.021"/>
+  <testcase name="incrementalRevisionDropsOldHitsAndDeletionNeverReturnsStaleSources" classname="fr.jarvis.nexus.ImportPipelineTest" time="0.018"/>
+  <testcase name="liveWorkerPreventsRecoveryAndKeepsCancellingUntilItReturns" classname="fr.jarvis.nexus.ImportPipelineTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

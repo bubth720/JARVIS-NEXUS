@@ -1,0 +1,23 @@
+[
+  {
+    "name": "fr.jarvis.nexus.android.SelectedDocumentImporterTest",
+    "tests": "12",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "fr.jarvis.nexus.android.UnavailableFtsTest",
+    "tests": "1",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "fr.jarvis.nexus.android.AndroidNexusStorageTest",
+    "tests": "24",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  }
+]

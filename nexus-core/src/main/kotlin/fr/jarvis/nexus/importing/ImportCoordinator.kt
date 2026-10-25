@@ -4,19 +4,15 @@ import fr.jarvis.nexus.api.*
 import fr.jarvis.nexus.store.*
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
-import java.nio.channels.FileChannel
-import java.nio.channels.OverlappingFileLockException
-import java.nio.file.LinkOption
-import java.nio.file.StandardOpenOption
 import java.security.MessageDigest
-import java.sql.Connection
-import java.sql.ResultSet
+import fr.jarvis.nexus.store.NexusSession
+import fr.jarvis.nexus.store.NexusRow
 import java.text.Normalizer
 import java.util.UUID
 
 /** Single parser worker per database (OS sidecar lock), bounded inputs, no background thread. */
 class ImportCoordinator(
-    private val database: NexusDatabase,
+    private val database: NexusStoragePort,
     private val catalog: KnowledgeCatalogService,
     private val parsers: ParserRegistry,
     private val maxBytes: Int = 2 * 1024 * 1024,
@@ -24,28 +20,29 @@ class ImportCoordinator(
     private val chunkChars: Int = 2048,
     private val maxDatabaseBytes: Long = 64L * 1024 * 1024,
     private val minFreeBytes: Long = 16L * 1024 * 1024,
-    private val freeBytes: () -> Long = { java.nio.file.Files.getFileStore(database.path.parent).usableSpace },
+    private val freeBytes: () -> Long = { database.availableBytes() ?: 0L },
 ) {
     init { require(maxBytes in 1..2 * 1024 * 1024); require(maxPending in 1..64); require(chunkChars in 64..8192); require(maxDatabaseBytes in 1024 * 1024..1024L * 1024 * 1024 * 1024 && minFreeBytes in 0..1024L * 1024 * 1024 * 1024) }
-    private fun quota(c: Connection, reserve: Long = 0) {
+    private fun quota(c: NexusSession, reserve: Long = 0) {
         val allocated = c.query("PRAGMA page_count") { it.getLong(1) }.single() * c.query("PRAGMA page_size") { it.getLong(1) }.single()
         if (allocated > maxDatabaseBytes - reserve || freeBytes() < minFreeBytes + reserve) throw ParserFailure(KnowledgeError.LIMIT_EXCEEDED)
     }
-    private fun metadata(c: Connection, job: ImportJob, documentId: String) {
+    private fun metadata(c: NexusSession, job: ImportJob, documentId: String) {
         val pending = c.query("SELECT * FROM import_metadata WHERE job_id=?", job.id) { r ->
             listOf(r.getString("media_type"), r.getObject("modified_ms"), r.getString("category"), r.getString("tags"))
         }.singleOrNull() ?: listOf(job.source.name.substringAfterLast('.').lowercase(java.util.Locale.ROOT), null, "", "")
-        c.execute("INSERT INTO document_metadata VALUES(?,?,?,?,?,?,?) ON CONFLICT(document_id) DO UPDATE SET name=excluded.name,media_type=excluded.media_type,byte_count=excluded.byte_count,modified_ms=excluded.modified_ms,category=excluded.category,tags=excluded.tags",
+        c.execute("UPDATE document_metadata SET name=?,media_type=?,byte_count=?,modified_ms=?,category=?,tags=? WHERE document_id=?", job.source.name,pending[0],job.byteCount,pending[1],pending[2],pending[3],documentId)
+        c.execute("INSERT OR IGNORE INTO document_metadata VALUES(?,?,?,?,?,?,?)",
             documentId, job.source.name, pending[0], job.byteCount, pending[1], pending[2], pending[3])
     }
-    private fun row(r: ResultSet) = ImportJob(r.getString("id"), ImportSource(r.getString("collection_id"), r.getString("uri"), r.getString("name"), r.getString("title"), r.getObject("expected_version")?.let { r.getInt("expected_version") }), r.getString("sha256"), r.getInt("byte_count"), ImportState.valueOf(r.getString("state")), r.getString("document_id"), r.getString("error")?.let(KnowledgeError::valueOf))
-    private fun find(c: Connection, id: String): ImportJob = c.query("SELECT * FROM import_job WHERE id=?", id, map = ::row).singleOrNull() ?: throw ParserFailure(KnowledgeError.NOT_FOUND)
-    private fun event(c: Connection, id: String, kind: ImportEventKind, state: ImportState, error: KnowledgeError? = null) {
+    private fun row(r: NexusRow) = ImportJob(r.getString("id"), ImportSource(r.getString("collection_id"), r.getString("uri"), r.getString("name"), r.getString("title"), r.getObject("expected_version")?.let { r.getInt("expected_version") }), r.getString("sha256"), r.getInt("byte_count"), ImportState.valueOf(r.getString("state")), r.getString("document_id"), r.getString("error")?.let(KnowledgeError::valueOf))
+    private fun find(c: NexusSession, id: String): ImportJob = c.query("SELECT * FROM import_job WHERE id=?", id, map = ::row).singleOrNull() ?: throw ParserFailure(KnowledgeError.NOT_FOUND)
+    private fun event(c: NexusSession, id: String, kind: ImportEventKind, state: ImportState, error: KnowledgeError? = null) {
         c.execute("INSERT INTO import_job_event(job_id,kind,state,error) VALUES(?,?,?,?)",id,kind.name,state.name,error?.name)
     }
     fun events(id: String, after: Long = 0, limit: Int = 100): CatalogResult<List<ImportEvent>> = result(Operation.READ) {
         require(after>=0 && limit in 1..200)
-        database.read { c -> c.query("SELECT * FROM import_job_event WHERE job_id=? AND sequence>? ORDER BY sequence LIMIT ?",id,after,limit) { r -> ImportEvent(r.getLong(1),r.getString(2),ImportEventKind.valueOf(r.getString(3)),ImportState.valueOf(r.getString(4)),r.getString(5)?.let(KnowledgeError::valueOf)) } }
+        database.readSession { c -> c.query("SELECT * FROM import_job_event WHERE job_id=? AND sequence>? ORDER BY sequence LIMIT ?",id,after,limit) { r -> ImportEvent(r.getLong(1),r.getString(2),ImportEventKind.valueOf(r.getString(3)),ImportState.valueOf(r.getString(4)),r.getString(5)?.let(KnowledgeError::valueOf)) } }
     }
     private fun requireAccess(operation: Operation) { if (!catalog.permits(operation)) throw ParserFailure(KnowledgeError.DENIED) }
     private fun <T> result(operation: Operation, action: () -> T): CatalogResult<T> = try {
@@ -53,7 +50,7 @@ class ImportCoordinator(
     } catch (failure: ParserFailure) { CatalogResult.Rejected(failure.error) }
       catch (_: ImportCancelled) { CatalogResult.Rejected(KnowledgeError.CANCELLED) }
       catch (_: IllegalArgumentException) { CatalogResult.Rejected(KnowledgeError.INVALID_INPUT) }
-      catch (_: java.sql.SQLException) { CatalogResult.Rejected(KnowledgeError.STORAGE_FAILURE) }
+      catch (_: fr.jarvis.nexus.store.NexusStorageException) { CatalogResult.Rejected(KnowledgeError.STORAGE_FAILURE) }
       catch (_: java.io.IOException) { CatalogResult.Rejected(KnowledgeError.STORAGE_FAILURE) }
       catch (_: SecurityException) { CatalogResult.Rejected(KnowledgeError.DENIED) }
     private fun bytes(input: InputStream, cancellation: Cancellation = Cancellation { false }): ByteArray {
@@ -76,7 +73,7 @@ class ImportCoordinator(
         require(source.name.isNotBlank() && source.name.length <= 200 && '\u0000' !in source.name)
         parsers.find(source.name) // Archives and unsupported formats are refused without extraction.
         val content = bytes(stream, Cancellation { !catalog.permits(Operation.WRITE) }); val sha = digest(content)
-        database.transaction { c ->
+        database.inTransaction { c ->
             quota(c, content.size.toLong() * 8)
             requireAccess(Operation.WRITE)
             if (c.query("SELECT id FROM collection WHERE id=?", source.collectionId) { it.getString(1) }.isEmpty()) throw ParserFailure(KnowledgeError.NOT_FOUND)
@@ -89,9 +86,9 @@ class ImportCoordinator(
             find(c, id)
         }
     }
-    fun job(id: String): CatalogResult<ImportJob> = result(Operation.READ) { database.read { find(it, id) } }
+    fun job(id: String): CatalogResult<ImportJob> = result(Operation.READ) { database.readSession { find(it, id) } }
     fun cancel(id: String): CatalogResult<ImportJob> = result(Operation.WRITE) {
-        database.transaction { c ->
+        database.inTransaction { c ->
             val job = find(c, id)
             when (job.state) {
                 ImportState.QUEUED, ImportState.INTERRUPTED -> c.execute("UPDATE import_job SET state='CANCELLED',error='CANCELLED' WHERE id=?", id)
@@ -106,7 +103,7 @@ class ImportCoordinator(
     /** Reconciliation only after acquiring the exclusive parser lock; never clears history. */
     fun recoverInterrupted(): CatalogResult<Int> = result(Operation.WRITE) {
         worker {
-            database.transaction { c ->
+            database.inTransaction { c ->
                 val pending=c.query("SELECT * FROM import_job WHERE state IN ('PROCESSING','CANCELLING')",map=::row)
                 pending.forEach { job ->
                     val next=if (job.state==ImportState.CANCELLING) ImportState.CANCELLED else ImportState.INTERRUPTED
@@ -118,21 +115,17 @@ class ImportCoordinator(
         }
     }
     private fun <T> worker(action: () -> T): T {
-        val lockPath = database.path.resolveSibling("." + database.path.fileName + ".nexus-import.lock")
-        FileChannel.open(lockPath, StandardOpenOption.CREATE, StandardOpenOption.WRITE, LinkOption.NOFOLLOW_LINKS).use { channel ->
-            val lock = try { channel.tryLock() } catch (_: OverlappingFileLockException) { null }
-            if (lock == null) throw ParserFailure(KnowledgeError.BUSY)
-            lock.use { return action() }
-        }
+        val lease = database.acquireImportLease() ?: throw ParserFailure(KnowledgeError.BUSY)
+        lease.use { return action() }
     }
     fun process(id: String, stream: InputStream, cancellation: Cancellation = Cancellation { false }, forceReindex: Boolean = false): CatalogResult<ImportJob> = result(Operation.WRITE) {
         worker {
             var begun = false
             try {
-                val job = database.transaction { c ->
+                val job = database.inTransaction { c ->
                     quota(c)
                     val job = find(c, id)
-                    if (job.state == ImportState.COMPLETED) return@transaction job
+                    if (job.state == ImportState.COMPLETED) return@inTransaction job
                     if (job.state !in setOf(ImportState.QUEUED, ImportState.INTERRUPTED, ImportState.FAILED)) throw ParserFailure(if (job.state == ImportState.CANCELLED) KnowledgeError.CANCELLED else KnowledgeError.BUSY)
                     c.execute("UPDATE import_job SET state='PROCESSING',error=NULL WHERE id=?", id)
                     event(c,id,ImportEventKind.PROCESSING,ImportState.PROCESSING)
@@ -141,13 +134,13 @@ class ImportCoordinator(
                 }
                 if (!begun) return@worker job
                 val stop = Cancellation {
-                    cancellation.requested() || !catalog.permits(Operation.WRITE) || database.read { find(it, id).state == ImportState.CANCELLING }
+                    cancellation.requested() || !catalog.permits(Operation.WRITE) || database.readSession { find(it, id).state == ImportState.CANCELLING }
                 }
                 stop.check()
                 val content = bytes(stream, stop)
                 if (content.size != job.byteCount || digest(content) != job.sha256) throw ParserFailure(KnowledgeError.CONFLICT)
                 // Hash comparison reuses the current READY index; no parsing or FTS rewrite.
-                val unchanged = database.transaction { c ->
+                val unchanged = database.inTransaction { c ->
                     val row = c.query("SELECT d.id,d.version FROM document d JOIN revision r ON r.document_id=d.id AND r.version=d.version JOIN source s ON s.id=r.source_id JOIN index_state i ON i.document_id=d.id WHERE d.collection_id=? AND d.uri=? AND d.deleted=0 AND d.title=? AND s.sha256=? AND i.state='READY' AND i.indexed_version=d.version", job.source.collectionId, job.source.uri, job.source.title, job.sha256) { Pair(it.getString(1),it.getInt(2)) }.singleOrNull()
                     if (row != null && !forceReindex) {
                         if (job.source.expectedVersion != null && job.source.expectedVersion != row.second) throw ParserFailure(KnowledgeError.CONFLICT)
@@ -158,7 +151,7 @@ class ImportCoordinator(
                     }
                     row != null && !forceReindex
                 }
-                if (unchanged) return@worker database.read { find(it,id) }
+                if (unchanged) return@worker database.readSession { find(it,id) }
                 val pages = try { parsers.find(job.source.name).parse(job.source.name, content.copyOf(), stop).map { it.copy() } }
                     catch (e: ImportCancelled) { throw e }
                     catch (e: ParserFailure) { throw e }
@@ -205,7 +198,7 @@ class ImportCoordinator(
                     quota(c)
                 }
                 if (imported is CatalogResult.Rejected) throw ParserFailure(imported.error)
-                database.read { find(it, id) }
+                database.readSession { find(it, id) }
             } catch (failure: Exception) {
                 if (begun) {
                     val code = when (failure) {
@@ -214,7 +207,7 @@ class ImportCoordinator(
                         is IllegalArgumentException -> KnowledgeError.INVALID_INPUT
                         else -> KnowledgeError.STORAGE_FAILURE
                     }
-                    val cancellationWon=database.transaction { c ->
+                    val cancellationWon=database.inTransaction { c ->
                         val current=find(c,id)
                         val cancelled=code==KnowledgeError.CANCELLED || current.state in setOf(ImportState.CANCELLING,ImportState.CANCELLED)
                         if (current.state!=ImportState.COMPLETED) {

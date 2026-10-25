@@ -1,0 +1,32 @@
+[
+  {
+    "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.16%2B8/OpenJDK17U-jdk_x64_linux_hotspot_17.0.16_8.tar.gz",
+    "sha256": "166774efcf0f722f2ee18eba0039de2d685b350ee14d7b69e6f83437dafd2af1",
+    "bytes": 192062472,
+    "scope": "isolated development tool; not runtime asset or personal installation"
+  },
+  {
+    "url": "https://downloads.gradle.org/distributions/gradle-8.10.2-bin.zip",
+    "sha256": "31c55713e40233a8303827ceb42ca48a47267a0ad4bab9177123121e71524c26",
+    "bytes": 136715430,
+    "scope": "isolated development tool; not runtime asset or personal installation"
+  },
+  {
+    "url": "https://dl.google.com/android/repository/platform-24_r02.zip",
+    "sha256": "f268f5945c6ece7ea95c1c252067280854d2a20da924e22ae4720287df8bdbc9",
+    "bytes": 82648154,
+    "scope": "isolated development tool; not runtime asset or personal installation"
+  },
+  {
+    "url": "https://dl.google.com/android/repository/platform-35_r02.zip",
+    "sha256": "0988cacad01b38a18a47bac14a0695f246bc76c1b06c0eeb8eb0dc825ab0c8e0",
+    "bytes": 64273788,
+    "scope": "isolated development tool; not runtime asset or personal installation"
+  },
+  {
+    "url": "https://dl.google.com/android/repository/build-tools_r35_linux.zip",
+    "sha256": "bd3a4966912eb8b30ed0d00b0cda6b6543b949d5ffe00bea54c04c81e1561d88",
+    "bytes": 61958799,
+    "scope": "isolated development tool; not runtime asset or personal installation"
+  }
+]

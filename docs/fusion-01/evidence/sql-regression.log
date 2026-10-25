@@ -1,0 +1,15 @@
+test_actual_ddl_migration_v3_preserves_existing_documents_and_fts (test_sqlite.SchemaTests.test_actual_ddl_migration_v3_preserves_existing_documents_and_fts) ... ok
+test_citation_offsets_and_hash_match_stored_source (test_sqlite.SchemaTests.test_citation_offsets_and_hash_match_stored_source) ... ok
+test_cross_collection_nodes_and_edges_refused (test_sqlite.SchemaTests.test_cross_collection_nodes_and_edges_refused) ... ok
+test_keyset_graph_pagination_has_no_duplicate_or_missing_node (test_sqlite.SchemaTests.test_keyset_graph_pagination_has_no_duplicate_or_missing_node) ... ok
+test_migration_transaction_rolls_back_on_failure (test_sqlite.SchemaTests.test_migration_transaction_rolls_back_on_failure) ... ok
+test_phrase_scope_type_and_source_indices (test_sqlite.SchemaTests.test_phrase_scope_type_and_source_indices) ... ok
+test_rejected_edge_and_optimistic_edit (test_sqlite.SchemaTests.test_rejected_edge_and_optimistic_edit) ... ok
+test_soft_delete_hides_fts_and_keeps_original_provenance (test_sqlite.SchemaTests.test_soft_delete_hides_fts_and_keeps_original_provenance) ... ok
+test_sqlite_backup_preview_is_isolated_not_crypto_qualification (test_sqlite.SchemaTests.test_sqlite_backup_preview_is_isolated_not_crypto_qualification) ... ok
+test_transaction_interruption_and_restart (test_sqlite.SchemaTests.test_transaction_interruption_and_restart) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.227s
+
+OK

@@ -1,0 +1,53 @@
+4698  +++ exited with 0 +++
+4697  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4698, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+4699  +++ exited with 0 +++
+4697  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4699, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+4700  +++ exited with 0 +++
+4697  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4700, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+4702  +++ exited with 0 +++
+4701  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4702, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+4706  +++ exited with 0 +++
+4703  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4706, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+4703  +++ exited with 0 +++
+4701  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4703, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+4704  +++ exited with 0 +++
+4701  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4704, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+4705  +++ exited with 0 +++
+4701  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4705, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+4701  +++ exited with 0 +++
+4697  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4701, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+4707  socket(AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4
+4707  connect(4, {sa_family=AF_UNIX, sun_path="/var/run/nscd/socket"}, 110) = -1 ENOENT (No such file or directory)
+4707  socket(AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4
+4707  connect(4, {sa_family=AF_UNIX, sun_path="/var/run/nscd/socket"}, 110) = -1 ENOENT (No such file or directory)
+4707  --- SIGSEGV {si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=NULL} ---
+4725  +++ exited with 0 +++
+4707  --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=4725, si_uid=1000, si_status=0, si_utime=0, si_stime=1 /* 0.01 s */} ---
+4707  socket(AF_INET, SOCK_STREAM, IPPROTO_IP) = 14
+4707  socket(AF_INET6, SOCK_STREAM, IPPROTO_IP) = 14
+4707  getsockname(0, 0x7fbbcc5d8910, [28]) = -1 ENOTSOCK (Socket operation on non-socket)
+4707  socket(AF_INET, SOCK_STREAM, IPPROTO_IP) = 14
+4707  setsockopt(14, SOL_SOCKET, SO_REUSEPORT, [1], 4) = 0
+4707  socketpair(AF_UNIX, SOCK_STREAM, 0, [14, 15]) = 0
+4723  +++ exited with 0 +++
+4711  +++ exited with 0 +++
+4712  +++ exited with 0 +++
+4709  +++ exited with 0 +++
+4713  +++ exited with 0 +++
+4707  +++ exited with 0 +++
+4727  +++ exited with 0 +++
+4717  +++ exited with 0 +++
+4715  +++ exited with 0 +++
+4714  +++ exited with 0 +++
+4720  +++ exited with 0 +++
+4716  +++ exited with 0 +++
+4708  +++ exited with 0 +++
+4728  +++ exited with 0 +++
+4724  +++ exited with 0 +++
+4722  +++ exited with 0 +++
+4721  +++ exited with 0 +++
+4719  +++ exited with 0 +++
+4718  +++ exited with 0 +++
+4710  +++ exited with 0 +++
+4726  +++ exited with 0 +++
+4697  +++ exited with 0 +++

@@ -1,0 +1,197 @@
+Picked up JAVA_TOOL_OPTIONS:  -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts
+
+Welcome to Gradle 8.10.2!
+
+Here are the highlights of this release:
+ - Support for Java 23
+ - Faster configuration cache
+ - Better configuration cache reports
+
+For more details see https://docs.gradle.org/8.10.2/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :nexus-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :nexus-core:processResources NO-SOURCE
+> Task :nexus-core:processTestResources
+> Task :nexus-cli:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :nexus-cli:processResources NO-SOURCE
+> Task :nexus-core:compileKotlin
+> Task :nexus-core:compileJava NO-SOURCE
+> Task :nexus-core:classes UP-TO-DATE
+> Task :nexus-core:jar
+> Task :nexus-cli:compileKotlin
+> Task :nexus-cli:compileJava NO-SOURCE
+> Task :nexus-cli:classes UP-TO-DATE
+> Task :nexus-cli:jar
+> Task :nexus-cli:startScripts
+> Task :nexus-cli:installDist
+> Task :nexus-core:compileTestKotlin
+> Task :nexus-core:compileTestJava NO-SOURCE
+> Task :nexus-core:testClasses
+
+> Task :nexus-core:test
+Picked up JAVA_TOOL_OPTIONS:  -Dhttps.proxyHost=proxy -Dhttps.proxyPort=8080 -Dhttp.proxyHost=proxy -Dhttp.proxyPort=8080 -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts
+
+ArchiveContextTest > noEvidenceAndSmallCarrierBudgetStayTyped PASSED
+
+ArchiveContextTest > wrongScopeIsDenied PASSED
+
+ArchiveContextTest > revokedAuthorityCannotUseCitations PASSED
+
+ArchiveContextTest > nativeAbsenceDoesNotProduceEvidence PASSED
+
+ArchiveContextTest > tamperedCitationAndChangedArticleAreRejected PASSED
+
+ArchiveContextTest > selectedArticleUsesExistingCarrierAndResolves PASSED
+
+FinalLibraryTest > hostileContainersAndExternalEntitiesAreRefused PASSED
+
+FinalLibraryTest > queuedImportCanResumeInNewDatabaseOwner PASSED
+
+FinalLibraryTest > lowSpaceAndCancellationRemainTyped PASSED
+
+FinalLibraryTest > absentEmbeddingModelIsExplicitlyUnsupported PASSED
+
+FinalLibraryTest > realDocxAndCsvHaveResolvableTextLocations PASSED
+
+FinalLibraryTest > graphRelationsKeepEvidenceAndRespectCollectionBoundaries PASSED
+
+FinalLibraryTest > unchangedHashReusesIndexAndMetadataPersists PASSED
+
+FinalLibraryTest > collectionRemovalRequiresUnchangedPreviewAndLeavesSources PASSED
+
+ImportPipelineTest > realFtsIndexesRawOffsetsAndUnicodeNormalizationOnlyInIndex PASSED
+
+ImportPipelineTest > parserCannotChangeTheSourceBytesBeingCommitted PASSED
+
+ImportPipelineTest > decomposedAccentInMiddleOfQueryWordMatchesTheNormalizedIndex PASSED
+
+ImportPipelineTest > interruptedJobRequiresExplicitReconciliationAndResumesWithoutDuplicates PASSED
+
+ImportPipelineTest > cancellationIsObservedImmediatelyAfterBoundedReadReturns PASSED
+
+ImportPipelineTest > cancellationAfterPageInsertionRollsBackTheWholeRealTransaction PASSED
+
+ImportPipelineTest > cancelledParserCannotCommitAnyNewDocument PASSED
+
+ImportPipelineTest > recoveryPreservesPriorCancellation PASSED
+
+ImportPipelineTest > parserExceptionAfterDurableCancelCannotTurnJobBackIntoRetryableFailure PASSED
+
+ImportPipelineTest > unauthorizedPipelineDoesNotReadSourceOrParse PASSED
+
+ImportPipelineTest > streamFailureAfterDurableCancelKeepsBothCancellationAndFailureEvidence PASSED
+
+ImportPipelineTest > indexFailureRollsBackDocumentsAndFts PASSED
+
+ImportPipelineTest > pendingQueueAndInputBytesAreBounded PASSED
+
+ImportPipelineTest > changedSourceAndUnsupportedArchiveAreRefusedWithoutImport PASSED
+
+ImportPipelineTest > schemaV1WithExistingDocumentMigratesWithoutChangingHistoricalRows PASSED
+
+ImportPipelineTest > incrementalRevisionDropsOldHitsAndDeletionNeverReturnsStaleSources PASSED
+
+ImportPipelineTest > liveWorkerPreventsRecoveryAndKeepsCancellingUntilItReturns PASSED
+
+NexusStorageTest > callerCannotMutateFragmentsAfterValidationDuringHashing PASSED
+
+NexusStorageTest > boundsInvalidUnicodeAndUnknownCollectionAreRefused PASSED
+
+NexusStorageTest > changesRequireExpectedVersionAndKeepImmutableProvenance PASSED
+
+NexusStorageTest > metadataChangesAndDeleteRestoreAreVersioned PASSED
+
+NexusStorageTest > futureSchemaIsRefusedWithoutRewritingVersion PASSED
+
+NexusStorageTest > revocationWhileHashingPreventsCommit PASSED
+
+NexusStorageTest > reopenKeepsRealRowsRevisionsAndIntegrity PASSED
+
+NexusStorageTest > denialPrecedesStreamReadAndAllReadPathsAreProtected PASSED
+
+NexusStorageTest > concurrentRevisionsHaveOneWinnerAndNoLostUpdate PASSED
+
+NexusStorageTest > titleHistoryIsPreservedInRevisions PASSED
+
+NexusStorageTest > createsAllSevenTablesAndIndexes PASSED
+
+NexusStorageTest > fingerprintsUseRealStreamingShaAndBoundedConsumption PASSED
+
+NexusStorageTest > exactDuplicateIsIdempotentAndDoesNotAppendAudit PASSED
+
+NexusStorageTest > duplicatesAcrossCollectionsRetainOneImmutableSource PASSED
+
+NexusStorageTest > purgeRequiresConfirmationAndPriorDeletionAndKeepsAudit PASSED
+
+NexusStorageTest > pagesAndJsonEscapingPreserveSourceIdentity PASSED
+
+NexusStorageTest > failureMidImportRollsBackSourceDocumentFragmentsAndAudit PASSED
+
+NexusStorageTest > interruptedMigrationLeavesNoPartialSchemaAndCanRetry PASSED
+
+RagRetrievalTest > importDateFilterIsExplicitAndDoesNotInventFileCreationDate PASSED
+
+RagRetrievalTest > limitedOneEditFallbackIsVisibleAndStillScopeRestricted PASSED
+
+RagRetrievalTest > unauthorizedCollectionAndSourceNeverLeakHits PASSED
+
+RagRetrievalTest > adjacentFragmentsKeepEveryCitationAndWholeCarrierBudget PASSED
+
+RagRetrievalTest > budgetsNeverTruncateAnUntraceableExcerpt PASSED
+
+RagRetrievalTest > sourceLimitSelectsAnExplicitSubsetOfIdenticalEvidence PASSED
+
+RagRetrievalTest > hostAuthorizationCanRevokeSourcesAndDefaultScopeGrantsNothing PASSED
+
+RagRetrievalTest > deletionAndRenameInvalidateEarlierCitation PASSED
+
+RagRetrievalTest > maliciousTextRemainsQuotedUntrustedDataAndCannotGrantPermissions PASSED
+
+RagRetrievalTest > threeRealQueriesReturnResolvableCitations PASSED
+
+RagRetrievalTest > duplicateEvidenceIsGroupedWithoutInventingSourceIdentity PASSED
+
+RagRetrievalTest > tamperedCitationAndCrossScopeResolutionAreRefused PASSED
+
+SnapshotRecoveryTest > realFtsAndCitationsSurviveEncryptedBackupAndIsolatedRestore PASSED
+
+SnapshotRecoveryTest > authenticatedManifestCannotHideWrongDatabaseVersionOrHash PASSED
+
+SnapshotRecoveryTest > changedWorkspaceIdentityCannotDeleteReplacementDirectory PASSED
+
+SnapshotRecoveryTest > changedCurrentVersionProducesPreviewConflictWithoutAdoption PASSED
+
+SnapshotRecoveryTest > authenticatedManyEntryZipRefusedBeforeExtraction PASSED
+
+SnapshotRecoveryTest > realBackupRestoresEquivalentDataToSeparateWorkspaceAndRollsBackOnClose PASSED
+
+SnapshotRecoveryTest > exportDoesNotChangeOriginalBytesAndRetainKeepsOnlySeparateCopy PASSED
+
+SnapshotRecoveryTest > quotaRefusesBeforeCreatingArchive PASSED
+
+SnapshotRecoveryTest > equalVersionForksStillProduceAConflictAndNeverOverwriteEitherCopy PASSED
+
+SnapshotRecoveryTest > raceCreatingDestinationAfterEncryptionCannotClobberIt PASSED
+
+SnapshotRecoveryTest > authenticatedZipTraversalIsRefusedAndCannotWriteOutsideWorkspace PASSED
+
+SnapshotRecoveryTest > repeatedExportsUseFreshNonceAndDoNotContainClearDocumentText PASSED
+
+SnapshotRecoveryTest > publicationUsesCapturedCanonicalParentDespiteAliasSwap PASSED
+
+SnapshotRecoveryTest > truncatedArchiveHashMismatchAndPermissionDenialAreExplicit PASSED
+
+SnapshotRecoveryTest > absentKeyAndAbsentConfirmationRefuseAndExistingArchiveIsNeverOverwritten PASSED
+
+SnapshotRecoveryTest > missingRequiredSchemaIsNeverExportedAsVerifiedBackup PASSED
+
+SnapshotRecoveryTest > expectedDigestCoversActualDecryptionInputNotEarlierPathContents PASSED
+
+SnapshotRecoveryTest > wrongKeyAndTamperingRefuseWithoutChangingOriginal PASSED
+
+SnapshotRecoveryTest > manifestRejectsUnknownVersionAndAmbiguousFields PASSED
+
+BUILD SUCCESSFUL in 2m 8s
+9 actionable tasks: 9 executed

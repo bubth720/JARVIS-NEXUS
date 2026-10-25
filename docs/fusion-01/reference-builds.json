@@ -1,0 +1,72 @@
+[
+  {
+    "repo": "JAVIS-Local-v2",
+    "path": "app/build.gradle.kts",
+    "sha": "aea5ac859ac551d54fe16187c1883a487dbee9d6",
+    "blob": "c8a2a66250eda5a44b34df4dd56373317dd42e59",
+    "lines": [
+      "    compileSdk = 35",
+      "        minSdk = 24",
+      "        sourceCompatibility = JavaVersion.VERSION_17",
+      "        targetCompatibility = JavaVersion.VERSION_17",
+      "    kotlinOptions { jvmTarget = \"17\" }"
+    ]
+  },
+  {
+    "repo": "JARVIS-LLM",
+    "path": "app/build.gradle.kts",
+    "sha": "2efb3f7aa6205062ab71f570212019fd1d9885b6",
+    "blob": "0d034edf01a901a6d2ce960c2d351258c202455f",
+    "lines": [
+      "    compileSdk = 36",
+      "        minSdk = 29",
+      "    compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }",
+      "    kotlinOptions { jvmTarget = \"17\" }"
+    ]
+  },
+  {
+    "repo": "JARVIS-VOICE",
+    "path": "voiceFinalStudio/build.gradle.kts",
+    "sha": "fe57452fcb33f5b6870070f30ba6c5f1d349c4ba",
+    "blob": "202ca653e81097eae560b52187794f22c6e70882",
+    "lines": [
+      "    compileSdk = 35",
+      "        minSdk = 26",
+      "    compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }",
+      "    kotlinOptions { jvmTarget = \"17\" }"
+    ]
+  },
+  {
+    "repo": "JARVIS-INTERFACE",
+    "path": "app/build.gradle.kts",
+    "sha": "db459ba388a3fea992d80320c3989be0edda8500",
+    "blob": "274597096a5f73a67aa69f3e6823c49cfce205f5",
+    "lines": [
+      "    compileSdk = 35",
+      "        minSdk = 26",
+      "        sourceCompatibility = JavaVersion.VERSION_17",
+      "        targetCompatibility = JavaVersion.VERSION_17",
+      "    kotlinOptions { jvmTarget = \"17\" }"
+    ]
+  },
+  {
+    "repo": "JARVIS-SERVICES",
+    "path": "android/build.gradle",
+    "sha": "d16dd84f27881460ec9f02d2a54d9ddff23187dc",
+    "blob": "7e6f7d37fd56d1d7066e2b8a5fd9b771e45862db",
+    "lines": [
+      " compileSdk 35",
+      " defaultConfig { applicationId 'fr.jarvis.services.diagnostic'; minSdk 26; targetSdk 35; versionCode 1; versionName '1.0.0'; testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner' }",
+      " compileOptions { sourceCompatibility JavaVersion.VERSION_11; targetCompatibility JavaVersion.VERSION_11 }"
+    ]
+  },
+  {
+    "repo": "JARVIS-VOLUTION-",
+    "path": "evolution-core/build.gradle.kts",
+    "sha": "c0180181804338d21f3bf9d4b537b709595902f7",
+    "blob": "805150c39904f606e906645ed321c41327a23ff5",
+    "lines": [
+      "kotlin { jvmToolchain(17) }"
+    ]
+  }
+]

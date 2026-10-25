@@ -1,0 +1,2 @@
+PASS: overall GO, UNKNOWN native activation and invented JVM count each refused.
+No source, personal data or product state modified.

@@ -1,0 +1,5 @@
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+BACKUP exported=true authentication=verified restored_documents=1 conflicts=1 corruption_refused=true originals_preserved=true
+Synthetic archive SHA-256=ef5eead28351a5071dcd40bec3bd8cd1d55fb80df51f353e84522e23c57b58ff; ephemeral key and files cleaned after demo
