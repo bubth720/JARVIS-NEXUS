@@ -172,3 +172,13 @@ python3 tools/check-fusion-lock.py
 `provision` télécharge uniquement des outils de laboratoire épinglés dans `/tmp`,
 sur demande explicite ; `gradle`/`api24` ne les installent pas automatiquement.
 Voir le rapport pour l'adaptateur SERVICES et les contrôles Android séparés.
+
+### FUSION-02 — qualification Android et refus sans destruction
+
+Branche `feat/fusion-02-nexus-android`, base FUSION-01 `9d6928c`.
+Sonde FTS5/MATCH/vocab(instance)/BM25 en mémoire avant création de base,
+gestion de corruption sans suppression automatique et revalidation bornée des
+sources `content:`. Les preuves émulateur et les limites restent distinctes des
+tests JVM/Robolectric ; aucun backend SQLite externe ajouté.
+Voir [rapport](docs/fusion-02/REPORT.md), [intégration CORE](docs/fusion-02/INTEGRATION.md)
+et [options backend soumises à décision](docs/fusion-02/BACKENDS.md).

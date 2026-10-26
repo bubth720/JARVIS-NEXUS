@@ -16,7 +16,7 @@ import java.io.File
 
 /** Host-native SQLite without FTS5. These API24/25/26/35 simulations do NOT qualify device RAG. */
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [24,25,26,35])
+@Config(sdk = [24,25,26,29,35])
 @SQLiteMode(SQLiteMode.Mode.NATIVE)
 class AndroidNexusStorageTest {
     @get:Rule val temp = TemporaryFolder()
@@ -34,10 +34,7 @@ class AndroidNexusStorageTest {
         assertEquals(CatalogResult.Rejected(KnowledgeError.DENIED),SyntheticNexusDemo.run(temp.root,false))
         // Established NEX-03 error enum is unchanged. Opening reports the precise capability refusal.
         assertEquals(CatalogResult.Rejected(KnowledgeError.STORAGE_FAILURE),SyntheticNexusDemo.run(temp.root,true))
-        SQLiteDatabase.openDatabase(File(temp.root,"nexus.db").path,null,SQLiteDatabase.OPEN_READONLY).use { raw ->
-            assertEquals(0,raw.version)
-            raw.rawQuery("SELECT name FROM sqlite_master WHERE name='collection'",null).use { assertFalse(it.moveToFirst()) }
-        }
+        assertTrue("Capability refusal must not create any persistent file", temp.root.listFiles()!!.isEmpty())
     }
     @Test fun rawStorageTransactionCrudRollbackCloseAndReopenAreReal() {
         val db=rawFixture()

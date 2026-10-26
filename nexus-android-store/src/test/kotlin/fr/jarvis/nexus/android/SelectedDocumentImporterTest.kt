@@ -25,7 +25,7 @@ import java.io.File
 
 /** Real bounded PFD reads, simulated Android framework and host SQLite, synthetic files only. */
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [24,25,26,35])
+@Config(sdk = [24,25,26,29,35])
 @SQLiteMode(SQLiteMode.Mode.NATIVE)
 class SelectedDocumentImporterTest {
     @get:Rule val temp = TemporaryFolder()
@@ -64,7 +64,7 @@ class SelectedDocumentImporterTest {
         ShadowContentResolver.registerProviderInternal("nex06a",provider)
         val streams=SelectedDocumentStreams(RuntimeEnvironment.getApplication().contentResolver,maxBytes=8)
         val selection=SelectedDocument.fromUserSelection(Uri.parse("content://nex06a/selected"),"fixture.txt",true)
-        assertEquals(CatalogResult.Rejected(KnowledgeError.LIMIT_EXCEEDED),streams.open(selection) { CatalogResult.Ok(it.readBytes()) })
+        assertEquals(CatalogResult.Rejected(KnowledgeError.LIMIT_EXCEEDED),streams.open(selection) { assertTrue(it.available() <= 8); CatalogResult.Ok(it.readBytes()) })
         provider.denied=true
         assertEquals(CatalogResult.Rejected(KnowledgeError.DENIED),streams.open(selection) { CatalogResult.Ok(it.readBytes()) })
         provider.descriptors.forEach { descriptor -> try { descriptor.fd; fail("PFD leaked") } catch (_: IllegalStateException) { } }
@@ -88,4 +88,23 @@ class SelectedDocumentImporterTest {
         assertEquals(CatalogResult.Rejected(KnowledgeError.DENIED),importer.retainReadSelection(selected,read,true))
         assertEquals(CatalogResult.Rejected(KnowledgeError.DENIED),importer.retainReadSelection(selected,persist or android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION,true))
     }
+    @Test fun selectedSourceRevalidationDetectsMutationRevocationWrongUriAndDigest() {
+        val provider=Robolectric.buildContentProvider(FixtureProvider::class.java).create("nex06a").get()
+        provider.source=File(temp.root,"fixture.txt").also { it.writeText("Un phare bleu protège le port.") }
+        ShadowContentResolver.registerProviderInternal("nex06a",provider)
+        val selection=SelectedDocument.fromUserSelection(Uri.parse("content://nex06a/selected"),"fixture.txt",true)
+        val fingerprint=provider.source.inputStream().use { SourceFingerprint.compute(it,1024) }
+        val source=SourceRecord("catalog-source",selection.uri.toString(),fingerprint.sha256,fingerprint.bytes)
+        val verifier=SelectedDocumentSourceVerifier(RuntimeEnvironment.getApplication().contentResolver)
+        assertEquals(CatalogResult.Ok(Unit),verifier.verify(selection,source))
+        assertEquals(CatalogResult.Rejected(KnowledgeError.CONFLICT),verifier.verify(selection,source.copy(uri="content://nex06a/other")))
+        assertEquals(CatalogResult.Rejected(KnowledgeError.INVALID_INPUT),verifier.verify(selection,source.copy(sha256="bad")))
+        assertEquals(CatalogResult.Rejected(KnowledgeError.CONFLICT),verifier.verify(selection,source.copy(byteCount=source.byteCount+1)))
+        provider.source.writeText("La source a changé.")
+        assertEquals(CatalogResult.Rejected(KnowledgeError.CONFLICT),verifier.verify(selection,source))
+        provider.denied=true
+        assertEquals(CatalogResult.Rejected(KnowledgeError.DENIED),verifier.verify(selection,source))
+        provider.descriptors.forEach { descriptor -> try { descriptor.fd; fail("PFD leaked") } catch (_: IllegalStateException) { } }
+    }
+
 }

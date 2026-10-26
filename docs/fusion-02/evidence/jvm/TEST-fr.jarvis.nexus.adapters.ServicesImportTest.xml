@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="fr.jarvis.nexus.adapters.ServicesImportTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-25T22:20:46" hostname="LAB_HOST_REDACTED" time="1.692">
+  <properties/>
+  <testcase name="invalidUtf8CorruptPdfAndArchiveDoNotBecomeDocuments" classname="fr.jarvis.nexus.adapters.ServicesImportTest" time="0.234"/>
+  <testcase name="cancellationRefusesBeforeServicesExtraction" classname="fr.jarvis.nexus.adapters.ServicesImportTest" time="0.655"/>
+  <testcase name="threeRealFormatsReachSqliteFtsAndPdfPreservesActualPage" classname="fr.jarvis.nexus.adapters.ServicesImportTest" time="0.802"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Oct 25, 2026 10:20:47 PM org.apache.pdfbox.pdmodel.font.PDType1Font <init>
+WARNING: Using fallback font LiberationSans for base font Symbol
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+]]></system-err>
+</testsuite>

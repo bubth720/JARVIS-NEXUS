@@ -1,0 +1,77 @@
+[BUILD_ENVIRONMENT_REDACTED]
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :nexus-android-store
+[BUILD_ENVIRONMENT_REDACTED]
+Checking the license for package Android SDK Platform-Tools in /tmp/fusion-lab-tools/android-sdk/licenses
+Warning: License for package Android SDK Platform-Tools not accepted.
+WARNING: platform-tools package is not installed. Please accept the installation licence to continue
+
+> Task :nexus-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :nexus-core:compileKotlin UP-TO-DATE
+> Task :nexus-core:compileJava UP-TO-DATE
+> Task :nexus-core:processResources NO-SOURCE
+> Task :nexus-core:classes UP-TO-DATE
+> Task :nexus-core:jar UP-TO-DATE
+> Task :nexus-android-store:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :nexus-android-store:preBuild UP-TO-DATE
+> Task :nexus-android-store:preDebugBuild UP-TO-DATE
+> Task :nexus-android-store:generateDebugResValues UP-TO-DATE
+> Task :nexus-android-store:generateDebugResources UP-TO-DATE
+> Task :nexus-android-store:packageDebugResources UP-TO-DATE
+> Task :nexus-android-store:parseDebugLocalResources UP-TO-DATE
+> Task :nexus-android-store:generateDebugRFile UP-TO-DATE
+> Task :nexus-android-store:compileDebugKotlin UP-TO-DATE
+> Task :nexus-android-store:javaPreCompileDebug UP-TO-DATE
+> Task :nexus-android-store:compileDebugJavaWithJavac NO-SOURCE
+> Task :nexus-android-store:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :nexus-android-store:preDebugAndroidTestBuild UP-TO-DATE
+> Task :nexus-android-store:writeDebugAarMetadata UP-TO-DATE
+> Task :nexus-android-store:checkDebugAndroidTestAarMetadata UP-TO-DATE
+> Task :nexus-android-store:compileDebugLibraryResources UP-TO-DATE
+> Task :nexus-android-store:generateDebugAndroidTestResValues UP-TO-DATE
+> Task :nexus-android-store:mapDebugAndroidTestSourceSetPaths UP-TO-DATE
+> Task :nexus-android-store:generateDebugAndroidTestResources UP-TO-DATE
+> Task :nexus-android-store:mergeDebugAndroidTestResources UP-TO-DATE
+> Task :nexus-android-store:extractDeepLinksDebug UP-TO-DATE
+> Task :nexus-android-store:processDebugManifest UP-TO-DATE
+> Task :nexus-android-store:processDebugAndroidTestManifest
+> Task :nexus-android-store:javaPreCompileDebugAndroidTest UP-TO-DATE
+> Task :nexus-android-store:mergeDebugAndroidTestShaders UP-TO-DATE
+> Task :nexus-android-store:compileDebugAndroidTestShaders NO-SOURCE
+> Task :nexus-android-store:generateDebugAndroidTestAssets UP-TO-DATE
+> Task :nexus-android-store:mergeDebugShaders UP-TO-DATE
+> Task :nexus-android-store:compileDebugShaders NO-SOURCE
+> Task :nexus-android-store:generateDebugAssets UP-TO-DATE
+> Task :nexus-android-store:packageDebugAssets UP-TO-DATE
+> Task :nexus-android-store:mergeDebugAndroidTestAssets UP-TO-DATE
+> Task :nexus-android-store:compressDebugAndroidTestAssets UP-TO-DATE
+> Task :nexus-android-store:processDebugJavaRes UP-TO-DATE
+> Task :nexus-android-store:checkDebugAndroidTestDuplicateClasses UP-TO-DATE
+> Task :nexus-android-store:desugarDebugAndroidTestFileDependencies UP-TO-DATE
+> Task :nexus-android-store:mergeExtDexDebugAndroidTest UP-TO-DATE
+> Task :nexus-android-store:bundleLibRuntimeToDirDebug UP-TO-DATE
+> Task :nexus-android-store:mergeLibDexDebugAndroidTest UP-TO-DATE
+> Task :nexus-android-store:mergeDebugJniLibFolders UP-TO-DATE
+> Task :nexus-android-store:mergeDebugNativeLibs NO-SOURCE
+> Task :nexus-android-store:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :nexus-android-store:mergeDebugAndroidTestJniLibFolders UP-TO-DATE
+> Task :nexus-android-store:mergeDebugAndroidTestNativeLibs NO-SOURCE
+> Task :nexus-android-store:stripDebugAndroidTestDebugSymbols NO-SOURCE
+> Task :nexus-android-store:validateSigningDebugAndroidTest UP-TO-DATE
+> Task :nexus-android-store:writeDebugAndroidTestSigningConfigVersions UP-TO-DATE
+> Task :nexus-android-store:processDebugAndroidTestResources
+> Task :nexus-android-store:compileDebugAndroidTestKotlin
+> Task :nexus-android-store:compileDebugAndroidTestJavaWithJavac NO-SOURCE
+> Task :nexus-android-store:processDebugAndroidTestJavaRes UP-TO-DATE
+> Task :nexus-android-store:mergeDebugAndroidTestJavaResource UP-TO-DATE
+> Task :nexus-android-store:dexBuilderDebugAndroidTest
+> Task :nexus-android-store:mergeProjectDexDebugAndroidTest
+> Task :nexus-android-store:packageDebugAndroidTest
+> Task :nexus-android-store:createDebugAndroidTestApkListingFileRedirect UP-TO-DATE
+> Task :nexus-android-store:assembleDebugAndroidTest
+w: Detected multiple Kotlin daemon sessions at 
+
+BUILD SUCCESSFUL in 1m 20s
+46 actionable tasks: 6 executed, 40 up-to-date

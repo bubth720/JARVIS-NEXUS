@@ -1,0 +1,190 @@
+[
+  {
+    "status": "fulfilled",
+    "value": {
+      "repo": "JARVIS-UNIFIED",
+      "branch": "feat/fusion-01-integration-lock",
+      "sha": "3caa57d91ce0dba31043e7cb6373a5e2df8b9fa4",
+      "parents": [
+        "329f304115c9bc5b6dd6ccc2d68d19bf455b5e6c"
+      ],
+      "runs": [
+        {
+          "id": 40214722427,
+          "sha": "3caa57d91ce0dba31043e7cb6373a5e2df8b9fa4",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/bubth720/JARVIS-UNIFIED/actions/runs/40214722427"
+        }
+      ],
+      "consumed": false
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "repo": "JAVIS-Local-v2",
+      "branch": "feat/fusion-01-core-integration",
+      "sha": "36761cea101b5f88b87cd4136dc075d28a1adb96",
+      "parents": [
+        "0d41e6f3f412386371a81fe0d1a862fc87ae22cf"
+      ],
+      "runs": [
+        {
+          "id": 40215604539,
+          "sha": "36761cea101b5f88b87cd4136dc075d28a1adb96",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JAVIS-Local-v2/actions/runs/40215604539"
+        }
+      ],
+      "consumed": false
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "repo": "JARVIS-SERVICES",
+      "branch": "feat/serv-04a-android-tool-port",
+      "sha": "f00091a639612b91eca1a301580c8f531249f1e3",
+      "parents": [
+        "3decdc47d82f9b43713c48cab244762941770a81"
+      ],
+      "runs": [
+        {
+          "id": 40115305244,
+          "sha": "f00091a639612b91eca1a301580c8f531249f1e3",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/bubth720/JARVIS-SERVICES/actions/runs/40115305244"
+        }
+      ],
+      "consumed": false
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "repo": "JARVIS-SERVICES",
+      "branch": "feat/services-final-01",
+      "sha": "d16dd84f27881460ec9f02d2a54d9ddff23187dc",
+      "parents": [
+        "edfa044321ff09697ae9bec40a6e31aa76a77370"
+      ],
+      "runs": [
+        {
+          "id": 40144003529,
+          "sha": "d16dd84f27881460ec9f02d2a54d9ddff23187dc",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-SERVICES/actions/runs/40144003529"
+        }
+      ],
+      "consumed": false
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "repo": "JARVIS-LLM",
+      "branch": "feat/fusion-01-llm-integration",
+      "sha": "e0b781442b21034a251f6af450396faabc5f667d",
+      "parents": [
+        "378a1cf4c2ceaaf531ded60670dc9161dc269575"
+      ],
+      "runs": [],
+      "consumed": false
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "repo": "JARVIS-VOICE",
+      "branch": "feat/voice-final-01",
+      "sha": "fe57452fcb33f5b6870070f30ba6c5f1d349c4ba",
+      "parents": [
+        "a59a9c5a6e95cdd645ad09661b6172e98af5323c"
+      ],
+      "runs": [
+        {
+          "id": 40145045314,
+          "sha": "fe57452fcb33f5b6870070f30ba6c5f1d349c4ba",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045314"
+        },
+        {
+          "id": 40145045330,
+          "sha": "fe57452fcb33f5b6870070f30ba6c5f1d349c4ba",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045330"
+        },
+        {
+          "id": 40145045326,
+          "sha": "fe57452fcb33f5b6870070f30ba6c5f1d349c4ba",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045326"
+        },
+        {
+          "id": 40145045349,
+          "sha": "fe57452fcb33f5b6870070f30ba6c5f1d349c4ba",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045349"
+        },
+        {
+          "id": 40145045335,
+          "sha": "fe57452fcb33f5b6870070f30ba6c5f1d349c4ba",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOICE/actions/runs/40145045335"
+        }
+      ],
+      "consumed": false
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "repo": "JARVIS-INTERFACE",
+      "branch": "fix/athena-premium-default",
+      "sha": "1d0a89f3d92cba64122db08cc7b326239f85c08d",
+      "parents": [
+        "db459ba388a3fea992d80320c3989be0edda8500"
+      ],
+      "runs": [
+        {
+          "id": 40214158554,
+          "sha": "1d0a89f3d92cba64122db08cc7b326239f85c08d",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-INTERFACE/actions/runs/40214158554"
+        }
+      ],
+      "consumed": false
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "repo": "JARVIS-VOLUTION-",
+      "branch": "feat/evol-03-atelier-de-correctifs-isoles-e",
+      "sha": "c0180181804338d21f3bf9d4b537b709595902f7",
+      "parents": [
+        "0abd5f96caa27ee1e73a623d538e48555a02ce76"
+      ],
+      "runs": [
+        {
+          "id": 39996031251,
+          "sha": "c0180181804338d21f3bf9d4b537b709595902f7",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/bubth720/JARVIS-VOLUTION-/actions/runs/39996031251"
+        }
+      ],
+      "consumed": false
+    }
+  }
+]

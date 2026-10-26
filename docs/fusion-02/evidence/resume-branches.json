@@ -1,0 +1,82 @@
+[
+  {
+    "name": "feat/fusion-01-nexus-integration",
+    "commit": {
+      "sha": "9d6928cd8651f83fa5091bdb474b33761d366412",
+      "url": "https://api.github.com/repos/bubth720/JARVIS-NEXUS/commits/9d6928cd8651f83fa5091bdb474b33761d366412"
+    },
+    "protected": false
+  },
+  {
+    "name": "feat/nex-01-moteur-local-de-connaissances-",
+    "commit": {
+      "sha": "c25d401dff6865657b75d320361ae81811363fa8",
+      "url": "https://api.github.com/repos/bubth720/JARVIS-NEXUS/commits/c25d401dff6865657b75d320361ae81811363fa8"
+    },
+    "protected": false
+  },
+  {
+    "name": "feat/nex-02-chaine-d-import-local-extracti",
+    "commit": {
+      "sha": "bfa46e1fe08d4943fe864ac53d0c0ba56109ea9c",
+      "url": "https://api.github.com/repos/bubth720/JARVIS-NEXUS/commits/bfa46e1fe08d4943fe864ac53d0c0ba56109ea9c"
+    },
+    "protected": false
+  },
+  {
+    "name": "feat/nex-03-recherche-de-connaissances-cit",
+    "commit": {
+      "sha": "777e6afa75ecb99b85e52d68837cb0fefcf161cd",
+      "url": "https://api.github.com/repos/bubth720/JARVIS-NEXUS/commits/777e6afa75ecb99b85e52d68837cb0fefcf161cd"
+    },
+    "protected": false
+  },
+  {
+    "name": "feat/nex-05-sauvegarde-chiffrable-restaura",
+    "commit": {
+      "sha": "3acec55616ff8e3b1666091780fca59261377e18",
+      "url": "https://api.github.com/repos/bubth720/JARVIS-NEXUS/commits/3acec55616ff8e3b1666091780fca59261377e18"
+    },
+    "protected": false
+  },
+  {
+    "name": "feat/nex-06a-android-api24",
+    "commit": {
+      "sha": "374ea2e2fd640e78f2f5e12e60e75b493420e504",
+      "url": "https://api.github.com/repos/bubth720/JARVIS-NEXUS/commits/374ea2e2fd640e78f2f5e12e60e75b493420e504"
+    },
+    "protected": false
+  },
+  {
+    "name": "feat/nexus-final-01",
+    "commit": {
+      "sha": "d903bf04f497ab0dc7f40e9708ed057e4f24c6ee",
+      "url": "https://api.github.com/repos/bubth720/JARVIS-NEXUS/commits/d903bf04f497ab0dc7f40e9708ed057e4f24c6ee"
+    },
+    "protected": false
+  },
+  {
+    "name": "main",
+    "commit": {
+      "sha": "b27df0b84d8f0082d17ca6278549298aaaf97926",
+      "url": "https://api.github.com/repos/bubth720/JARVIS-NEXUS/commits/b27df0b84d8f0082d17ca6278549298aaaf97926"
+    },
+    "protected": false
+  },
+  {
+    "name": "plan/intensive-2026-10-22",
+    "commit": {
+      "sha": "e4b2018383a35106cd326848fab597ef07a50157",
+      "url": "https://api.github.com/repos/bubth720/JARVIS-NEXUS/commits/e4b2018383a35106cd326848fab597ef07a50157"
+    },
+    "protected": false
+  },
+  {
+    "name": "work/nex-04-zim-readonly",
+    "commit": {
+      "sha": "bbccac2ff2cc052f897c7f5015f234507e047b95",
+      "url": "https://api.github.com/repos/bubth720/JARVIS-NEXUS/commits/bbccac2ff2cc052f897c7f5015f234507e047b95"
+    },
+    "protected": false
+  }
+]

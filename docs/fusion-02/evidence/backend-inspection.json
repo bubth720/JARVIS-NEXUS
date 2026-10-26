@@ -1,0 +1,54 @@
+[
+  {
+    "url": "https://dl.google.com/dl/android/maven2/androidx/sqlite/sqlite-bundled-android/2.5.2/sqlite-bundled-android-2.5.2.pom",
+    "sha256": "596731fe1baca77049f73d9ed2213803ad1f80078b76bafc7b65445bcbd440a1",
+    "bytes": 3246
+  },
+  {
+    "url": "https://raw.githubusercontent.com/requery/sqlite-android/0bbaa7a8b4c485c0d4b385425113fe33ead6c3c0/README.md",
+    "sha256": "c63895149054a343283d9223f5dee2efba2340b7f03f6bc3694181b28ab0ffd8",
+    "bytes": 6857
+  },
+  {
+    "url": "https://raw.githubusercontent.com/requery/sqlite-android/0bbaa7a8b4c485c0d4b385425113fe33ead6c3c0/LICENSE",
+    "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+    "bytes": 11357
+  },
+  {
+    "url": "https://dl.google.com/dl/android/maven2/androidx/sqlite/sqlite-bundled-android/2.5.2/sqlite-bundled-android-2.5.2.aar",
+    "sha256": "2de1d07399683582437a8383ac74015f6b03efae26bcc0540bae29c1fab6d949",
+    "bytes": 3365857,
+    "libs": [
+      {
+        "path": "jni/arm64-v8a/libsqliteJni.so",
+        "bytes": 1932216,
+        "compressedBytes": 833624,
+        "sha256": "65f87fcc609bf2af4bcf13035ad0b4a4a095d96c4bd96735f80f699f7474772c",
+        "fts5StringPresent": true
+      },
+      {
+        "path": "jni/armeabi-v7a/libsqliteJni.so",
+        "bytes": 1516324,
+        "compressedBytes": 725725,
+        "sha256": "33b416cda2fc0c853cb4ca347446bed1358f40f965ce8ad4710b6940869344f3",
+        "fts5StringPresent": true
+      },
+      {
+        "path": "jni/x86/libsqliteJni.so",
+        "bytes": 2040616,
+        "compressedBytes": 910597,
+        "sha256": "842b4107b57678fb7853b23f21ce7052d899ddf2382253b4a5fb2e831552fca1",
+        "fts5StringPresent": true
+      },
+      {
+        "path": "jni/x86_64/libsqliteJni.so",
+        "bytes": 2030848,
+        "compressedBytes": 877300,
+        "sha256": "fbda1a1c8668e2a5b28fa2363ef23a3605e5a392d8cc03b3bd599be2e217810b",
+        "fts5StringPresent": true
+      }
+    ],
+    "loaded": false,
+    "dependencyAdded": false
+  }
+]

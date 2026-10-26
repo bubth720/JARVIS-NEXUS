@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="fr.jarvis.nexus.NexusStorageTest" tests="18" skipped="0" failures="0" errors="0" timestamp="2026-10-25T22:20:42" hostname="LAB_HOST_REDACTED" time="0.313">
+  <properties/>
+  <testcase name="callerCannotMutateFragmentsAfterValidationDuringHashing" classname="fr.jarvis.nexus.NexusStorageTest" time="0.06"/>
+  <testcase name="boundsInvalidUnicodeAndUnknownCollectionAreRefused" classname="fr.jarvis.nexus.NexusStorageTest" time="0.011"/>
+  <testcase name="changesRequireExpectedVersionAndKeepImmutableProvenance" classname="fr.jarvis.nexus.NexusStorageTest" time="0.008"/>
+  <testcase name="metadataChangesAndDeleteRestoreAreVersioned" classname="fr.jarvis.nexus.NexusStorageTest" time="0.015"/>
+  <testcase name="futureSchemaIsRefusedWithoutRewritingVersion" classname="fr.jarvis.nexus.NexusStorageTest" time="0.003"/>
+  <testcase name="revocationWhileHashingPreventsCommit" classname="fr.jarvis.nexus.NexusStorageTest" time="0.008"/>
+  <testcase name="reopenKeepsRealRowsRevisionsAndIntegrity" classname="fr.jarvis.nexus.NexusStorageTest" time="0.009"/>
+  <testcase name="denialPrecedesStreamReadAndAllReadPathsAreProtected" classname="fr.jarvis.nexus.NexusStorageTest" time="0.017"/>
+  <testcase name="concurrentRevisionsHaveOneWinnerAndNoLostUpdate" classname="fr.jarvis.nexus.NexusStorageTest" time="0.014"/>
+  <testcase name="titleHistoryIsPreservedInRevisions" classname="fr.jarvis.nexus.NexusStorageTest" time="0.012"/>
+  <testcase name="createsAllSevenTablesAndIndexes" classname="fr.jarvis.nexus.NexusStorageTest" time="0.008"/>
+  <testcase name="fingerprintsUseRealStreamingShaAndBoundedConsumption" classname="fr.jarvis.nexus.NexusStorageTest" time="0.002"/>
+  <testcase name="exactDuplicateIsIdempotentAndDoesNotAppendAudit" classname="fr.jarvis.nexus.NexusStorageTest" time="0.044"/>
+  <testcase name="duplicatesAcrossCollectionsRetainOneImmutableSource" classname="fr.jarvis.nexus.NexusStorageTest" time="0.009"/>
+  <testcase name="purgeRequiresConfirmationAndPriorDeletionAndKeepsAudit" classname="fr.jarvis.nexus.NexusStorageTest" time="0.012"/>
+  <testcase name="pagesAndJsonEscapingPreserveSourceIdentity" classname="fr.jarvis.nexus.NexusStorageTest" time="0.011"/>
+  <testcase name="failureMidImportRollsBackSourceDocumentFragmentsAndAudit" classname="fr.jarvis.nexus.NexusStorageTest" time="0.009"/>
+  <testcase name="interruptedMigrationLeavesNoPartialSchemaAndCanRetry" classname="fr.jarvis.nexus.NexusStorageTest" time="0.013"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="fr.jarvis.nexus.FinalLibraryTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-10-25T22:20:22" hostname="LAB_HOST_REDACTED" time="2.142">
+  <properties/>
+  <testcase name="hostileContainersAndExternalEntitiesAreRefused" classname="fr.jarvis.nexus.FinalLibraryTest" time="0.305"/>
+  <testcase name="queuedImportCanResumeInNewDatabaseOwner" classname="fr.jarvis.nexus.FinalLibraryTest" time="1.214"/>
+  <testcase name="lowSpaceAndCancellationRemainTyped" classname="fr.jarvis.nexus.FinalLibraryTest" time="0.092"/>
+  <testcase name="absentEmbeddingModelIsExplicitlyUnsupported" classname="fr.jarvis.nexus.FinalLibraryTest" time="0.004"/>
+  <testcase name="realDocxAndCsvHaveResolvableTextLocations" classname="fr.jarvis.nexus.FinalLibraryTest" time="0.012"/>
+  <testcase name="graphRelationsKeepEvidenceAndRespectCollectionBoundaries" classname="fr.jarvis.nexus.FinalLibraryTest" time="0.289"/>
+  <testcase name="unchangedHashReusesIndexAndMetadataPersists" classname="fr.jarvis.nexus.FinalLibraryTest" time="0.109"/>
+  <testcase name="collectionRemovalRequiresUnchangedPreviewAndLeavesSources" classname="fr.jarvis.nexus.FinalLibraryTest" time="0.114"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[[Fatal Error] :1:10: DOCTYPE is disallowed when the feature "http://apache.org/xml/features/disallow-doctype-decl" set to true.
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+]]></system-err>
+</testsuite>

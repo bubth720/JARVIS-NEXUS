@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <!-- Only the instrumented TEST APK; same-app fixed synthetic bytes.
+             No file path, personal content, grants, network or production provider. -->
+        <provider android:name="fr.jarvis.nexus.android.SyntheticDocumentProvider"
+            android:authorities="fr.jarvis.nexus.android.test.synthetic"
+            android:exported="false" />
+    </application>
+</manifest>

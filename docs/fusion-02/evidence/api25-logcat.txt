@@ -1,0 +1,46 @@
+--------- beginning of main
+--------- beginning of system
+--------- beginning of crash
+AndroidRuntime: *** FATAL EXCEPTION IN SYSTEM PROCESS: main
+AndroidRuntime: java.lang.SecurityException: WifiService: Neither user 2000 nor current process has android.permission.CHANGE_WIFI_STATE.
+AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:1684)
+AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:1637)
+AndroidRuntime: 	at android.net.wifi.IWifiManager$Stub$Proxy.setWifiEnabled(IWifiManager.java:1181)
+AndroidRuntime: 	at com.android.commands.svc.WifiCommand.run(WifiCommand.java:55)
+AndroidRuntime: 	at com.android.commands.svc.Svc.main(Svc.java:41)
+AndroidRuntime: 	at com.android.internal.os.RuntimeInit.nativeFinishInit(Native Method)
+AndroidRuntime: 	at com.android.internal.os.RuntimeInit.main(RuntimeInit.java:262)
+AndroidRuntime: Error reporting crash
+AndroidRuntime: java.lang.RuntimeException: Bad file descriptor
+AndroidRuntime: 	at android.os.BinderProxy.transactNative(Native Method)
+AndroidRuntime: 	at android.os.BinderProxy.transact(Binder.java:615)
+AndroidRuntime: 	at android.os.ServiceManagerProxy.getService(ServiceManagerNative.java:123)
+AndroidRuntime: 	at android.os.ServiceManager.getService(ServiceManager.java:55)
+AndroidRuntime: 	at android.app.ActivityManagerNative$1.create(ActivityManagerNative.java:3049)
+AndroidRuntime: 	at android.app.ActivityManagerNative$1.create(ActivityManagerNative.java:3048)
+AndroidRuntime: 	at android.util.Singleton.get(Singleton.java:34)
+AndroidRuntime: 	at android.app.ActivityManagerNative.getDefault(ActivityManagerNative.java:86)
+AndroidRuntime: 	at com.android.internal.os.RuntimeInit$UncaughtHandler.uncaughtException(RuntimeInit.java:97)
+AndroidRuntime: 	at java.lang.ThreadGroup.uncaughtException(ThreadGroup.java:1068)
+AndroidRuntime: 	at java.lang.ThreadGroup.uncaughtException(ThreadGroup.java:1063)
+TestRunner: run started: 8 tests
+TestRunner: started: deviceCapabilityOrNativeCitationIsReportedTruthfully(fr.jarvis.nexus.android.AndroidNexusDeviceTest)
+System.out: NEX06A CAPABILITY_UNAVAILABLE: platform FTS5/vocab missing; no RAG success asserted
+TestRunner: finished: deviceCapabilityOrNativeCitationIsReportedTruthfully(fr.jarvis.nexus.android.AndroidNexusDeviceTest)
+TestRunner: started: demoRequiresExplicitActivationBeforeAnyFileCreation(fr.jarvis.nexus.android.AndroidNexusDeviceTest)
+TestRunner: finished: demoRequiresExplicitActivationBeforeAnyFileCreation(fr.jarvis.nexus.android.AndroidNexusDeviceTest)
+TestRunner: started: platformTransactionRollsBackAndSurvivesCloseReopen(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: finished: platformTransactionRollsBackAndSurvivesCloseReopen(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: started: contentUriRagReopensOrReportsUnsupportedWithoutFakeCitation(fr.jarvis.nexus.android.Fusion02DeviceTest)
+System.out: FUSION02_CONTENT_RAG UNSUPPORTED: no citation generated
+TestRunner: finished: contentUriRagReopensOrReportsUnsupportedWithoutFakeCitation(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: started: selectedSourceHashCheckDoesNotClaimCitationOrSafGrantQualification(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: finished: selectedSourceHashCheckDoesNotClaimCitationOrSafGrantQualification(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: started: probeAndAdmissionLeaveRefusedPersistentStateUntouched(fr.jarvis.nexus.android.Fusion02DeviceTest)
+System.out: FUSION02_PLATFORM_PROBE {"api":25,"abis":["x86"],"sqliteVersion":"3.9.2","status":"UNSUPPORTED","stage":"CREATE","compileOptions":[],"pssKiB":14448}
+TestRunner: finished: probeAndAdmissionLeaveRefusedPersistentStateUntouched(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: started: corruptionIsRefusedWithoutDeletingOriginal(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: finished: corruptionIsRefusedWithoutDeletingOriginal(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: started: contentResolverPfdClosesAndRefusesDenialAndOversize(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: finished: contentResolverPfdClosesAndRefusesDenialAndOversize(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: run finished: 8 tests, 0 failed, 0 ignored

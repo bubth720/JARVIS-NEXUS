@@ -40,6 +40,9 @@ internal class SelectedDocumentStreams(private val resolver: ContentResolver, pr
                         while (skipped < n && read() >= 0) skipped++
                         return skipped
                     }
+                    // Consumers may size a buffer from available(); never expose a
+                    // provider's unbounded size as a memory allocation suggestion.
+                    override fun available(): Int = minOf(stream.available(), maxOf(0, maxBytes - count))
                     override fun markSupported() = false
                     override fun reset(): Unit = throw java.io.IOException("Bounded stream cannot reset")
                 }
@@ -73,5 +76,25 @@ class SelectedDocumentImporter(private val resolver: ContentResolver, private va
     fun process(selection: SelectedDocument, job: ImportJob, cancellation: Cancellation = Cancellation { false }): CatalogResult<ImportJob> {
         if (job.source.uri != selection.uri.toString() || job.source.name != selection.name) return CatalogResult.Rejected(KnowledgeError.CONFLICT)
         return streams.open(selection) { imports.process(job.id, it, cancellation) }
+    }
+}
+
+/** Re-read selected bytes against an already authorized catalog source. This is
+ * source availability/integrity only, not citation/scope authorization. The host
+ * must also resolve citations through RagContextPort and recheck its authority.
+ * A provider can change/revoke content after this read: no durable URI lease or
+ * atomic external-provider snapshot is promised.
+ */
+class SelectedDocumentSourceVerifier(resolver: ContentResolver) {
+    private val streams = SelectedDocumentStreams(resolver)
+    fun verify(selection: SelectedDocument, source: SourceRecord): CatalogResult<Unit> {
+        if (selection.uri.toString() != source.uri) return CatalogResult.Rejected(KnowledgeError.CONFLICT)
+        if (!source.sha256.matches(Regex("[a-f0-9]{64}")) || source.byteCount < 0)
+            return CatalogResult.Rejected(KnowledgeError.INVALID_INPUT)
+        return streams.open(selection) {
+            val actual = fr.jarvis.nexus.store.SourceFingerprint.compute(it, 2L * 1024 * 1024)
+            if (actual.sha256 == source.sha256 && actual.bytes == source.byteCount) CatalogResult.Ok(Unit)
+            else CatalogResult.Rejected(KnowledgeError.CONFLICT)
+        }
     }
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="fr.jarvis.nexus.android.Fts5AdmissionTest" tests="20" skipped="0" failures="0" errors="0" timestamp="2026-10-26T07:46:51" hostname="LAB_HOST_REDACTED" time="2.247">
+  <properties/>
+  <testcase name="diagnosticReportsRealFailedPrimitiveAndDoesNotClaimRag[24]" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.086"/>
+  <testcase name="diagnosticReportsRealFailedPrimitiveAndDoesNotClaimRag[25]" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.059"/>
+  <testcase name="diagnosticReportsRealFailedPrimitiveAndDoesNotClaimRag[26]" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.096"/>
+  <testcase name="diagnosticReportsRealFailedPrimitiveAndDoesNotClaimRag[29]" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.099"/>
+  <testcase name="diagnosticReportsRealFailedPrimitiveAndDoesNotClaimRag" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.106"/>
+  <testcase name="unavailableCapabilityDoesNotTouchAnActiveWalDatabase[24]" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.1"/>
+  <testcase name="unavailableCapabilityDoesNotTouchAnActiveWalDatabase[25]" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.147"/>
+  <testcase name="unavailableCapabilityDoesNotTouchAnActiveWalDatabase[26]" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.092"/>
+  <testcase name="unavailableCapabilityDoesNotTouchAnActiveWalDatabase[29]" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.055"/>
+  <testcase name="unavailableCapabilityDoesNotTouchAnActiveWalDatabase" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.107"/>
+  <testcase name="rejectionPreservesExistingDatabaseAndAllSidecarsByteForByte[24]" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.097"/>
+  <testcase name="rejectionPreservesExistingDatabaseAndAllSidecarsByteForByte[25]" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.14"/>
+  <testcase name="rejectionPreservesExistingDatabaseAndAllSidecarsByteForByte[26]" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.065"/>
+  <testcase name="rejectionPreservesExistingDatabaseAndAllSidecarsByteForByte[29]" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.119"/>
+  <testcase name="rejectionPreservesExistingDatabaseAndAllSidecarsByteForByte" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.222"/>
+  <testcase name="corruptDatabaseIsRefusedWithoutDefaultAndroidDeletion[24]" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.2"/>
+  <testcase name="corruptDatabaseIsRefusedWithoutDefaultAndroidDeletion[25]" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.115"/>
+  <testcase name="corruptDatabaseIsRefusedWithoutDefaultAndroidDeletion[26]" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.126"/>
+  <testcase name="corruptDatabaseIsRefusedWithoutDefaultAndroidDeletion[29]" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.164"/>
+  <testcase name="corruptDatabaseIsRefusedWithoutDefaultAndroidDeletion" classname="fr.jarvis.nexus.android.Fts5AdmissionTest" time="0.049"/>
+  <system-out><![CDATA[HOST_ONLY FUSION02 Fts5Capability(status=UNSUPPORTED, sqliteVersion=3.32.2, compileOptions=[], lastStage=CREATE, apiLevel=24, processAbis=[armeabi-v7a])
+HOST_ONLY FUSION02 Fts5Capability(status=UNSUPPORTED, sqliteVersion=3.32.2, compileOptions=[], lastStage=CREATE, apiLevel=25, processAbis=[armeabi-v7a])
+HOST_ONLY FUSION02 Fts5Capability(status=UNSUPPORTED, sqliteVersion=3.32.2, compileOptions=[], lastStage=CREATE, apiLevel=26, processAbis=[armeabi-v7a])
+HOST_ONLY FUSION02 Fts5Capability(status=UNSUPPORTED, sqliteVersion=3.32.2, compileOptions=[], lastStage=CREATE, apiLevel=29, processAbis=[armeabi-v7a])
+HOST_ONLY FUSION02 Fts5Capability(status=UNSUPPORTED, sqliteVersion=3.44.3, compileOptions=[], lastStage=CREATE, apiLevel=35, processAbis=[armeabi-v7a])
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

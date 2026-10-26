@@ -1,0 +1,109 @@
+[
+  {
+    "status": "fulfilled",
+    "value": {
+      "repo": "JARVIS-UNIFIED",
+      "branches": [
+        {
+          "branch": "feat/fusion-01-integration-lock",
+          "sha": "3caa57d91ce0dba31043e7cb6373a5e2df8b9fa4"
+        }
+      ],
+      "consumed": false
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "repo": "JAVIS-Local-v2",
+      "branches": [
+        {
+          "branch": "feat/fusion-01-core-integration",
+          "sha": "36761cea101b5f88b87cd4136dc075d28a1adb96"
+        }
+      ],
+      "consumed": false
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "repo": "JARVIS-SERVICES",
+      "branches": [
+        {
+          "branch": "feat/serv-04a-android-tool-port",
+          "sha": "f00091a639612b91eca1a301580c8f531249f1e3"
+        },
+        {
+          "branch": "feat/services-final-01",
+          "sha": "d16dd84f27881460ec9f02d2a54d9ddff23187dc"
+        }
+      ],
+      "consumed": false
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "repo": "JARVIS-LLM",
+      "branches": [
+        {
+          "branch": "feat/fusion-01-llm-integration",
+          "sha": "e0b781442b21034a251f6af450396faabc5f667d"
+        }
+      ],
+      "consumed": false
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "repo": "JARVIS-VOICE",
+      "branches": [
+        {
+          "branch": "feat/voice-final-01",
+          "sha": "fe57452fcb33f5b6870070f30ba6c5f1d349c4ba"
+        }
+      ],
+      "consumed": false
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "repo": "JARVIS-INTERFACE",
+      "branches": [
+        {
+          "branch": "feat/ava-03-athena-premium",
+          "sha": "ab0a3f5a992a90ca53dc20c9c56d3bd8a0c2b3a0"
+        },
+        {
+          "branch": "feat/interface-final-01",
+          "sha": "db459ba388a3fea992d80320c3989be0edda8500"
+        },
+        {
+          "branch": "fix/athena-premium-default",
+          "sha": "1d0a89f3d92cba64122db08cc7b326239f85c08d"
+        }
+      ],
+      "consumed": false
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "repo": "JARVIS-VOLUTION-",
+      "branches": [
+        {
+          "branch": "feat/evol-03-atelier-de-correctifs-isoles-e",
+          "sha": "c0180181804338d21f3bf9d4b537b709595902f7"
+        },
+        {
+          "branch": "feat/evolution-final-01",
+          "sha": "c0180181804338d21f3bf9d4b537b709595902f7"
+        }
+      ],
+      "consumed": false
+    }
+  }
+]

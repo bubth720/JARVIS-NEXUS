@@ -1,0 +1,5 @@
+/system/bin/sh: sha256sum: not found
+Failure [INSTALL_FAILED_UPDATE_INCOMPATIBLE: Package fr.jarvis.nexus.android.test signatures do not match the previously installed version; ignoring!]
+AOSP_EMULATOR_BUILD_REDACTED
+24
+x86
