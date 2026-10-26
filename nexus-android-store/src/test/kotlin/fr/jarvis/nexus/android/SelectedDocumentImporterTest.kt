@@ -96,6 +96,10 @@ class SelectedDocumentImporterTest {
         val fingerprint=provider.source.inputStream().use { SourceFingerprint.compute(it,1024) }
         val source=SourceRecord("catalog-source",selection.uri.toString(),fingerprint.sha256,fingerprint.bytes)
         val verifier=SelectedDocumentSourceVerifier(RuntimeEnvironment.getApplication().contentResolver)
+        val beforeLimit = provider.descriptors.size
+        assertEquals(CatalogResult.Rejected(KnowledgeError.LIMIT_EXCEEDED),
+            verifier.verify(selection,source.copy(byteCount=2L * 1024 * 1024 + 1)))
+        assertEquals("Quota failure must not ask provider for bytes", beforeLimit, provider.descriptors.size)
         assertEquals(CatalogResult.Ok(Unit),verifier.verify(selection,source))
         assertEquals(CatalogResult.Rejected(KnowledgeError.CONFLICT),verifier.verify(selection,source.copy(uri="content://nex06a/other")))
         assertEquals(CatalogResult.Rejected(KnowledgeError.INVALID_INPUT),verifier.verify(selection,source.copy(sha256="bad")))
