@@ -1,0 +1,4 @@
+Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE (has extras) }
+Broadcast completed: result=0
+Killed 
+1

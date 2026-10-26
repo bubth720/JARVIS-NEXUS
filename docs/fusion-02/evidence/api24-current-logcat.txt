@@ -1,0 +1,23 @@
+--------- beginning of system
+--------- beginning of main
+TestRunner: run started: 8 tests
+TestRunner: started: deviceCapabilityOrNativeCitationIsReportedTruthfully(fr.jarvis.nexus.android.AndroidNexusDeviceTest)
+System.out: NEX06A CAPABILITY_UNAVAILABLE: platform FTS5/vocab missing; no RAG success asserted
+TestRunner: finished: deviceCapabilityOrNativeCitationIsReportedTruthfully(fr.jarvis.nexus.android.AndroidNexusDeviceTest)
+TestRunner: started: demoRequiresExplicitActivationBeforeAnyFileCreation(fr.jarvis.nexus.android.AndroidNexusDeviceTest)
+TestRunner: finished: demoRequiresExplicitActivationBeforeAnyFileCreation(fr.jarvis.nexus.android.AndroidNexusDeviceTest)
+TestRunner: started: platformTransactionRollsBackAndSurvivesCloseReopen(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: finished: platformTransactionRollsBackAndSurvivesCloseReopen(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: started: contentUriRagReopensOrReportsUnsupportedWithoutFakeCitation(fr.jarvis.nexus.android.Fusion02DeviceTest)
+System.out: FUSION02_CONTENT_RAG UNSUPPORTED: no citation generated
+TestRunner: finished: contentUriRagReopensOrReportsUnsupportedWithoutFakeCitation(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: started: selectedSourceHashCheckDoesNotClaimCitationOrSafGrantQualification(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: finished: selectedSourceHashCheckDoesNotClaimCitationOrSafGrantQualification(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: started: probeAndAdmissionLeaveRefusedPersistentStateUntouched(fr.jarvis.nexus.android.Fusion02DeviceTest)
+System.out: FUSION02_PLATFORM_PROBE {"api":24,"abis":["x86"],"sqliteVersion":"3.9.2","status":"UNSUPPORTED","stage":"CREATE","compileOptions":[],"pssKiB":15732}
+TestRunner: finished: probeAndAdmissionLeaveRefusedPersistentStateUntouched(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: started: corruptionIsRefusedWithoutDeletingOriginal(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: finished: corruptionIsRefusedWithoutDeletingOriginal(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: started: contentResolverPfdClosesAndRefusesDenialAndOversize(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: finished: contentResolverPfdClosesAndRefusesDenialAndOversize(fr.jarvis.nexus.android.Fusion02DeviceTest)
+TestRunner: run finished: 8 tests, 0 failed, 0 ignored

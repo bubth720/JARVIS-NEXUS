@@ -1,0 +1,17 @@
+[
+  {
+    "path": "nexus-core/build/libs/nexus-core-0.1.0.jar",
+    "sha256": "41be6253957eacb91ebf37e439b271e9384bd50c3abe7d93c3c061bad61d2c11",
+    "bytes": 268699
+  },
+  {
+    "path": "nexus-android-store/build/outputs/aar/nexus-android-store-debug.aar",
+    "sha256": "753f1b289b3603c09425bd886f5859f49a49de5d2d7587e4d8776f5e5dc6acbb",
+    "bytes": 47582
+  },
+  {
+    "path": "nexus-android-store/build/outputs/apk/androidTest/debug/nexus-android-store-debug-androidTest.apk",
+    "sha256": "78d60a6dd9ae42079793bcfa1f67e9f9f1383e2be62fb3b108f91ae49056b9bb",
+    "bytes": 1919854
+  }
+]

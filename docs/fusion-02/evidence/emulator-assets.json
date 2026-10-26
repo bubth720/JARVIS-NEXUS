@@ -1,0 +1,20 @@
+[
+  {
+    "url": "https://dl.google.com/android/repository/emulator-linux_x64-16428233.zip",
+    "sha1": "cd7362ea55dfb86a418958138dc396e74165dd01",
+    "sha256": "b08fc43d8608d2955f607f1b287beb525041e730086bdca3af152accac3af9c1",
+    "bytes": 349654171
+  },
+  {
+    "url": "https://dl.google.com/android/repository/platform-tools_r37.0.1-linux.zip",
+    "sha1": "477254aa5f903c15cf51001717bdf347fb6b53e0",
+    "sha256": "d230f13842f60f782a8645f9c813f8f845bf36089ea7289f28c48f17979313f1",
+    "bytes": 9054187
+  },
+  {
+    "url": "https://dl.google.com/android/repository/sys-img/android/x86-24_r08.zip",
+    "sha1": "c1cae7634b0216c0b5990f2c144eb8ca948e3511",
+    "sha256": "ef242578ed86f73fd4be27935d094d58f2c4b7ab53362b74978e2257a8df3bba",
+    "bytes": 313489224
+  }
+]

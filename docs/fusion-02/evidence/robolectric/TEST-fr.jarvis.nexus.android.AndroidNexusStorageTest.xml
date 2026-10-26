@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="fr.jarvis.nexus.android.AndroidNexusStorageTest" tests="30" skipped="0" failures="0" errors="0" timestamp="2026-10-26T07:46:23" hostname="LAB_HOST_REDACTED" time="27.942">
+  <properties/>
+  <testcase name="selectedUriRejectsImplicitOrFilesystemAccess[24]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="5.221"/>
+  <testcase name="selectedUriRejectsImplicitOrFilesystemAccess[25]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="1.61"/>
+  <testcase name="selectedUriRejectsImplicitOrFilesystemAccess[26]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="2.755"/>
+  <testcase name="selectedUriRejectsImplicitOrFilesystemAccess[29]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="3.056"/>
+  <testcase name="selectedUriRejectsImplicitOrFilesystemAccess" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="6.557"/>
+  <testcase name="migrationInterruptionAndMissingFtsRollbackAllTablesAndVersion[24]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.912"/>
+  <testcase name="migrationInterruptionAndMissingFtsRollbackAllTablesAndVersion[25]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.525"/>
+  <testcase name="migrationInterruptionAndMissingFtsRollbackAllTablesAndVersion[26]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="2.392"/>
+  <testcase name="migrationInterruptionAndMissingFtsRollbackAllTablesAndVersion[29]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="2.301"/>
+  <testcase name="migrationInterruptionAndMissingFtsRollbackAllTablesAndVersion" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.31"/>
+  <testcase name="hostFtsAbsenceIsRefusedRatherThanClaimingNativeCitation[24]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.103"/>
+  <testcase name="hostFtsAbsenceIsRefusedRatherThanClaimingNativeCitation[25]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.187"/>
+  <testcase name="hostFtsAbsenceIsRefusedRatherThanClaimingNativeCitation[26]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.162"/>
+  <testcase name="hostFtsAbsenceIsRefusedRatherThanClaimingNativeCitation[29]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.193"/>
+  <testcase name="hostFtsAbsenceIsRefusedRatherThanClaimingNativeCitation" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.127"/>
+  <testcase name="incompatibleDatabaseIsRefusedWithoutMigration[24]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.104"/>
+  <testcase name="incompatibleDatabaseIsRefusedWithoutMigration[25]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.073"/>
+  <testcase name="incompatibleDatabaseIsRefusedWithoutMigration[26]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.08"/>
+  <testcase name="incompatibleDatabaseIsRefusedWithoutMigration[29]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.065"/>
+  <testcase name="incompatibleDatabaseIsRefusedWithoutMigration" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.088"/>
+  <testcase name="rawStorageTransactionCrudRollbackCloseAndReopenAreReal[24]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.178"/>
+  <testcase name="rawStorageTransactionCrudRollbackCloseAndReopenAreReal[25]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.109"/>
+  <testcase name="rawStorageTransactionCrudRollbackCloseAndReopenAreReal[26]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.107"/>
+  <testcase name="rawStorageTransactionCrudRollbackCloseAndReopenAreReal[29]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.105"/>
+  <testcase name="rawStorageTransactionCrudRollbackCloseAndReopenAreReal" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.157"/>
+  <testcase name="rawStorageLeaseExcludesOtherConnectionAndAccessDenialPrecedesSql[24]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.103"/>
+  <testcase name="rawStorageLeaseExcludesOtherConnectionAndAccessDenialPrecedesSql[25]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.042"/>
+  <testcase name="rawStorageLeaseExcludesOtherConnectionAndAccessDenialPrecedesSql[26]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.156"/>
+  <testcase name="rawStorageLeaseExcludesOtherConnectionAndAccessDenialPrecedesSql[29]" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.054"/>
+  <testcase name="rawStorageLeaseExcludesOtherConnectionAndAccessDenialPrecedesSql" classname="fr.jarvis.nexus.android.AndroidNexusStorageTest" time="0.092"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

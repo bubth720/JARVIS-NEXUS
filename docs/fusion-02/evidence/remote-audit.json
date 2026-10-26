@@ -1,0 +1,167 @@
+[
+  {
+    "url": "https://api.github.com/repos/bubth720/JARVIS-NEXUS/branches?per_page=100",
+    "branches": [
+      {
+        "branch": "feat/fusion-01-nexus-integration",
+        "sha": "9d6928cd8651f83fa5091bdb474b33761d366412"
+      },
+      {
+        "branch": "feat/nex-01-moteur-local-de-connaissances-",
+        "sha": "c25d401dff6865657b75d320361ae81811363fa8"
+      },
+      {
+        "branch": "feat/nex-02-chaine-d-import-local-extracti",
+        "sha": "bfa46e1fe08d4943fe864ac53d0c0ba56109ea9c"
+      },
+      {
+        "branch": "feat/nex-03-recherche-de-connaissances-cit",
+        "sha": "777e6afa75ecb99b85e52d68837cb0fefcf161cd"
+      },
+      {
+        "branch": "feat/nex-05-sauvegarde-chiffrable-restaura",
+        "sha": "3acec55616ff8e3b1666091780fca59261377e18"
+      },
+      {
+        "branch": "feat/nex-06a-android-api24",
+        "sha": "374ea2e2fd640e78f2f5e12e60e75b493420e504"
+      },
+      {
+        "branch": "feat/nexus-final-01",
+        "sha": "d903bf04f497ab0dc7f40e9708ed057e4f24c6ee"
+      },
+      {
+        "branch": "main",
+        "sha": "b27df0b84d8f0082d17ca6278549298aaaf97926"
+      },
+      {
+        "branch": "plan/intensive-2026-10-22",
+        "sha": "e4b2018383a35106cd326848fab597ef07a50157"
+      },
+      {
+        "branch": "work/nex-04-zim-readonly",
+        "sha": "bbccac2ff2cc052f897c7f5015f234507e047b95"
+      }
+    ]
+  },
+  {
+    "url": "https://api.github.com/repos/bubth720/JARVIS-NEXUS/actions/runs/40115049468/jobs",
+    "jobs": [
+      {
+        "name": "storage",
+        "conclusion": "success",
+        "sha": "374ea2e2fd640e78f2f5e12e60e75b493420e504",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-java@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Prepare pinned SERVICES parser sources (build time only)",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run ./gradlew -PservicesSource=\"$RUNNER_TEMP/services-source\" test :nexus-cli:installDist :nexus-services-adapter:installDist --no-daemon",
+            "conclusion": "success"
+          },
+          {
+            "name": "Synthetic demo in two independent processes",
+            "conclusion": "success"
+          },
+          {
+            "name": "Encrypted synthetic backup and injected recovery failure",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-java@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "name": "android-adapter",
+        "conclusion": "failure",
+        "sha": "374ea2e2fd640e78f2f5e12e60e75b493420e504",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-java@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run android-actions/setup-android@v3",
+            "conclusion": "failure"
+          },
+          {
+            "name": "Run sdkmanager \"platforms;android-35\" \"build-tools;35.0.0\"",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "API24 library, host SQLite tests, instrumentation compile and Lint",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Run python3 tools/check-android-boundary.py",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-java@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "url": "https://api.github.com/repos/bubth720/JARVIS-NEXUS/pulls/4",
+    "draft": true,
+    "merged": false,
+    "head": "9d6928cd8651f83fa5091bdb474b33761d366412",
+    "base": "d903bf04f497ab0dc7f40e9708ed057e4f24c6ee"
+  },
+  {
+    "url": "https://api.github.com/repos/bubth720/JARVIS-SERVICES/branches/feat/serv-04a-android-tool-port",
+    "branch": "feat/serv-04a-android-tool-port",
+    "sha": "f00091a639612b91eca1a301580c8f531249f1e3"
+  },
+  {
+    "url": "https://api.github.com/repos/bubth720/JAVIS-Local-v2/branches/feat/fusion-01-core-integration",
+    "branch": "feat/fusion-01-core-integration",
+    "sha": "36761cea101b5f88b87cd4136dc075d28a1adb96"
+  }
+]

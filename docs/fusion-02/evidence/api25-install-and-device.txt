@@ -1,0 +1,5 @@
+/system/bin/sh: sha256sum: not found
+Success
+AOSP_EMULATOR_BUILD_REDACTED
+25
+x86

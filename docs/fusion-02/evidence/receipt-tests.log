@@ -1,0 +1,15 @@
+test_evidence_tamper_refused (test_receipt.ReceiptTest.test_evidence_tamper_refused) ... ok
+test_genuine (test_receipt.ReceiptTest.test_genuine) ... ok
+test_global_go_refused (test_receipt.ReceiptTest.test_global_go_refused) ... ok
+test_invented_counts_refused (test_receipt.ReceiptTest.test_invented_counts_refused) ... ok
+test_native_activation_refused (test_receipt.ReceiptTest.test_native_activation_refused) ... ok
+test_physical_go_refused (test_receipt.ReceiptTest.test_physical_go_refused) ... ok
+test_source_tamper_refused (test_receipt.ReceiptTest.test_source_tamper_refused) ... ok
+test_unknown_activation_refused (test_receipt.ReceiptTest.test_unknown_activation_refused) ... ok
+test_unqualified_rag_refused (test_receipt.ReceiptTest.test_unqualified_rag_refused) ... ok
+test_wrong_parent_refused (test_receipt.ReceiptTest.test_wrong_parent_refused) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.066s
+
+OK

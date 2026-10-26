@@ -16,6 +16,7 @@ with zipfile.ZipFile(aar) as archive:
     manifest = archive.read('AndroidManifest.xml').decode()
     assert 'android:minSdkVersion="24"' in manifest, manifest
     assert 'uses-permission' not in manifest, manifest
+    assert '<provider' not in manifest and '<service' not in manifest, 'Unexpected production component'
     android_jar = archive.read('classes.jar')
 for label, jar in [('core', core.read_bytes()), ('android', android_jar)]:
     count = 0

@@ -1,0 +1,13 @@
+
+Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE (has extras) }
+java.lang.SecurityException: Permission Denial: not allowed to send broadcast android.intent.action.AIRPLANE_MODE from pid=1891, uid=2000
+	at android.os.Parcel.readException(Parcel.java:1683)
+	at android.os.Parcel.readException(Parcel.java:1636)
+	at android.app.ActivityManagerProxy.broadcastIntent(ActivityManagerNative.java:3507)
+	at com.android.commands.am.Am.sendBroadcast(Am.java:772)
+	at com.android.commands.am.Am.onRun(Am.java:404)
+	at com.android.internal.os.BaseCommand.run(BaseCommand.java:51)
+	at com.android.commands.am.Am.main(Am.java:121)
+	at com.android.internal.os.RuntimeInit.nativeFinishInit(Native Method)
+	at com.android.internal.os.RuntimeInit.main(RuntimeInit.java:262)
+1

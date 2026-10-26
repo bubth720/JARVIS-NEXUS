@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="fr.jarvis.nexus.FusionScaleTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-10-25T22:20:25" hostname="LAB_HOST_REDACTED" time="15.45">
+  <properties/>
+  <testcase name="thousandDocumentsUseRealIncrementalImportAndRemainResolvableAfterReopen" classname="fr.jarvis.nexus.FusionScaleTest" time="15.45"/>
+  <system-out><![CDATA[FUSION_SCALE_JSON={"documents":1000,"actualParserCalls":1001,"ingestMs":14092.580967,"unchangedMs":2.584902,"queryP50Ms":41.511471,"queryP95Ms":181.872246,"databaseBytes":2633728,"heapUsedSnapshotBytes":55713272,"processPeakRssKiB":193296,"scope":"JVM real ImportCoordinator, CSV parser, FTS, revision and resolver; not Android"}
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

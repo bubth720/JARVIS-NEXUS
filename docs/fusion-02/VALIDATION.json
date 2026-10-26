@@ -1,0 +1,128 @@
+{
+  "format": "jarvis.nexus.fusion02.validation/1",
+  "overall": "PARTIAL",
+  "androidRagGo": false,
+  "activation": {
+    "externalSqlite": false,
+    "personalInstallation": false,
+    "personalMigration": false,
+    "ipc": false,
+    "mainMerge": false
+  },
+  "jvm": {
+    "tests": 95,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "robolectric": {
+    "tests": 71,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "android": {
+    "24": {
+      "instrumentation": "PASS",
+      "rag": "UNSUPPORTED",
+      "tests": 9,
+      "physical": "NOT_RUN",
+      "abi": "x86",
+      "raw": "docs/fusion-02/evidence/wal-api24-instrumentation.txt",
+      "logcat": "docs/fusion-02/evidence/wal-api24-logcat.txt",
+      "probe": {
+        "api": 24,
+        "abis": [
+          "x86"
+        ],
+        "sqliteVersion": "3.9.2",
+        "status": "UNSUPPORTED",
+        "stage": "CREATE",
+        "compileOptions": [],
+        "pssKiB": 15728
+      },
+      "apkSha256": "c3a0862171279cf76f2aef3d5f8b1fcdb7e1eed9a4798f043ca7158c09643280"
+    },
+    "25": {
+      "instrumentation": "PASS",
+      "rag": "UNSUPPORTED",
+      "tests": 9,
+      "physical": "NOT_RUN",
+      "abi": "x86",
+      "raw": "docs/fusion-02/evidence/wal-api25-instrumentation.txt",
+      "logcat": "docs/fusion-02/evidence/wal-api25-logcat.txt",
+      "probe": {
+        "api": 25,
+        "abis": [
+          "x86"
+        ],
+        "sqliteVersion": "3.9.2",
+        "status": "UNSUPPORTED",
+        "stage": "CREATE",
+        "compileOptions": [],
+        "pssKiB": 15423
+      },
+      "apkSha256": "c3a0862171279cf76f2aef3d5f8b1fcdb7e1eed9a4798f043ca7158c09643280"
+    },
+    "26": {
+      "instrumentation": "NOT_RUN",
+      "rag": "NOT_RUN",
+      "tests": 0,
+      "physical": "NOT_RUN",
+      "abi": "NOT_TESTED"
+    },
+    "29": {
+      "instrumentation": "NOT_RUN",
+      "rag": "NOT_RUN",
+      "tests": 0,
+      "physical": "NOT_RUN",
+      "abi": "NOT_TESTED"
+    },
+    "35": {
+      "instrumentation": "NOT_RUN",
+      "rag": "NOT_RUN",
+      "tests": 0,
+      "physical": "NOT_RUN",
+      "abi": "NOT_TESTED"
+    }
+  },
+  "api24Stubs": "PASS",
+  "lint": {
+    "errors": 0,
+    "warnings": 2
+  },
+  "sql": {
+    "tests": 10,
+    "failures": 0
+  },
+  "graph": {
+    "tests": 7,
+    "failures": 0
+  },
+  "zim": {
+    "tests": 19,
+    "passed": 18,
+    "skipped": 1
+  },
+  "ci": {
+    "status": "NOT_RUN_AT_RECEIPT",
+    "scope": "pre-publication; exact remote SHA/run must be read after publication"
+  },
+  "artifacts": [
+    {
+      "path": "nexus-core/build/libs/nexus-core-0.1.0.jar",
+      "sha256": "41be6253957eacb91ebf37e439b271e9384bd50c3abe7d93c3c061bad61d2c11",
+      "bytes": 268699
+    },
+    {
+      "path": "nexus-android-store/build/outputs/aar/nexus-android-store-debug.aar",
+      "sha256": "4c16a68931008094bc424da9caf10c5725bc868d09ea577eeded890fab5aa248",
+      "bytes": 48067
+    },
+    {
+      "path": "nexus-android-store/build/outputs/apk/androidTest/debug/nexus-android-store-debug-androidTest.apk",
+      "sha256": "c3a0862171279cf76f2aef3d5f8b1fcdb7e1eed9a4798f043ca7158c09643280",
+      "bytes": 1920104
+    }
+  ]
+}

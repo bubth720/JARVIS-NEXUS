@@ -1,0 +1,48 @@
+name: NEXUS FUSION-02 qualification
+on:
+  push:
+    branches: ['feat/fusion-02-nexus-*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  jvm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - run: python3 tools/fusion-lab.py provision
+      - run: python3 tools/prepare-services.py "$RUNNER_TEMP/nexus-services-source"
+      - run: python3 tools/fusion-lab.py gradle -- -PservicesSource="$RUNNER_TEMP/nexus-services-source" test :nexus-cli:installDist :nexus-services-adapter:installDist --no-daemon --max-workers=2
+      - run: python3 -m unittest discover -s tests/final -v
+      - run: python3 -m unittest discover -s tests/zim -v
+      - run: node --test tests/final/test_graph.cjs
+      - run: python3 -m unittest discover -s tests/fusion02 -v
+      - run: python3 tools/check-fusion02.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: fusion02-jvm
+          path: |
+            nexus-jvm-store/build/test-results/test/*.xml
+            nexus-services-adapter/build/test-results/test/*.xml
+  android-host:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      # Replaces setup-android's obsolete default `sdkmanager tools` operation.
+      # Exact official platform/build-tools assets; no job or test disabled.
+      - run: python3 tools/fusion-lab.py --android provision
+      - run: python3 tools/fusion-lab.py gradle -- -PwithAndroid=true :nexus-android-store:testDebugUnitTest :nexus-android-store:assembleDebug :nexus-android-store:assembleDebugAndroidTest :nexus-android-store:lintDebug --no-daemon --max-workers=2
+      - run: python3 tools/fusion-lab.py api24
+      - run: python3 tools/check-android-boundary.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: fusion02-aar-host-tests-not-instrumentation
+          path: |
+            nexus-android-store/build/outputs/aar/*.aar
+            nexus-android-store/build/outputs/apk/androidTest/**/*.apk
+            nexus-android-store/build/test-results/testDebugUnitTest/*.xml
+            nexus-android-store/build/reports/lint-results-debug.*

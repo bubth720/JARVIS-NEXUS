@@ -28,20 +28,41 @@ class AndroidNexusStorage private constructor(private val db: SQLiteDatabase, pr
                 return StorageOpenResult.Rejected(OpenFailure.STORAGE_FAILURE)
             var connection: SQLiteDatabase? = null
             return try {
-                connection = SQLiteDatabase.openOrCreateDatabase(file, null)
+                // Inspect existing schema read-only, then probe a separate in-memory database.
+                // A rejected capability must not create a DB, journal, lease or migration.
+                // Android's default corruption handler may DELETE a corrupt database.
+                // NEXUS never adopts that recovery policy, including read-only inspection.
+                val refuseCorruption = android.database.DatabaseErrorHandler {
+                    throw SQLiteException("Corrupt NEXUS database refused; original retained")
+                }
+                if (file.exists()) {
+                    // Even an SQLite OPEN_READONLY connection can touch WAL shared
+                    // state. Inspect only the fixed file header before the probe.
+                    val header = ByteArray(100)
+                    java.io.DataInputStream(file.inputStream()).use { it.readFully(header) }
+                    if (!header.copyOfRange(0,16).contentEquals("SQLite format 3\u0000".toByteArray(Charsets.US_ASCII)))
+                        return StorageOpenResult.Rejected(OpenFailure.STORAGE_FAILURE)
+                    val headerVersion = java.nio.ByteBuffer.wrap(header,60,4).int
+                    if (headerVersion !in 0..NexusSchema.CURRENT_VERSION)
+                        return StorageOpenResult.Rejected(OpenFailure.INCOMPATIBLE_VERSION)
+                    // WAL can contain a newer committed version: recheck the actual
+                    // connection below, but only after FTS5 admission succeeds.
+                }
+                val capability = AndroidFts5Probe.inspect()
+                if (capability.status != Fts5Status.SUPPORTED)
+                    return StorageOpenResult.Rejected(if (capability.status == Fts5Status.UNSUPPORTED)
+                        OpenFailure.CAPABILITY_UNAVAILABLE else OpenFailure.STORAGE_FAILURE)
+                connection = SQLiteDatabase.openOrCreateDatabase(file.path, null, refuseCorruption)
                 connection.setForeignKeyConstraintsEnabled(true)
                 val storage = AndroidNexusStorage(connection, file)
                 val version = storage.readSession { it.query("PRAGMA user_version") { row -> row.getInt(1) }.single() }
                 if (version !in 0..NexusSchema.CURRENT_VERSION) {
                     connection.close(); return StorageOpenResult.Rejected(OpenFailure.INCOMPATIBLE_VERSION)
                 }
-                // compile_options is diagnostic only. Both real temporary virtual tables must work.
-                val options = storage.readSession { it.query("PRAGMA compile_options") { row -> row.getString(1) } }
-                if (!storage.probeFts5()) {
-                    connection.close(); return StorageOpenResult.Rejected(OpenFailure.CAPABILITY_UNAVAILABLE)
-                }
                 NexusSchema.migrate(storage)
-                StorageOpenResult.Ready(storage, options)
+                StorageOpenResult.Ready(storage, capability.compileOptions)
+            } catch (_: java.io.IOException) {
+                connection?.close(); StorageOpenResult.Rejected(OpenFailure.STORAGE_FAILURE)
             } catch (_: RuntimeException) {
                 connection?.close(); StorageOpenResult.Rejected(OpenFailure.STORAGE_FAILURE)
             }
@@ -56,19 +77,6 @@ class AndroidNexusStorage private constructor(private val db: SQLiteDatabase, pr
         db.beginTransaction()
         try { val result = block(session); db.setTransactionSuccessful(); result } finally { db.endTransaction() }
     }
-    private fun probeFts5(): Boolean = try {
-        readSession { c ->
-            c.execute("CREATE VIRTUAL TABLE temp.nexus_fts_probe USING fts5(body)")
-            try {
-                c.execute("INSERT INTO temp.nexus_fts_probe(body) VALUES(?)", "preuve")
-                c.execute("CREATE VIRTUAL TABLE temp.nexus_vocab_probe USING fts5vocab(nexus_fts_probe, 'instance')")
-                try {
-                    check(c.query("SELECT body FROM temp.nexus_fts_probe WHERE nexus_fts_probe MATCH ? ORDER BY bm25(nexus_fts_probe)", "preuve") { it.getString(1) } == listOf("preuve"))
-                    check(c.query("SELECT term FROM temp.nexus_vocab_probe") { it.getString(1) } == listOf("preuve"))
-                } finally { c.execute("DROP TABLE temp.nexus_vocab_probe") }
-            } finally { c.execute("DROP TABLE temp.nexus_fts_probe") }
-        }; true
-    } catch (_: RuntimeException) { false }
     @Synchronized override fun acquireImportLease(): AutoCloseable? {
         check(db.isOpen)
         val sidecar = File(file.parentFile, ".${file.name}.nexus-import.lock")

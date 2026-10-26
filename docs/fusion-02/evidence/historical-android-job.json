@@ -1,0 +1,12 @@
+{
+  "format": "redacted-ci-diagnostic/1",
+  "url": "https://github.com/bubth720/JARVIS-NEXUS/actions/runs/40115049468",
+  "commit": "374ea2e2fd640e78f2f5e12e60e75b493420e504",
+  "job": "android-adapter",
+  "result": "FAILURE",
+  "failedStep": "android-actions/setup-android@v3",
+  "cause": "sdkmanager tools: Warning: Failed to find package 'tools'; exit code 1",
+  "subsequentProductChecks": "SKIPPED",
+  "jvmJob": "SUCCESS",
+  "redaction": "Full raw infrastructure log withheld after automatic approval review; no runner identifiers, auth metadata or personal paths published"
+}
