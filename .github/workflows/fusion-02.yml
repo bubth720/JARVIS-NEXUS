@@ -1,7 +1,7 @@
 name: NEXUS FUSION-02 qualification
 on:
   push:
-    branches: ['feat/fusion-02-nexus-*']
+    branches: ['feat/fusion-02-nexus-*', 'feat/nex-07-*']
   workflow_dispatch:
 permissions:
   contents: read
