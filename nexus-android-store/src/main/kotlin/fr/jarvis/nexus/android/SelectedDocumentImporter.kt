@@ -91,6 +91,10 @@ class SelectedDocumentSourceVerifier(resolver: ContentResolver) {
         if (selection.uri.toString() != source.uri) return CatalogResult.Rejected(KnowledgeError.CONFLICT)
         if (!source.sha256.matches(Regex("[a-f0-9]{64}")) || source.byteCount < 0)
             return CatalogResult.Rejected(KnowledgeError.INVALID_INPUT)
+        // A record beyond the selected-stream quota cannot be verified. Refuse
+        // before asking an external provider for data (and before opening a PFD).
+        if (source.byteCount > 2L * 1024 * 1024)
+            return CatalogResult.Rejected(KnowledgeError.LIMIT_EXCEEDED)
         return streams.open(selection) {
             val actual = fr.jarvis.nexus.store.SourceFingerprint.compute(it, 2L * 1024 * 1024)
             if (actual.sha256 == source.sha256 && actual.bytes == source.byteCount) CatalogResult.Ok(Unit)
