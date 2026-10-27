@@ -14,6 +14,8 @@ ADDITIONS = {
     'tools/check-prefusion.py',
     'tests/prefusion/test_preservation.py',
     'docs/prefusion/ASSESSMENT.md',
+    # LOT3 adds an instruction-only document; no source, migration or workflow exception.
+    'missions/PREFUSION-LOT3-2026-10-27.md',
 }
 
 
