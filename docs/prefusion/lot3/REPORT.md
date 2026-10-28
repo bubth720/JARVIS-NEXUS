@@ -177,3 +177,25 @@ public, sans le reste d'une stack.24tests Pythonlot3 réussis (0échec/saut);
 APK des5cas recompilée : BUILD SUCCESSFUL36s,4tâches exécutées/62au total.
 Ces cinq tests ne sont toujours pas exécutables localement sansKVM; le nouveau
 run Android doit confirmer ou réfuter le correctif, aucun succès n'est anticipé.
+
+### Résultat après synchronisation et cible du seul APK de test
+
+Run40749086908 au8bc01543b2bc16be611a488b31cde9abbe8b12cf : FAILURE5m49s.
+Les9anciens et5nouveaux cas passent sur3API. Le seul job Android en échec,
+123030620078, est explicitement API35. Ses3échecs pointent tous le bouton absent
+au début du helper (ligne101), avant toute lecture SAF. Cela ne prouve aucun défaut
+du moteur ou du stockage de production. Le callback attendu a résolu les échecs
+sur les autres API; aucun des4jobs n'a erreur ou saut de test dans ses reçus.
+
+L'APK de laboratoire généré ciblait implicitement targetSdk24 (preuve aapt), bien
+que compileSdk35/minSdk24. Hypothèse à vérifier : dialogue de compatibilité ancien
+surAPI35 occultant le bouton. Le seul module de test opt-in cible maintenant35,
+conserve min24 et les quatre campagnes; aucun SDK/manifest/permission de production
+ne change. L'assertion du bouton reste stricte, avec package foreground comme
+seul détail supplémentaire si elle échoue. Ce correctif de configuration reste
+à qualifier dans la nouvelle CI; la cause UI ne devient pas certitude par hypothèse.
+
+BuildAPK+Lint du seul module modifié : SUCCESS48s,15tâches exécutées/105; zéro erreur
+Lint. Aapt confirme min24,target35.24Pythonlot3 et garde de préservation PASS.
+Aucune ancienne assertion n'est supprimée, aucun dialogue de sécurité n'est accepté
+automatiquement et aucune installation personnelle n'est effectuée.

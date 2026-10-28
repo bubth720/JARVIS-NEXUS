@@ -98,7 +98,8 @@ public final class Lot3QualificationTest {
  }
  private static void choose(ActivityScenario<SyntheticPickerActivity> s,String name,Uri[] selected) {
    UiDevice d=UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-   UiObject2 button=d.wait(Until.findObject(By.text("CHOOSE SYNTHETIC DOCUMENT")),5000);assertNotNull(button);button.click();
+   UiObject2 button=d.wait(Until.findObject(By.text("CHOOSE SYNTHETIC DOCUMENT")),5000);
+   assertNotNull("Synthetic picker button missing; foreground package="+d.getCurrentPackageName(),button);button.click();
    UiObject2 root=d.wait(Until.findObject(By.text("NEXUS LOT3 FIXTURE")),2000);
    if(root==null) {
     UiObject2 menu=d.findObject(By.descContains("Show roots"));if(menu!=null)menu.click();
