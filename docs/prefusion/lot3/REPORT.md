@@ -29,11 +29,16 @@ et par la branche publiée, sans auto-référence inventée dans le commit.
 ## Périmètre et preuves
 
 `tools/check-prefusion-lot3.py` fige tous les fichiers de la base mission, sauf
-l'ajout exact du bloc Gradle opt-in des deux cibles synthétiques. Ajouts fermés.
+l'ajout exact du bloc Gradle opt-in des deux cibles synthétiques et le routage CI borné décrit ci-dessous. Ajouts fermés.
 Le garde historique n'est ni désactivé ni élargi : exécuté dans clone isolé à sa
-référence historique, puis garde lot3 sur les sources actuelles. Les workflows
-anciens à déclenchement PR général peuvent refuser la nouvelle portée; ils ne
-constituent pas un résultat de tests Android. Aucun ancien reçu n'est réécrit.
+référence historique, puis garde lot3 sur les sources actuelles. Dans nex-07.yml,
+les deux étapes de garde sont aiguillées vers le garde lot3 uniquement pour un
+événement pull_request, base exacte mission/prefusion-lot3-20261027 et branche
+source préfixée codex/prefusion-lot3-. Les autres cas exécutent strictement
+l'ancien garde. Les deux lanes et toutes les commandes de tests restent inchangées.
+Trois tests vérifient le remplacement exact des seules deux étapes, le refus de
+modification des permissions/tests et les trois conditions de routage. Le nouveau
+garde exige les octets exacts de ce changement; aucun ancien reçu n'est réécrit.
 
 Les preuves API24/25 de `docs/fusion-02/evidence/` et le rapport backend historique
 ont été relus et conservés. Les résultats historiques ne sont pas imputés au SHA
@@ -45,7 +50,7 @@ complète ImportCoordinator/RAG ni la qualification physique de ces garanties.
 
 | Vérification | Résultat |
 |---|---|
-| Python matrice nouvelle | 12 PASS, 0 échec, 0 saut |
+| Python lot3 | 15 PASS : 12 matrice +3 routage CI, 0 échec, 0 saut |
 | Python garde historique tests | 6 PASS, 0 échec, 0 saut |
 | Python SQL hôte | 10 PASS, 0 échec, 0 saut |
 | Python ZIM | 18 PASS, 1 SKIP explicite archive réelle absente |

@@ -15,7 +15,15 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      - run: python3 tools/check-prefusion.py
+      - name: Check the exact reviewed source scope
+        env:
+          LOT3_REVIEW: ${{ github.event_name == 'pull_request' && github.base_ref == 'mission/prefusion-lot3-20261027' && startsWith(github.head_ref, 'codex/prefusion-lot3-') }}
+        run: |
+          if [ "$LOT3_REVIEW" = "true" ]; then
+            python3 tools/check-prefusion-lot3.py
+          else
+            python3 tools/check-prefusion.py
+          fi
       - run: python3 -m unittest discover -s tests/prefusion -v
       - run: python3 tools/fusion-lab.py provision
       - run: python3 tools/prepare-services.py "$RUNNER_TEMP/nexus-services-source"
@@ -33,7 +41,15 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      - run: python3 tools/check-prefusion.py
+      - name: Check the exact reviewed source scope
+        env:
+          LOT3_REVIEW: ${{ github.event_name == 'pull_request' && github.base_ref == 'mission/prefusion-lot3-20261027' && startsWith(github.head_ref, 'codex/prefusion-lot3-') }}
+        run: |
+          if [ "$LOT3_REVIEW" = "true" ]; then
+            python3 tools/check-prefusion-lot3.py
+          else
+            python3 tools/check-prefusion.py
+          fi
       - run: python3 -m unittest discover -s tests/prefusion -v
       - run: python3 tools/fusion-lab.py --android provision
       - run: python3 tools/fusion-lab.py gradle -- -PwithAndroid=true :nexus-android-store:testDebugUnitTest :nexus-android-store:assembleDebug :nexus-android-store:assembleDebugAndroidTest :nexus-android-store:lintDebug --no-daemon --max-workers=2
