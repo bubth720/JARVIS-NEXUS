@@ -134,3 +134,20 @@ ajoutés aux cinq cas et leur APK recompilée : BUILD SUCCESSFUL 26s, 4 tâches
 exécutées (62 tâches au total). Cela reste une compilation, pas une exécution Android.
 Le nouveau SHA et son run doivent être vérifiés séparément; aucun résultat du run
 ci-dessus ne lui est transféré.
+
+## Reprise diagnostique du 28 octobre
+
+Le run40668219474 au SHA e256594a9b3a0f2cd8bab6e14a2b4ea371085a70
+est FAILURE (5m23s). Les annotations montrent réellement les cinq cas labo exécutés,
+avec1ou3 échecs selon les jobs Android, zéro erreur/saut dans ces reçus.
+Le compte historique9 reste UNKNOWN : aucun XML disponible, pas de PASS déduit.
+La phase fautive est RUN_PLATFORM_TESTS, donc pas BUILD/INSTALL_SYNTHETIC_PROVIDER.
+Les noms/messages de cas n'étaient pas encore publiés, la cause exacte reste inconnue.
+
+Le résumé borné est désormais testé (six nouveaux tests,21 Python lot3 réussis),
+puis publié par cas synthétique avec première ligne seulement, sans stack/logcat.
+Gradle reçoit --continue pour exécuter les suites indépendantes malgré un échec;
+le code de sortie d'origine et les contrôles stricts9+5 sont conservés.
+Aucun test ni assertion de qualification n'a changé dans cette reprise.
+La compilation existante et les95JVM/71Robolectric ne sont pas relancés pour ce
+seul changement d'observabilité CI. Aucune preuve Android positive inventée.
