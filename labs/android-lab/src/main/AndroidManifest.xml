@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application android:allowBackup="false">
+        <!-- Exists only in the explicitly included laboratory test target APK. -->
+        <activity android:name=".SyntheticPickerActivity" android:exported="false"
+            android:theme="@android:style/Theme.Material.Light.NoActionBar" />
+    </application>
+</manifest>

@@ -11,3 +11,11 @@ providers.gradleProperty("servicesSource").orNull?.let { source ->
 }
 
 if (providers.gradleProperty("withAndroid").orNull == "true") include(":nexus-android-store")
+
+// Explicit synthetic test packages only. No production dependency or default activation.
+if (providers.gradleProperty("withPrefusionLab").orNull == "true") {
+    check(providers.gradleProperty("withAndroid").orNull == "true")
+    include(":nexus-prefusion-provider", ":nexus-prefusion-lab")
+    project(":nexus-prefusion-provider").projectDir = file("labs/saf-provider")
+    project(":nexus-prefusion-lab").projectDir = file("labs/android-lab")
+}

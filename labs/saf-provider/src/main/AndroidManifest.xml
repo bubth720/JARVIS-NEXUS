@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application android:label="NEXUS LOT3 fixture" android:allowBackup="false" android:testOnly="true">
+        <!-- Separate TEST APK only; DocumentsUI obtains read grants. The protected
+             MANAGE_DOCUMENTS permission is not requested or granted to the consumer. -->
+        <provider android:name=".SyntheticDocumentsProvider"
+            android:authorities="fr.jarvis.nexus.prefusion.provider.documents"
+            android:exported="true" android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter><action android:name="android.content.action.DOCUMENTS_PROVIDER" /></intent-filter>
+        </provider>
+    </application>
+</manifest>
