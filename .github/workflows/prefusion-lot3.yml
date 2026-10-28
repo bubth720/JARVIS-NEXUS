@@ -62,11 +62,7 @@ jobs:
           arch: x86_64
           disable-animations: true
           emulator-options: -no-window -no-audio -no-snapshot -gpu swiftshader_indirect -no-boot-anim
-          script: |
-            bash gradlew -PwithAndroid=true -PwithPrefusionLab=true :nexus-prefusion-provider:assembleDebug --no-daemon --max-workers=2
-            adb install -t labs/saf-provider/build/outputs/apk/debug/nexus-prefusion-provider-debug.apk
-            bash gradlew -PwithAndroid=true -PwithPrefusionLab=true :nexus-android-store:connectedDebugAndroidTest :nexus-prefusion-lab:connectedDebugAndroidTest --no-daemon --max-workers=2
-            adb logcat -d -s NEXUS_LOT3:I > lot3-platform-log.txt
+          script: bash tools/run-prefusion-lot3-emulator.sh
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
@@ -76,4 +72,5 @@ jobs:
             nexus-android-store/build/reports/androidTests/
             labs/android-lab/build/outputs/androidTest-results/
             labs/android-lab/build/reports/androidTests/
+            labs/android-lab/build/reports/prefusion-lot3/
             lot3-platform-log.txt

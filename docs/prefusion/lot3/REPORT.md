@@ -21,7 +21,10 @@ et par la branche publiée, sans auto-référence inventée dans le commit.
   et révocation. Aucun provider ni permission ajouté au runtime NEXUS.
 - Cinq tests Android : OFF initial, primitives FTS5/MATCH/vocab/BM25 et migration
   temporaire/rollback/réouverture, picker réel + digest/original/PFD clos, quota,
-  révocation et refus du second accès. Une plateforme sans FTS5 est explicitement
+  révocation et refus du second accès. Ce corpus de cinq cas utilise aussi la classe publique
+  de production SelectedDocumentSourceVerifier : digest valide/invalide, refus de
+  quota avant ouverture, et DENIED après révocation; aucun stockage SQLite requis
+  pour ces contrôles. Une plateforme sans FTS5 est explicitement
   journalisée UNSUPPORTED; un test de refus réussi ne prouve pas le support FTS5.
 - CI distincte : régressions JVM/Robolectric/build/Lint et campagnes émulateur
   API24/25/26/35 (9 cas existants + 5 nouveaux par API), chaque résultat lié au SHA exécuté; pas d'installation personnelle.
@@ -110,3 +113,24 @@ PR demandée : brouillon vers `mission/prefusion-lot3-20261027`, jamais main.
 L'API GitHub est refusée par le proxy (Forbidden, diagnostic central); pas de
 contournement ou nouvelle tentative de création API. Utiliser le lien de comparaison
 fourni avec le bilan pour créer manuellement le brouillon.
+
+## Première observation GitHub, non attribuée à un autre SHA
+
+Au commit b5f89c0db8fa5ad96ed43697b5ffdb4d33ca757a :
+[run 40666775515](https://github.com/bubth720/JARVIS-NEXUS/actions/runs/40666775515),
+FAILURE (observé 28 octobre 2026, 09:52:57 UTC; durée 6m20s).
+Job host SUCCESS (4m27s); quatre jobs Android API24/25/26/35 FAILURE avec
+annotation publique identique : `The process '/usr/bin/sh' failed with exit code 1`.
+Cinq artefacts annoncés. La vue publique exige une connexion pour les logs :
+la cause exacte et les comptes instrumentés de ces jobs sont **UNKNOWN**, pas
+présumés être cinq tests en échec ni un problème de backend particulier.
+
+Correctif diagnostique : le script émulateur conserve le premier code d'erreur,
+annote la phase fixe (build/install/instrumentation), résume uniquement les vrais
+comptes JUnit disponibles et refuse un succès de commande sans les 9+5 cas
+attendus. Aucun test ni assertion n'est supprimé; aucun contenu documentaire ou
+log système général n'est publié. Les contrôles SourceVerifier publics ont été
+ajoutés aux cinq cas et leur APK recompilée : BUILD SUCCESSFUL 26s, 4 tâches
+exécutées (62 tâches au total). Cela reste une compilation, pas une exécution Android.
+Le nouveau SHA et son run doivent être vérifiés séparément; aucun résultat du run
+ci-dessus ne lui est transféré.

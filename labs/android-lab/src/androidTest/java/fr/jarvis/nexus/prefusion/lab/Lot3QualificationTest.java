@@ -15,6 +15,11 @@ import static org.junit.Assert.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import fr.jarvis.nexus.android.SelectedDocument;
+import fr.jarvis.nexus.android.SelectedDocumentSourceVerifier;
+import fr.jarvis.nexus.api.CatalogResult;
+import fr.jarvis.nexus.api.KnowledgeError;
+import fr.jarvis.nexus.api.SourceRecord;
 
 /** Actual platform tests; their presence/build never proves they executed. Synthetic only. */
 @RunWith(AndroidJUnit4.class)
@@ -64,6 +69,10 @@ public final class Lot3QualificationTest {
    byte[] one=read(resolver,selected[0]),two=read(resolver,selected[0]);assertArrayEquals(one,two);
    assertEquals("Un phare bleu protège le port. Source synthétique LOT3.",new String(one,StandardCharsets.UTF_8));
    assertArrayEquals(MessageDigest.getInstance("SHA-256").digest(one),MessageDigest.getInstance("SHA-256").digest(two));
+   SelectedDocument selection=SelectedDocument.Companion.fromUserSelection(selected[0],"selected.txt",true);
+   SelectedDocumentSourceVerifier verifier=new SelectedDocumentSourceVerifier(resolver);
+   assertEquals(new CatalogResult.Ok<kotlin.Unit>(kotlin.Unit.INSTANCE),verifier.verify(selection,new SourceRecord("synthetic",selected[0].toString(),sha(one),one.length)));
+   assertEquals(new CatalogResult.Rejected(KnowledgeError.CONFLICT),verifier.verify(selection,new SourceRecord("synthetic",selected[0].toString(),sha(new byte[0]),one.length)));
    assertFalse(resolver.getPersistedUriPermissions().stream().anyMatch(p->p.getUri().equals(selected[0])));
    try {resolver.openFileDescriptor(selected[0],"w");fail("No write allowed");}catch(SecurityException|FileNotFoundException expected){}
   }
@@ -72,13 +81,17 @@ public final class Lot3QualificationTest {
   Context c=InstrumentationRegistry.getInstrumentation().getTargetContext();Uri[] uri={null};
   try(ActivityScenario<SyntheticPickerActivity> s=ActivityScenario.launch(new Intent(c,SyntheticPickerActivity.class).putExtra("prefusionSyntheticLab",true))) {
    choose(s,"oversized.txt",uri);
+   SelectedDocument selection=SelectedDocument.Companion.fromUserSelection(uri[0],"oversized.txt",true);
+   assertEquals(new CatalogResult.Rejected(KnowledgeError.LIMIT_EXCEEDED),new SelectedDocumentSourceVerifier(c.getContentResolver()).verify(selection,new SourceRecord("synthetic",uri[0].toString(),sha(new byte[0]),2097153)));
    try{read(c.getContentResolver(),uri[0]);fail("2 MiB quota must refuse");}catch(IOException expected){assertEquals("limit",expected.getMessage());}
   }
  }
  @Test public void revokedSelectionCannotBeReopened() throws Exception {
   Context c=InstrumentationRegistry.getInstrumentation().getTargetContext();Uri[] uri={null};
   try(ActivityScenario<SyntheticPickerActivity> s=ActivityScenario.launch(new Intent(c,SyntheticPickerActivity.class).putExtra("prefusionSyntheticLab",true))) {
-   choose(s,"revocable.txt",uri);read(c.getContentResolver(),uri[0]);
+   choose(s,"revocable.txt",uri);byte[] before=read(c.getContentResolver(),uri[0]);
+   SelectedDocument selection=SelectedDocument.Companion.fromUserSelection(uri[0],"revocable.txt",true);
+   assertEquals(new CatalogResult.Rejected(KnowledgeError.DENIED),new SelectedDocumentSourceVerifier(c.getContentResolver()).verify(selection,new SourceRecord("synthetic",uri[0].toString(),sha(before),before.length)));
    try{read(c.getContentResolver(),uri[0]);fail("Revoked grant must refuse second open");}catch(SecurityException expected){}
   }
  }
@@ -93,6 +106,9 @@ public final class Lot3QualificationTest {
    assertNotNull("Synthetic provider must be installed and selectable",root);root.click();
    UiObject2 doc=d.wait(Until.findObject(By.text(name)),5000);assertNotNull(doc);doc.click();
    d.waitForIdle();s.onActivity(a->{assertEquals("SELECTED_READ_ONLY",a.status);selected[0]=a.selected;});assertNotNull(selected[0]);
+ }
+ private static String sha(byte[] bytes)throws Exception {
+  StringBuilder out=new StringBuilder();for(byte b:MessageDigest.getInstance("SHA-256").digest(bytes))out.append(String.format(java.util.Locale.ROOT,"%02x",b&255));return out.toString();
  }
  private static byte[] read(ContentResolver resolver,Uri uri)throws Exception {
   ParcelFileDescriptor p=resolver.openFileDescriptor(uri,"r");assertNotNull(p);

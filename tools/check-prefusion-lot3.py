@@ -5,7 +5,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 BASE='b2b899c8cce73ee0763bf6896fb9ceffe62c2bc6'
 ADDED={
-'.github/workflows/prefusion-lot3.yml','tools/check-prefusion-lot3.py',
+'.github/workflows/prefusion-lot3.yml','tools/check-prefusion-lot3.py','tools/run-prefusion-lot3-emulator.sh',
 'docs/prefusion/lot3/REPORT.md','docs/prefusion/lot3/BACKEND-DECISION.md',
 'labs/prefusion_lot3/matrix.py','tests/prefusion_lot3/test_matrix.py','tests/prefusion_lot3/test_scope.py',
 'labs/android-lab/build.gradle.kts','labs/android-lab/src/main/AndroidManifest.xml',
