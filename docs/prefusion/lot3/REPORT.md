@@ -199,3 +199,18 @@ BuildAPK+Lint du seul module modifié : SUCCESS48s,15tâches exécutées/105; z�
 Lint. Aapt confirme min24,target35.24Pythonlot3 et garde de préservation PASS.
 Aucune ancienne assertion n'est supprimée, aucun dialogue de sécurité n'est accepté
 automatiquement et aucune installation personnelle n'est effectuée.
+
+### Rafraîchissement de la racine DocumentsUI
+
+Run40750619639 au748b3c538f0532632cef239def5d4a169758711a : FAILURE7m14s.
+Les3autres API ont9+5PASS, et API35 a9anciensPASS mais1échec des5nouveaux :
+StaleObjectException à root.click() (ligne108) dans le cas de quota. Le bouton
+initial est désormais trouvé. L'erreur localisée concerne le handle UIAutomator
+périmé lors du rafraîchissement de la racine, avant sélection du document.
+
+Le helper reacquiert uniquement ce même sélecteur de navigation idempotente sous
+une borne monotone5secondes si StaleObjectException. Il ne rejoue ni lecture,
+ni décision de grant, ni commande d'écriture. Toute autre erreur et l'absence
+réelle de racine restent des échecs. Les assertions métier restent intactes.
+APK et Lint du module de test : SUCCESS33s,7tâches exécutées/105; garde PASS.
+Le nouveau run doit confirmer ce correctif; aucun statut PASS anticipé.

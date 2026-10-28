@@ -105,7 +105,19 @@ public final class Lot3QualificationTest {
     UiObject2 menu=d.findObject(By.descContains("Show roots"));if(menu!=null)menu.click();
     root=d.wait(Until.findObject(By.text("NEXUS LOT3 FIXTURE")),5000);
    }
-   assertNotNull("Synthetic provider must be installed and selectable",root);root.click();
+   assertNotNull("Synthetic provider must be installed and selectable",root);
+   // DocumentsUI may replace its root row while refreshing providers. Reacquire
+   // only this idempotent navigation handle; never retry reads or grant decisions.
+   long rootDeadline=android.os.SystemClock.uptimeMillis()+5000;
+   while(true) {
+    try {root.click();break;}
+    catch(StaleObjectException stale) {
+     long remaining=rootDeadline-android.os.SystemClock.uptimeMillis();
+     if(remaining<=0)throw stale;
+     root=d.wait(Until.findObject(By.text("NEXUS LOT3 FIXTURE")),remaining);
+     assertNotNull("Synthetic root missing after provider refresh",root);
+    }
+   }
    UiObject2 doc=d.wait(Until.findObject(By.text(name)),5000);assertNotNull(doc);doc.click();
    // DocumentsUI runs in another process. UI idle alone does not establish that
    // the result callback reached our resumed Activity. Observe it, never assign it.
