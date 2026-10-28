@@ -151,3 +151,10 @@ le code de sortie d'origine et les contrôles stricts9+5 sont conservés.
 Aucun test ni assertion de qualification n'a changé dans cette reprise.
 La compilation existante et les95JVM/71Robolectric ne sont pas relancés pour ce
 seul changement d'observabilité CI. Aucune preuve Android positive inventée.
+
+Protection supplémentaire du runner : refus avant toute installation/lecture de
+log si le serial n'est pas emulator-N ou si l'API n'est pas24/25/26/35.
+Le serial est fixé pour les appels adb et ANDROID_SERIAL pour Gradle. Deux tests
+shim vérifient réellement le refus d'un téléphone et d'une API non revue, avant
+création d'artefacts ou commande d'installation. Total Pythonlot3 actuel23PASS,
+zéro échec/erreur/saut. Aucun Android exécuté par ces shims.

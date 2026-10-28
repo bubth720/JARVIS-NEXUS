@@ -2,6 +2,8 @@ import importlib.util
 from pathlib import Path
 import tempfile
 import unittest
+import os
+import subprocess
 
 ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location('lot3_evidence', ROOT / 'tools/prefusion-lot3-evidence.py')
@@ -43,3 +45,27 @@ class EvidenceTests(unittest.TestCase):
         self.xml('<testsuite tests="-1"/>')
         with self.assertRaises(ValueError):
             evidence.summarize(self.folder, 5)
+
+    def runner(self, serial, api):
+        shim = self.folder / 'adb'
+        calls = self.folder / 'calls'
+        shim.write_text('#!/bin/sh\nprintf "%s\\n" "$*" >> "' + str(calls) + '"\n'
+                        + 'if [ "$1" = get-serialno ]; then echo ' + serial + '\nelse echo ' + str(api) + '\nfi\n')
+        shim.chmod(0o755)
+        env = dict(os.environ, PATH=str(self.folder) + os.pathsep + os.environ['PATH'])
+        result = subprocess.run(['bash', str(ROOT / 'tools/run-prefusion-lot3-emulator.sh')],
+                                cwd=self.folder, env=env, capture_output=True, text=True)
+        return result, calls.read_text()
+
+    def test_personal_device_refused_before_install_or_log_read(self):
+        result, calls = self.runner('personal-phone', 24)
+        self.assertEqual(result.returncode, 2)
+        self.assertEqual(calls.splitlines(), ['get-serialno'])
+        self.assertNotIn('install', calls)
+        self.assertFalse((self.folder / 'labs').exists())
+
+    def test_unreviewed_emulator_api_refused_before_install(self):
+        result, calls = self.runner('emulator-5554', 23)
+        self.assertEqual(result.returncode, 2)
+        self.assertNotIn('install', calls)
+        self.assertFalse((self.folder / 'labs').exists())
