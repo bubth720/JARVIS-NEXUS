@@ -1,5 +1,6 @@
 """Bounded public diagnostics of synthetic laboratory JUnit evidence only."""
 from pathlib import Path
+import re
 import sys
 import xml.etree.ElementTree as ET
 
@@ -26,7 +27,11 @@ def summarize(folder, expected):
                 message = problem.get('message') or problem.text or problem.tag
                 first = message.splitlines()[0] if message.splitlines() else problem.tag
                 first = ''.join(c if c.isprintable() else ' ' for c in first)[:240]
-                result['details'].append(name[:120] + '.' + case.get('name', '')[:120] + ': ' + first)
+                # A single public fixture line identifies a failing assertion;
+                # do not expose the remainder of its stack trace.
+                location = re.search(r'Lot3QualificationTest\.java:(\d+)', problem.text or '')
+                suffix = ' [fixture line ' + location.group(1) + ']' if location else ''
+                result['details'].append(name[:120] + '.' + case.get('name', '')[:120] + ': ' + first + suffix)
     result['details'] = result['details'][:12]
     result['complete'] = (result['reports'] > 0 and result['tests'] == expected
                           and not any(result[k] for k in ('failures', 'errors', 'skipped')))

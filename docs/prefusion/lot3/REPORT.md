@@ -158,3 +158,22 @@ Le serial est fixé pour les appels adb et ANDROID_SERIAL pour Gradle. Deux test
 shim vérifient réellement le refus d'un téléphone et d'une API non revue, avant
 création d'artefacts ou commande d'installation. Total Pythonlot3 actuel23PASS,
 zéro échec/erreur/saut. Aucun Android exécuté par ces shims.
+
+### Synchronisation du véritable résultat du picker
+
+Les annotations du run40747751265 (1bb486a) identifient
+`revokedSelectionCannotBeReopened`: SELECTED_READ_ONLY attendu, LAB_ONLY observé
+après le clic du document. Cela révèle une synchronisation incorrecte du test :
+l'inactivité UI de DocumentsUI ne démontre pas la réception du callback dans
+l'autre processus. Les jobs observés comportent bien9anciens cas sans échec et
+5nouveaux cas avec1ou3échecs; les résultats restent par job/API.
+
+Le helper de test attend désormais, de façon monotone et bornée à5secondes, le
+retour réel à RESUMED et l'URI réellement reçue par l'Activity. Il ne force ni
+état ni callback ni URI. Les assertions SELECTED_READ_ONLY et non-null restent
+inchangées. Seule la fixture de laboratoire change; aucune source de production.
+Le diagnostic peut aussi publier un unique numéro de ligne du fichier de fixture
+public, sans le reste d'une stack.24tests Pythonlot3 réussis (0échec/saut);
+APK des5cas recompilée : BUILD SUCCESSFUL36s,4tâches exécutées/62au total.
+Ces cinq tests ne sont toujours pas exécutables localement sansKVM; le nouveau
+run Android doit confirmer ou réfuter le correctif, aucun succès n'est anticipé.

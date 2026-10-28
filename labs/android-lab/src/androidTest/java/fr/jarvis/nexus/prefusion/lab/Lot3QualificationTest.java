@@ -9,6 +9,7 @@ import androidx.test.core.app.ActivityScenario;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.uiautomator.*;
+import androidx.lifecycle.Lifecycle;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
@@ -105,7 +106,17 @@ public final class Lot3QualificationTest {
    }
    assertNotNull("Synthetic provider must be installed and selectable",root);root.click();
    UiObject2 doc=d.wait(Until.findObject(By.text(name)),5000);assertNotNull(doc);doc.click();
-   d.waitForIdle();s.onActivity(a->{assertEquals("SELECTED_READ_ONLY",a.status);selected[0]=a.selected;});assertNotNull(selected[0]);
+   // DocumentsUI runs in another process. UI idle alone does not establish that
+   // the result callback reached our resumed Activity. Observe it, never assign it.
+   long deadline=android.os.SystemClock.uptimeMillis()+5000;
+   while(android.os.SystemClock.uptimeMillis()<deadline) {
+    if(s.getState()==Lifecycle.State.RESUMED) {
+     s.onActivity(a->{selected[0]=a.selected;});
+     if(selected[0]!=null)break;
+    }
+    android.os.SystemClock.sleep(50);
+   }
+   s.onActivity(a->{assertEquals("SELECTED_READ_ONLY",a.status);selected[0]=a.selected;});assertNotNull(selected[0]);
  }
  private static String sha(byte[] bytes)throws Exception {
   StringBuilder out=new StringBuilder();for(byte b:MessageDigest.getInstance("SHA-256").digest(bytes))out.append(String.format(java.util.Locale.ROOT,"%02x",b&255));return out.toString();

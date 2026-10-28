@@ -37,6 +37,12 @@ class EvidenceTests(unittest.TestCase):
         self.xml('<testsuite tests="1" failures="1"><testcase classname="other.Package" name="private"><failure message="private"/></testcase></testsuite>')
         self.assertEqual(evidence.summarize(self.folder, 1)['details'], [])
 
+    def test_only_public_fixture_line_is_selected_from_stack(self):
+        self.xml('<testsuite tests="1" failures="1"><testcase classname="fr.jarvis.nexus.prefusion.lab.Lot3QualificationTest" name="picker"><failure>java.lang.AssertionError\nat fr.jarvis.nexus.prefusion.lab.Lot3QualificationTest.choose(Lot3QualificationTest.java:99)\nat private.Secret.notPublished(Secret.java:42)</failure></testcase></testsuite>')
+        detail = evidence.summarize(self.folder, 1)['details'][0]
+        self.assertTrue(detail.endswith('[fixture line 99]'))
+        self.assertNotIn('Secret', detail)
+
     def test_skips_do_not_qualify(self):
         self.xml('<testsuite tests="5" skipped="1"/>')
         self.assertFalse(evidence.summarize(self.folder, 5)['complete'])
