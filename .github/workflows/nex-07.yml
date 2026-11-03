@@ -13,13 +13,18 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
+          ref: ${{ github.event_name == 'pull_request' && github.base_ref == 'mission/m50-integrated-beta-20261029' && github.head_ref == 'codex/m50-s1-nexus-ci-20261029' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.sha || github.ref }}
           fetch-depth: 0
           persist-credentials: false
       - name: Check the exact reviewed source scope
         env:
+          M50_REVIEW: ${{ github.event_name == 'pull_request' && github.base_ref == 'mission/m50-integrated-beta-20261029' && github.head_ref == 'codex/m50-s1-nexus-ci-20261029' && github.event.pull_request.head.repo.full_name == github.repository }}
           LOT3_REVIEW: ${{ github.event_name == 'pull_request' && github.base_ref == 'mission/prefusion-lot3-20261027' && startsWith(github.head_ref, 'codex/prefusion-lot3-') }}
         run: |
-          if [ "$LOT3_REVIEW" = "true" ]; then
+          if [ "$M50_REVIEW" = "true" ]; then
+            python3 tools/check-m50-s1.py
+            python3 -m unittest discover -s tests/m50_s1 -v
+          elif [ "$LOT3_REVIEW" = "true" ]; then
             python3 tools/check-prefusion-lot3.py
           else
             python3 tools/check-prefusion.py
@@ -39,13 +44,18 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
+          ref: ${{ github.event_name == 'pull_request' && github.base_ref == 'mission/m50-integrated-beta-20261029' && github.head_ref == 'codex/m50-s1-nexus-ci-20261029' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.sha || github.ref }}
           fetch-depth: 0
           persist-credentials: false
       - name: Check the exact reviewed source scope
         env:
+          M50_REVIEW: ${{ github.event_name == 'pull_request' && github.base_ref == 'mission/m50-integrated-beta-20261029' && github.head_ref == 'codex/m50-s1-nexus-ci-20261029' && github.event.pull_request.head.repo.full_name == github.repository }}
           LOT3_REVIEW: ${{ github.event_name == 'pull_request' && github.base_ref == 'mission/prefusion-lot3-20261027' && startsWith(github.head_ref, 'codex/prefusion-lot3-') }}
         run: |
-          if [ "$LOT3_REVIEW" = "true" ]; then
+          if [ "$M50_REVIEW" = "true" ]; then
+            python3 tools/check-m50-s1.py
+            python3 -m unittest discover -s tests/m50_s1 -v
+          elif [ "$LOT3_REVIEW" = "true" ]; then
             python3 tools/check-prefusion-lot3.py
           else
             python3 tools/check-prefusion.py
