@@ -1,0 +1,25 @@
+{
+  "status": "PUBLIC_SYNTHETIC_TEST_DATA",
+  "license": "CC0-1.0",
+  "provenance": "Original synthetic text authored for JARVIS M53 review; no private or retrieved source",
+  "files": [
+    {
+      "name": "astronomy.txt",
+      "uri": "fixture:m53/astronomy.txt",
+      "bytes": 141,
+      "sha256": "5ff6566be39e33b950276fde0448823284a344d21eaa0003e2cb82866eef581b"
+    },
+    {
+      "name": "injection.txt",
+      "uri": "fixture:m53/injection.txt",
+      "bytes": 191,
+      "sha256": "bb88d0fee3b227a296b0571366101c3ffe69b7312f0bfb14dab10d0d7ac2e70a"
+    },
+    {
+      "name": "navigation.txt",
+      "uri": "fixture:m53/navigation.txt",
+      "bytes": 158,
+      "sha256": "3f2add98c1f7705dbb014f8f338be5872815af19eb995f50f319ac28fa3e4ab3"
+    }
+  ]
+}

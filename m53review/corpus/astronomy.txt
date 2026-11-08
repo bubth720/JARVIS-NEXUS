@@ -1,0 +1,1 @@
+Astronomy fixture: the fictional observatory Aster observes a blue star on page one. This is synthetic test data, not an astronomical claim.
