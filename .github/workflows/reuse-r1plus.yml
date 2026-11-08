@@ -1,0 +1,57 @@
+name: REUSE R1plus real SQLite consultation laboratory
+on:
+  push:
+    branches: [codex/reuse-first-r1plus-20261108]
+permissions:
+  contents: read
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+jobs:
+  laboratory:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      REUSE_BENCHMARK_OUTPUT: ${{ github.workspace }}/build/reuse-r1plus/benchmark.json
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with: {fetch-depth: 0, persist-credentials: false}
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with: {distribution: temurin, java-version: '17'}
+      - name: Freeze every historical M53 byte and mode
+        run: python3 reuse-r1plus/check.py
+      - name: Real Gateway, SQLite FTS5, citation and adapter regressions
+        run: ./gradlew -I reuse-r1plus/init.gradle :nexus-jvm-store:test :nexus-core:test --no-daemon --console=plain --max-workers=2
+      - name: Historical Python SQLite tests
+        run: python3 -m unittest discover -s tests/final -v
+      - name: Historical M53 guard at its exact source, not a HEAD qualification
+        run: |
+          git clone --shared . build/replay-m53
+          git -C build/replay-m53 checkout --detach eae61fb62a9ccd4073b96d71454f89e5a943eae9
+          (cd build/replay-m53 && python3 m53review/check.py)
+      - name: Bind actual counts and timings to source; preserve raw JUnit
+        if: always()
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json,shutil,subprocess,xml.etree.ElementTree as ET
+          out=Path('build/reuse-r1plus');out.mkdir(parents=True,exist_ok=True)
+          totals={'tests':0,'failures':0,'errors':0,'skipped':0}
+          for module in ['nexus-core','nexus-jvm-store']:
+              for p in (Path(module)/'build/test-results/test').glob('TEST-*.xml'):
+                  shutil.copy2(p,out/(module+'-'+p.name))
+                  suite=ET.parse(p).getroot()
+                  for key in totals:totals[key]+=int(suite.attrib.get(key,0))
+          head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          data={'source_commit':head,'tree':subprocess.check_output(['git','rev-parse','HEAD^{tree}'],text=True).strip(),'junit':totals,'android':'NOT_RUN','llm':'NOT_RUN','production_connected':False}
+          (out/'results.json').write_text(json.dumps(data,indent=2)+'\n')
+          for name in ['benchmark.json','preservation.json']:
+              if not (out/name).exists():data[name]='NOT_PRODUCED'
+          (out/'SHA256SUMS').write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+p.name+'\n' for p in sorted(out.iterdir()) if p.is_file() and p.name!='SHA256SUMS'))
+          print(json.dumps(data))
+          PY
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: REUSE-R1plus-NEXUS-${{ github.sha }}
+          path: build/reuse-r1plus/
+          retention-days: 90
