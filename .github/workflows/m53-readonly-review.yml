@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
-      M53_EVIDENCE: ${{ runner.temp }}/m53-evidence
+      M53_EVIDENCE: build/m53-evidence
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
