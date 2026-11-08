@@ -1,0 +1,7 @@
+// Opt-in review tests only. No settings/build/runtime changes in the historical tree.
+gradle.projectsEvaluated {
+    def p = gradle.rootProject.project(':nexus-jvm-store')
+    p.extensions.getByName('kotlin').sourceSets.getByName('test').kotlin.srcDir(
+        gradle.rootProject.file('m53review/src/test/kotlin'))
+    p.sourceSets.test.resources.srcDir(gradle.rootProject.file('m53review/corpus'))
+}

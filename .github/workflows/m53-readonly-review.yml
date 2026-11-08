@@ -1,0 +1,76 @@
+name: M53 read-only review
+on:
+  push:
+    branches: [codex/m53-readonly-preparation]
+permissions:
+  contents: read
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      M53_EVIDENCE: build/m53-evidence
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Preserve base and identify exact evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$M53_EVIDENCE"
+          git rev-parse HEAD > "$M53_EVIDENCE"/commit.txt
+          git rev-parse HEAD^{tree} > "$M53_EVIDENCE"/tree.txt
+          python3 m53review/check.py > "$M53_EVIDENCE"/preservation.json
+          java -version 2> "$M53_EVIDENCE"/java.txt
+      - name: Real NEXUS JVM and added review integration tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./gradlew -I m53review/init.gradle :nexus-jvm-store:test :nexus-core:test --no-daemon --console=plain 2>&1 | tee "$M53_EVIDENCE"/gradle.log
+      - name: Historical SQLite tests at unchanged sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s tests/final -v 2>&1 | tee "$M53_EVIDENCE"/sqlite.log
+      - name: Historical protected guards at exact baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          git worktree add --detach "$RUNNER_TEMP/nexus-m53-base" be70faa41d202d77eb8cf0cc5c831e10cfb020b5
+          (cd "$RUNNER_TEMP/nexus-m53-base" && python3 tools/check-m50-s1.py) 2>&1 | tee "$M53_EVIDENCE"/historical-guard.log
+      - name: Collect raw results and checksums
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib, shutil, json, os, xml.etree.ElementTree as ET
+          out = Path(os.environ['M53_EVIDENCE'])
+          out.mkdir(exist_ok=True)
+          totals = {'tests': 0, 'failures': 0, 'errors': 0, 'skipped': 0}
+          for module in ('nexus-core', 'nexus-jvm-store'):
+              source = Path(module) / 'build/test-results/test'
+              if source.exists():
+                  for p in source.glob('*.xml'):
+                      shutil.copyfile(p, out / (module + '-' + p.name))
+                      suite = ET.parse(p).getroot()
+                      for key in totals:
+                          totals[key] += int(suite.attrib.get(key, 0))
+          (out / 'junit-counts.json').write_text(json.dumps(totals, indent=2) + '\n')
+          rows = [hashlib.sha256(p.read_bytes()).hexdigest() + '  ' + p.name for p in sorted(out.iterdir()) if p.is_file() and p.name != 'SHA256SUMS']
+          (out / 'SHA256SUMS').write_text('\n'.join(rows) + '\n')
+          PY
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: m53-readonly-${{ github.sha }}
+          path: ${{ env.M53_EVIDENCE }}/
+          retention-days: 30
+          if-no-files-found: error
