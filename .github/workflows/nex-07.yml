@@ -27,7 +27,8 @@ jobs:
           elif [ "$LOT3_REVIEW" = "true" ]; then
             python3 tools/check-prefusion-lot3.py
           else
-            python3 tools/check-prefusion.py
+            python3 tools/check-nexus00-scope.py
+            python3 -m unittest discover -s tests/nexus00 -v
           fi
       - run: python3 -m unittest discover -s tests/prefusion -v
       - run: python3 tools/fusion-lab.py provision
@@ -58,7 +59,8 @@ jobs:
           elif [ "$LOT3_REVIEW" = "true" ]; then
             python3 tools/check-prefusion-lot3.py
           else
-            python3 tools/check-prefusion.py
+            python3 tools/check-nexus00-scope.py
+            python3 -m unittest discover -s tests/nexus00 -v
           fi
       - run: python3 -m unittest discover -s tests/prefusion -v
       - run: python3 tools/fusion-lab.py --android provision
