@@ -31,6 +31,16 @@ Le quota NEX-07 (`SelectedDocumentSourceVerifier`, refus > 2 Mio avant ouverture
 - `tests/nexus00/test_scope.py` : 9 cas dont fichier non déclaré, fichier historique muté, suppression, dérive du workflow, ajout exécutable → tous refusés.
 - `QuotaPreflightBoundaryTest.kt` (Robolectric, ajout) : flux borné sous/à/au-delà de la limite ; vérificateur : normal OK, 2 Mio + 1 refusé **sans descripteur**, exactement 2 Mio transmis à la vérification réelle.
 
-## Après
+## Après — runs CI
 
-Voir la section « Runs CI » ajoutée après exécution.
+Commit testé : `d2b59e07c329f7d0bfd458a440f831bdc989c4b3` (branche `claude/repos-folders-analysis-sr65sg`).
+`nex-07.yml` ne se déclenche en push que sur `feat/nex-07-*` : lancé par `workflow_dispatch` sur ce SHA.
+
+| Run | Job | Résultat |
+|---|---|---|
+| [43082478740](https://github.com/bubth720/JARVIS-NEXUS/actions/runs/43082478740) | `jvm` : garde successeur + 6 gardes historiques, `tests/prefusion`, Gradle `test` + installDist, `tests/final`, `tests/zim`, `test_graph.cjs` | **success** |
+| 43082478740 | `android-host` : idem garde, Gradle `:nexus-android-store:testDebugUnitTest` (inclut `QuotaPreflightBoundaryTest`), assemble, lint, `api24`, frontière Android | **success** |
+
+Local (11/11/2026) : `tests/nexus00` 9/9 PASS ; `tests/prefusion` PASS ; successeur PASS ; cas négatifs réels (fichier `rogue.txt` non déclaré ; quota relevé à 4 Mio dans `SelectedDocumentImporter.kt`) → **refusés** puis annulés. Gradle local **NOT_RUN** (téléchargement JDK/Gradle bloqué par le proxy, 403).
+
+Limites : Robolectric ≠ appareil ; aucune instrumentation Android ni téléphone. Le décompte individuel des tests Gradle n'est pas publié par ce workflow (pas d'artefact) : le succès de l'étape est la seule preuve.
