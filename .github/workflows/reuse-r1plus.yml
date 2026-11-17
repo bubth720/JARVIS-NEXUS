@@ -1,7 +1,8 @@
 name: REUSE R1plus real SQLite consultation laboratory
 on:
   push:
-    branches: [codex/reuse-first-r1plus-20261108]
+    branches: [codex/reuse-first-r1plus-20261108, codex/nexus-n01-a2-ci-review-*]
+  workflow_dispatch:
 permissions:
   contents: read
 env:
@@ -19,6 +20,8 @@ jobs:
         with: {distribution: temurin, java-version: '17'}
       - name: Freeze every historical M53 byte and mode
         run: python3 reuse-r1plus/check.py
+      - name: Reproduce legacy context refusal and test unchanged preservation guards
+        run: python3 -m unittest discover -s reuse-r1plus/n01-a2/tests -v
       - name: Real Gateway, SQLite FTS5, citation and adapter regressions
         run: ./gradlew -I reuse-r1plus/init.gradle :nexus-jvm-store:test :nexus-core:test --no-daemon --console=plain --max-workers=2
       - name: Historical Python SQLite tests
