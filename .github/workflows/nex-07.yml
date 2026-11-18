@@ -13,17 +13,21 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
-          ref: ${{ github.event_name == 'pull_request' && github.base_ref == 'mission/m50-integrated-beta-20261029' && github.head_ref == 'codex/m50-s1-nexus-ci-20261029' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.sha || github.ref }}
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && ((github.base_ref == 'mission/m50-integrated-beta-20261029' && github.head_ref == 'codex/m50-s1-nexus-ci-20261029') || (github.base_ref == 'codex/m53-readonly-preparation' && (github.head_ref == 'codex/reuse-first-r1plus-20261108' || github.head_ref == 'codex/nexus-n01-a3-routing-20261118'))) && github.event.pull_request.head.sha || github.ref }}
           fetch-depth: 0
           persist-credentials: false
       - name: Check the exact reviewed source scope
         env:
           M50_REVIEW: ${{ github.event_name == 'pull_request' && github.base_ref == 'mission/m50-integrated-beta-20261029' && github.head_ref == 'codex/m50-s1-nexus-ci-20261029' && github.event.pull_request.head.repo.full_name == github.repository }}
+          REUSE_REVIEW: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.base_ref == 'codex/m53-readonly-preparation' && (github.head_ref == 'codex/reuse-first-r1plus-20261108' || github.head_ref == 'codex/nexus-n01-a3-routing-20261118') }}
           LOT3_REVIEW: ${{ github.event_name == 'pull_request' && github.base_ref == 'mission/prefusion-lot3-20261027' && startsWith(github.head_ref, 'codex/prefusion-lot3-') }}
         run: |
           if [ "$M50_REVIEW" = "true" ]; then
             python3 tools/check-m50-s1.py
             python3 -m unittest discover -s tests/m50_s1 -v
+          elif [ "$REUSE_REVIEW" = "true" ]; then
+            python3 reuse-r1plus/n01-a3/check_routing_scope.py --ci-event
+            python3 -m unittest discover -s reuse-r1plus/n01-a3/tests -v
           elif [ "$LOT3_REVIEW" = "true" ]; then
             python3 tools/check-prefusion-lot3.py
           else
@@ -44,17 +48,21 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
-          ref: ${{ github.event_name == 'pull_request' && github.base_ref == 'mission/m50-integrated-beta-20261029' && github.head_ref == 'codex/m50-s1-nexus-ci-20261029' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.sha || github.ref }}
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && ((github.base_ref == 'mission/m50-integrated-beta-20261029' && github.head_ref == 'codex/m50-s1-nexus-ci-20261029') || (github.base_ref == 'codex/m53-readonly-preparation' && (github.head_ref == 'codex/reuse-first-r1plus-20261108' || github.head_ref == 'codex/nexus-n01-a3-routing-20261118'))) && github.event.pull_request.head.sha || github.ref }}
           fetch-depth: 0
           persist-credentials: false
       - name: Check the exact reviewed source scope
         env:
           M50_REVIEW: ${{ github.event_name == 'pull_request' && github.base_ref == 'mission/m50-integrated-beta-20261029' && github.head_ref == 'codex/m50-s1-nexus-ci-20261029' && github.event.pull_request.head.repo.full_name == github.repository }}
+          REUSE_REVIEW: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.base_ref == 'codex/m53-readonly-preparation' && (github.head_ref == 'codex/reuse-first-r1plus-20261108' || github.head_ref == 'codex/nexus-n01-a3-routing-20261118') }}
           LOT3_REVIEW: ${{ github.event_name == 'pull_request' && github.base_ref == 'mission/prefusion-lot3-20261027' && startsWith(github.head_ref, 'codex/prefusion-lot3-') }}
         run: |
           if [ "$M50_REVIEW" = "true" ]; then
             python3 tools/check-m50-s1.py
             python3 -m unittest discover -s tests/m50_s1 -v
+          elif [ "$REUSE_REVIEW" = "true" ]; then
+            python3 reuse-r1plus/n01-a3/check_routing_scope.py --ci-event
+            python3 -m unittest discover -s reuse-r1plus/n01-a3/tests -v
           elif [ "$LOT3_REVIEW" = "true" ]; then
             python3 tools/check-prefusion-lot3.py
           else

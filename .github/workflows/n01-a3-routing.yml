@@ -1,0 +1,57 @@
+name: N01-A3 approved NEX-07 routing and preservation
+on:
+  push:
+    branches: [codex/nexus-n01-a3-routing-20261118]
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+jobs:
+  routing-and-reuse:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      REUSE_BENCHMARK_OUTPUT: ${{ github.workspace }}/build/n01-a3/benchmark.json
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with: {fetch-depth: 0, persist-credentials: false}
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with: {distribution: temurin, java-version: '17'}
+      - name: Only the approved routing delta may change a historical file
+        run: python3 reuse-r1plus/n01-a3/check_routing_scope.py --output build/n01-a3/preservation.json
+      - name: Negative mutation and PR context regressions
+        run: python3 -m unittest discover -s reuse-r1plus/n01-a3/tests -v
+      - name: Replay unchanged N01-A2 guards at their exact source
+        run: |
+          git clone --shared --quiet . build/replay-n01-a2
+          git -C build/replay-n01-a2 checkout --quiet --detach 2dd4447acb592e9e63123c0377b6310d4dae2bf1
+          (cd build/replay-n01-a2 && python3 reuse-r1plus/check.py && python3 -m unittest discover -s reuse-r1plus/n01-a2/tests -v)
+      - name: Real SQLite FTS5, Gateway, citation and adapter regressions
+        run: ./gradlew -I reuse-r1plus/init.gradle :nexus-jvm-store:test :nexus-core:test --no-daemon --console=plain --max-workers=2
+      - name: Historical Python SQLite regressions
+        run: python3 -m unittest discover -s tests/final -v
+      - name: Bind JUnit and benchmark evidence to exact source
+        if: always()
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json,shutil,subprocess,xml.etree.ElementTree as ET
+          out=Path('build/n01-a3');out.mkdir(parents=True,exist_ok=True)
+          totals={'tests':0,'failures':0,'errors':0,'skipped':0}
+          for module in ['nexus-core','nexus-jvm-store']:
+              for p in (Path(module)/'build/test-results/test').glob('TEST-*.xml'):
+                  shutil.copy2(p,out/(module+'-'+p.name))
+                  suite=ET.parse(p).getroot()
+                  for key in totals:totals[key]+=int(suite.attrib.get(key,0))
+          data={'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'tree':subprocess.check_output(['git','rev-parse','HEAD^{tree}'],text=True).strip(),'junit':totals,'device_instrumentation':'NOT_RUN','production_connected':False,'collection':False}
+          (out/'results.json').write_text(json.dumps(data,indent=2)+'\n')
+          (out/'SHA256SUMS').write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+p.name+'\n' for p in sorted(out.iterdir()) if p.is_file() and p.name!='SHA256SUMS'))
+          print(json.dumps(data))
+          PY
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: NEXUS-N01-A3-${{ github.sha }}
+          path: build/n01-a3/
+          retention-days: 90
