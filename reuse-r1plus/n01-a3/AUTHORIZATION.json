@@ -1,0 +1,14 @@
+{
+  "mission": "N01-A3",
+  "date_utc": "2026-11-18",
+  "authority": "Explicit user response in this conversation: Oui j'autorise",
+  "approved_scope": "One bounded routing delta in .github/workflows/nex-07.yml and a successor guard preserving every other historical file and mode",
+  "baseline": "2dd4447acb592e9e63123c0377b6310d4dae2bf1",
+  "historical_guard_scripts_must_remain_unchanged": true,
+  "contracts_must_remain_unchanged": true,
+  "merge_main": false,
+  "runtime_authorized": false,
+  "real_research_collection": false,
+  "user_data_migration": false,
+  "gpu_spend_eur": 0
+}
